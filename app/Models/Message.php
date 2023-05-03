@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
+    protected $fillable = ['is_read', 'message_body', 'subject'];
+    public function user()
+    {
+        return $this->belongsTo('user');
+    }
 }

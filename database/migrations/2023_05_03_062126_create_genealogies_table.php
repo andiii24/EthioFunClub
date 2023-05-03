@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('genealogies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('level_id')->constrained('levels');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('level_id')->nullable()->constrained('levels')->onDelete('set null');
             $table->timestamps();
         });
     }

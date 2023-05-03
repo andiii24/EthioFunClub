@@ -20,6 +20,26 @@ return new class extends Migration
             $table->string('role');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreignId('payment_id')
+                ->nullable()
+                ->constrained('payments')
+                ->onDelete('set null');
+
+            $table->foreignId('level_id')
+                ->nullable()
+                ->constrained('levels')
+                ->onDelete('set null');
+
+            $table->foreignId('sale_id')
+                ->nullable()
+                ->constrained('sales')
+                ->onDelete('set null');
+
+            $table->foreignId('goal_id')
+                ->nullable()
+                ->constrained('goals')
+                ->onDelete('set null');
         });
     }
 

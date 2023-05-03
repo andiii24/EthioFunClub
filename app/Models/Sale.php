@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'serial_no',
+    ];
+    public function user()
+    {
+        return $this->hasMany(User::class,'user_id');
+    }
 }
