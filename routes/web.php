@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountManager\AccountManagerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,8 +12,9 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('accounts.admin.admin.index');
 });
+Route::get('account-manager', [AccountManagerController::class, 'index']);
