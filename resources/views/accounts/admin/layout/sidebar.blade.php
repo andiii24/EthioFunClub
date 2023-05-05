@@ -100,7 +100,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="dashboard-2.html">
+                                <a href="{{ asset('create-user') }}">
                                     <i class="fe-user-plus"></i>
                                     <span>Add Sales Person</span>
                                 </a>
