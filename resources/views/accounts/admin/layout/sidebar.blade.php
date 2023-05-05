@@ -1,28 +1,127 @@
-<aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img
-                    src="{{ asset('dist/img/user2-160x160.jpg') }}"
-                    class="img-circle"
-                    alt="User Image"
-                />
+<div class="left-side-menu">
+
+    <div
+        class="h-100"
+        data-simplebar
+    >
+
+        <!-- User box -->
+        <div class="user-box text-center">
+            <img
+                src="{{ asset('assets/images/users/user-6.jpg') }}"
+                alt="user-img"
+                title="Mat Helme"
+                class="rounded-circle avatar-md"
+            >
+            <div class="dropdown">
+                <a
+                    href="javascript: void(0);"
+                    class="text-black dropdown-toggle h5 mt-2 mb-1 d-block"
+                    data-bs-toggle="dropdown"
+                >Stanley Parker</a>
+                <div class="dropdown-menu user-pro-dropdown">
+
+                    <!-- item-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-user me-1"></i>
+                        <span>My Account</span>
+                    </a>
+
+                    <!-- item-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-settings me-1"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <!-- item-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-lock me-1"></i>
+                        <span>Lock Screen</span>
+                    </a>
+
+                    <!-- item-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-log-out me-1"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
             </div>
-            <div class="pull-left info">
-                <p>Account Manager</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
+            <p class="text-muted">Admin Head</p>
         </div>
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
-            <li class="active">
-                <a href="{{ url('/') }}">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-        </ul>
-    </section>
-    <!-- /.sidebar -->
-</aside>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+
+            <ul id="side-menu">
+
+                <li class="menu-title">Navigation</li>
+
+                <li>
+                    <a
+                        href="#sidebarDashboards"
+                        data-bs-toggle="collapse"
+                    >
+                        <i data-feather="airplay"></i>
+                        <span class="badge bg-success rounded-pill float-end"></span>
+                        <span> Dashboards </span>
+                    </a>
+
+                </li>
+                <li>
+                    <a
+                        href="#users"
+                        data-bs-toggle="collapse"
+                    >
+                        <i class="fe-user"></i>
+                        <span> Users </span>
+                    </a>
+                    <div
+                        class="collapse"
+                        id="users"
+                    >
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="index.html">
+                                    <i class="fe-users"></i>
+                                    <span>All Users </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="dashboard-2.html">
+                                    <i class="fe-user-plus"></i>
+                                    <span>Add Sales Person</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="dashboard-3.html">
+                                    <i class="fe-user-x"></i>
+                                    <span> Sales </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>

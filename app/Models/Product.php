@@ -2,19 +2,30 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'price'];
+
+    protected $fillable = ['name', 'price', 'user_id'];
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
     }
-    public function sales()
+
+    protected static function boot()
     {
-        return $this->hasMany(Sale::class, 'sale_id', 'id');
+        parent::boot();
+
+        static::creating(function ($product) {
+            if ($product->user_id) {
+                $product->user->products()->delete();
+            }
+            $product->user_id = auth()->id();
+        });
     }
 }

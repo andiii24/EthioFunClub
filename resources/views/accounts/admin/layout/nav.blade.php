@@ -1,231 +1,290 @@
-<header class="main-header">
-    <!-- Logo -->
-    <a
-        href="index2.html"
-        class="logo"
-    ><b>Ethio Fun</b>CLUB</a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav
-        class="navbar navbar-static-top"
-        role="navigation"
-    >
-        <!-- Sidebar toggle button-->
-        <a
-            href="#"
-            class="sidebar-toggle"
-            data-toggle="offcanvas"
-            role="button"
-        >
-            <span class="sr-only">Toggle navigation</span>
-        </a>
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <a
-                        href="#"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown"
-                    >
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li>
-                                    <!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img
-                                                src="{{ asset('dist/img/user2-160x160.jpg') }}"
-                                                class="img-circle"
-                                                alt="User Image"
-                                            />
-                                        </div>
-                                        <h4>
-                                            Support Team
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <!-- end message -->
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img
-                                                src="{{ asset('dist/img/user3-128x128.jpg') }}"
-                                                class="img-circle"
-                                                alt="user image"
-                                            />
-                                        </div>
-                                        <h4>
-                                            AdminLTE Design Team
-                                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img
-                                                src="{{ asset('dist/img/user4-128x128.jpg') }}"
-                                                class="img-circle"
-                                                alt="user image"
-                                            />
-                                        </div>
-                                        <h4>
-                                            Developers
-                                            <small><i class="fa fa-clock-o"></i> Today</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img
-                                                src="{{ asset('dist/img/user3-128x128.jpg') }}"
-                                                class="img-circle"
-                                                alt="user image"
-                                            />
-                                        </div>
-                                        <h4>
-                                            Sales Department
-                                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img
-                                                src="{{ asset('dist/img/user4-128x128.jpg') }}"
-                                                class="img-circle"
-                                                alt="user image"
-                                            />
-                                        </div>
-                                        <h4>
-                                            Reviewers
-                                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
-                    </ul>
-                </li>
-                <!-- Notifications: style can be found in dropdown.less -->
-                <li class="dropdown notifications-menu">
-                    <a
-                        href="#"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown"
-                    >
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-warning text-yellow"></i> Very long description
-                                        here that may not fit into the page and may cause design problems
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-red"></i> 5 new members joined
-                                    </a>
-                                </li>
+<div class="navbar-custom">
+    <div class="container-fluid">
+        <ul class="list-unstyled topnav-menu float-end mb-0">
 
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-user text-red"></i> You changed your username
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
-                    </ul>
-                </li>
-                {{-- <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a
-                        href="#"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown"
+
+            <li class="dropdown d-none d-lg-inline-block">
+                <a
+                    class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+                    data-toggle="fullscreen"
+                    href="#"
+                >
+                    <i class="fe-maximize noti-icon"></i>
+                </a>
+            </li>
+            <li class="dropdown notification-list topbar-dropdown">
+                <a
+                    class="nav-link dropdown-toggle waves-effect waves-light"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-haspopup="false"
+                    aria-expanded="false"
+                >
+                    <i class="fe-bell noti-icon"></i>
+                    <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="m-0">
+                            <span class="float-end">
+                                <a
+                                    href=""
+                                    class="text-dark"
+                                >
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div
+                        class="noti-scroll"
+                        data-simplebar
                     >
-                        <img
-                            src="{{ asset('dist/img/user2-160x160.jpg') }}"
-                            class="user-image"
-                            alt="User Image"
-                        />
-                        <span class="hidden-xs">Alexander Pierce</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img
-                                src="{{ asset('dist/img/user2-160x160.jpg') }}"
-                                class="img-circle"
-                                alt="User Image"
-                            />
-                            <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+
+                        <!-- item-->
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item notify-item active"
+                        >
+                            <div class="notify-icon">
+                                <img
+                                    src="{{ asset('assets/images/users/user-1.jpg') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=""
+                                />
+                            </div>
+                            <p class="notify-details">Cristina Pride</p>
+                            <p class="text-muted mb-0 user-msg">
+                                <small>Hi, How are you? What about our next meeting</small>
                             </p>
-                        </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
+                        </a>
+
+                        <!-- item-->
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item notify-item"
+                        >
+                            <div class="notify-icon bg-primary">
+                                <i class="mdi mdi-comment-account-outline"></i>
                             </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
+                            <p class="notify-details">Caleb Flakelar commented on Admin
+                                <small class="text-muted">1 min ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item notify-item"
+                        >
+                            <div class="notify-icon">
+                                <img
+                                    src="{{ asset('assets/images/users/user-4.jpg') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=""
+                                />
                             </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
+                            <p class="notify-details">Karen Robinson</p>
+                            <p class="text-muted mb-0 user-msg">
+                                <small>Wow ! this admin looks good and awesome design</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item notify-item"
+                        >
+                            <div class="notify-icon bg-warning">
+                                <i class="mdi mdi-account-plus"></i>
                             </div>
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a
-                                    href="#"
-                                    class="btn btn-default btn-flat"
-                                >Profile</a>
+                            <p class="notify-details">New user registered.
+                                <small class="text-muted">5 hours ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item notify-item"
+                        >
+                            <div class="notify-icon bg-info">
+                                <i class="mdi mdi-comment-account-outline"></i>
                             </div>
-                            <div class="pull-right">
-                                <a
-                                    href="#"
-                                    class="btn btn-default btn-flat"
-                                >Sign out</a>
+                            <p class="notify-details">Caleb Flakelar commented on Admin
+                                <small class="text-muted">4 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item notify-item"
+                        >
+                            <div class="notify-icon bg-secondary">
+                                <i class="mdi mdi-heart"></i>
                             </div>
-                        </li>
-                    </ul>
-                </li> --}}
-            </ul>
+                            <p class="notify-details">Carlos Crouch liked
+                                <b>Admin</b>
+                                <small class="text-muted">13 days ago</small>
+                            </p>
+                        </a>
+                    </div>
+
+                    <!-- All-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item text-center text-primary notify-item notify-all"
+                    >
+                        View all
+                        <i class="fe-arrow-right"></i>
+                    </a>
+
+                </div>
+            </li>
+
+            <li class="dropdown notification-list topbar-dropdown">
+                <a
+                    class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-haspopup="false"
+                    aria-expanded="false"
+                >
+                    <img
+                        src="{{ asset('assets/images/users/user-6.jpg') }}"
+                        alt="user-image"
+                        class="rounded-circle"
+                    >
+                    <span class="pro-user-name ms-1">
+                        Stanley <i class="mdi mdi-chevron-down"></i>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-user"></i>
+                        <span>My Account</span>
+                    </a>
+
+                    <!-- item-->
+                    {{-- <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-settings"></i>
+                        <span>Settings</span>
+                    </a> --}}
+
+                    <!-- item-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-lock"></i>
+                        <span>Lock Screen</span>
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <!-- item-->
+                    <a
+                        href="javascript:void(0);"
+                        class="dropdown-item notify-item"
+                    >
+                        <i class="fe-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </li>
+
+            {{-- <li class="dropdown notification-list">
+                <a
+                    href="javascript:void(0);"
+                    class="nav-link right-bar-toggle waves-effect waves-light"
+                >
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li> --}}
+
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a
+                href="index.html"
+                class="logo logo-dark text-center"
+            >
+                <span class="logo-sm">
+                    <img
+                        src="{{ asset('assets/images/logo-sm.png') }}"
+                        alt=""
+                        height="22"
+                    >
+                    <!-- <span class="logo-lg-text-light">UBold</span> -->
+                </span>
+                <span class="logo-lg">
+                    <img
+                        src="{{ asset('assets/images/logo-dark.png') }}"
+                        alt=""
+                        height="20"
+                    >
+                    <!-- <span class="logo-lg-text-light">U</span> -->
+                </span>
+            </a>
+
+            <a
+                href="index.html"
+                class="logo logo-light text-center"
+            >
+                <span class="logo-sm">
+                    <img
+                        src="{{ asset('assets/images/logo-sm.png') }}"
+                        alt=""
+                        height="22"
+                    >
+                </span>
+                <span class="logo-lg">
+                    <img
+                        src="{{ asset('assets/images/logo-light.png') }}"
+                        alt=""
+                        height="60"
+                    >
+                </span>
+            </a>
         </div>
-    </nav>
-</header>
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect waves-light">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li>
+                <!-- Mobile menu toggle (Horizontal Layout)-->
+                <a
+                    class="navbar-toggle nav-link"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#topnav-menu-content"
+                >
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+                <!-- End mobile menu toggle-->
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>

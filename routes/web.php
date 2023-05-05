@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('accounts.admin.admin.index');
+    return view('accounts.admin.index');
 });
 Route::get('account-manager', [AccountManagerController::class, 'index']);
