@@ -18,7 +18,7 @@
                     href="javascript: void(0);"
                     class="text-black dropdown-toggle h5 mt-2 mb-1 d-block"
                     data-bs-toggle="dropdown"
-                >Stanley Parker</a>
+                >Account Manager</a>
                 <div class="dropdown-menu user-pro-dropdown">
 
                     <!-- item-->
@@ -94,7 +94,7 @@
                     >
                         <ul class="nav-second-level">
                             <li>
-                                <a href="index.html">
+                                <a href="{{ asset('users') }}">
                                     <i class="fe-users"></i>
                                     <span>All Users </span>
                                 </a>
@@ -106,7 +106,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="dashboard-3.html">
+                                <a href="{{ asset('users/sales') }}">
                                     <i class="fe-user-x"></i>
                                     <span> Sales </span>
                                 </a>

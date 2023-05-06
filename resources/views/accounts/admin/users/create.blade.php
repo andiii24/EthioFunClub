@@ -46,60 +46,83 @@
                                                         name="name"
                                                         placeholder="Name"
                                                         class="form-control"
+                                                        required
                                                     >
+                                                    @if ($errors->has('name'))
+                                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                                    @endif
                                                 </div>
+
                                                 <div class="mb-3">
                                                     <label
-                                                        for="name"
+                                                        for="phone"
                                                         class="form-label"
                                                     >Phone</label>
                                                     <input
                                                         type="text"
                                                         id="phone"
                                                         name="phone"
-                                                        placeholder="phone"
+                                                        placeholder="Phone"
                                                         class="form-control"
+                                                        required
                                                     >
+                                                    @if ($errors->has('phone'))
+                                                        <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label
-                                                        for="example-password"
+                                                        for="password"
                                                         class="form-label"
                                                     >Password</label>
                                                     <input
-                                                        type="text"
+                                                        type="password"
                                                         id="password"
+                                                        name="password"
+                                                        placeholder="Password"
                                                         class="form-control"
-                                                        value="password"
+                                                        required
                                                     >
+                                                    @if ($errors->has('password'))
+                                                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                                                    @endif
                                                 </div>
+
                                                 <div class="mb-3">
                                                     <label
-                                                        for="example-password"
+                                                        for="confirm_password"
                                                         class="form-label"
                                                     >Confirm Password</label>
                                                     <input
-                                                        type="text"
-                                                        id="example-password"
+                                                        type="password"
+                                                        id="confirm_password"
+                                                        name="confirm_password"
+                                                        placeholder="Confirm Password"
                                                         class="form-control"
-                                                        value="confirm password"
-                                                        name="confirm-password"
+                                                        required
                                                     >
+                                                    @if ($errors->has('confirm_password'))
+                                                        <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-12 ">
                                                 <div class="col-md-12 mb-3">
                                                     <label
-                                                        for="example-password"
+                                                        for="image"
                                                         class="form-label"
                                                     >Profile Picture</label>
                                                     <input
                                                         type="file"
                                                         name="image"
                                                         class="form-control"
+                                                        required
                                                     >
+                                                    @if ($errors->has('image'))
+                                                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center">

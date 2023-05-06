@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('password');
             $table->string('role');
-            $table->string('upid');
+            $table->string('image')->nullable();
+            $table->string('status')->default('0');
+            $table->string('upid')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
 

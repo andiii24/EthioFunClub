@@ -15,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('accounts.admin.index');
+Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
+    Route::get('/', function () {
+        return view('accounts.admin.index');
+    });
+    Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
+    Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
+    Route::get('users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('users/sales', [UserController::class, 'sales'])->name('admin.users.sales');
+    Route::post('register-sales', [UserController::class, 'store']);
+    Route::post('update-status', [UserController::class, 'activate']);
 });
 
-Route::get('account-manager', [AccountManagerController::class, 'index']);
-Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
-Route::post('register-sales', [UserController::class, 'store']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -162,7 +162,7 @@
                         class="rounded-circle"
                     >
                     <span class="pro-user-name ms-1">
-                        Stanley <i class="mdi mdi-chevron-down"></i>
+                        Admin <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
@@ -220,7 +220,7 @@
         <!-- LOGO -->
         <div class="logo-box">
             <a
-                href="index.html"
+                href="{{ url('/') }}"
                 class="logo logo-dark text-center"
             >
                 <span class="logo-sm">
@@ -242,7 +242,7 @@
             </a>
 
             <a
-                href="index.html"
+                href="{{ url('/') }}"
                 class="logo logo-light text-center"
             >
                 <span class="logo-sm">
