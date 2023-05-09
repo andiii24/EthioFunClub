@@ -12,7 +12,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">Users</li>
+                                <li class="breadcrumb-item active">Sales</li>
                             </ol>
                         </div>
                         <h4 class="page-title">Datatables</h4>
@@ -56,16 +56,6 @@
                                                             type="button"
                                                             class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >Delete</button>
-                                                        @if ($item->status == 0)
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                                onclick="activateUser(event.target.getAttribute('data-user-id'))"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Activate
-                                                            </button>
-                                                        @endif
                                                     </div>
                                                 </div>
                                             </td>
@@ -87,25 +77,4 @@
     <!-- container -->
 
     </div>
-    <script>
-        function activateUser(userId) {
-            $.ajax({
-                type: 'POST',
-                url: '{{ url('update-status') }}',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'user_id': userId
-                },
-                success: function(response) {
-                    alert(response.message);
-                    location.reload();
-
-                    // You can also update the UI here to reflect the new status
-                },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseJSON.message);
-                }
-            });
-        }
-    </script>
 @endsection

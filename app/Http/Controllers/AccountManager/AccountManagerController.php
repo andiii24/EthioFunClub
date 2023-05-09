@@ -10,4 +10,8 @@ class AccountManagerController extends Controller
     {
         return view('accounts.admin.index');
     }
+    public function reports()
+    {
+        return view('accounts.admin.reports.index');
+    }
 }
