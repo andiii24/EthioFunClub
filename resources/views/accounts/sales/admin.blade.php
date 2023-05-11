@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('accounts.admin.layout.head')
+@include('accounts.sales.layout.head')
 <!-- body start -->
 
 <body
@@ -18,11 +18,11 @@
     <!-- Begin page -->
     <div id="wrapper">
         <!-- Topbar Start -->
-        @include('accounts.admin.layout.nav')
+        @include('accounts.sales.layout.nav')
         <!-- end Topbar -->
 
         <!-- ========== Left Sidebar Start ========== -->
-        @include('accounts.admin.layout.sidebar')
+        @include('accounts.sales.layout.sidebar')
 
         <!-- Left Sidebar End -->
 
@@ -34,7 +34,7 @@
         <div class="content-page">
             @yield('content')
             <!-- Footer Start -->
-            @include('accounts.admin.layout.footer')
+            @include('accounts.sales.layout.footer')
 
             <!-- end Footer -->
 
@@ -49,7 +49,7 @@
     <!-- END wrapper -->
     <!-- Right Sidebar -->
     <!-- /Right-bar -->
-    {{-- @include('accounts.admin.layout.rightbar') --}}
+    {{-- @include('accounts.sales.layout.rightbar') --}}
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>

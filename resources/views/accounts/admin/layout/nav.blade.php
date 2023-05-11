@@ -165,44 +165,41 @@
                         Admin <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+            <li class="nav-item dropdown">
+                <a
+                    id="navbarDropdown"
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    v-pre
+                >
+                    {{ Auth::user()->name }}
+                </a>
+
+                <div
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdown"
+                >
                     <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-user"></i>
-                        <span>My Account</span>
-                    </a>
-
-                    <!-- item-->
-                    {{-- <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-settings"></i>
-                        <span>Settings</span>
-                    </a> --}}
-
-                    <!-- item-->
-                    <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-lock"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-
-                    <!-- item-->
-                    <a
+                        class="dropdown-item"
                         href="{{ route('logout') }}"
-                        class="dropdown-item notify-item"
+                        onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();"
                     >
-                        <i class="fe-log-out"></i>
-                        <span>Logout</span>
+                        {{ __('Logout') }}
                     </a>
 
+                    <form
+                        id="logout-form"
+                        action="{{ route('logout') }}"
+                        method="POST"
+                        class="d-none"
+                    >
+                        @csrf
+                    </form>
                 </div>
             </li>
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('subject');
             $table->text('message_body');
-            $table->boolean('is_read')->default(false);
+            $table->bigInteger('is_read')->default(0);
             $table->timestamps();
         });
     }

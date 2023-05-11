@@ -108,12 +108,33 @@
                         </ul>
                     </div>
                 </li>
-
                 <li>
-                    <a href="{{ url('reports') }}">
-                        <i class="fe-bar-chart-2"></i>
-                        <span> Reports </span>
+                    <a
+                        href="#message"
+                        data-bs-toggle="collapse"
+                    >
+                        <i class="fe-mail"></i>
+                        <span> Message </span>
                     </a>
+                    <div
+                        class="collapse"
+                        id="message"
+                    >
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ url('admin-message') }}">
+                                    <i class="dripicons-conversation"></i>
+                                    <span>Messages </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('send-message') }}">
+                                    <i class="fe-navigation"></i>
+                                    <span>Send Message</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
 

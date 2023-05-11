@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
-
+Route::get('/', [AccountManagerController::class, 'slash']);
 Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
-    Route::get('/', function () {
-        return view('accounts.admin.index');
-    });
+
     Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
     Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
@@ -27,18 +25,18 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('register-sales', [UserController::class, 'store']);
     Route::post('update-status', [UserCrontroller::class, 'activate']);
     Route::get('reports', [AccountManagerController::class, 'reports'])->name('admin.reports');
+    Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin.message');
+    Route::get('send-message', [AccountManagerController::class, 'send']);
+    Route::post('message-send', [AccountManagerController::class, 'sent']);
 });
-Route::middleware(['auth', 'RoleMiddleware:sale'])->group(function () {
-    Route::get('/', function () {
-        return view('accounts.admin.index');
-    });
-    Route::get('sales-manager', [SalesPersonController::class, 'index']);
-    Route::get('create-customer', [SalesPersonController::class, 'create']);
-    Route::get('customers', [SalesPersonController::class, 'index']);
-    Route::get('all-sales', [SalesPersonController::class, 'sales']);
-    Route::post('register-sales', [SalesPersonController::class, 'store']);
-    Route::post('update-status', [SalesPersonController::class, 'activate']);
-    Route::get('reports', [SalesPersonController::class, 'reports']);
+Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
+
+    Route::get('sales-manager', [SalesPersonController::class, 'index'])->name('accounts.sales.index');
+    // Route::get('create-customer', [SalesPersonController::class, 'create']);
+    // Route::get('customers', [SalesPersonController::class, 'index']);
+    // Route::get('all-sales', [SalesPersonController::class, 'sales']);
+    // Route::post('register-sales', [SalesPersonController::class, 'store']);
+    // Route::post('update-status', [SalesPersonController::class, 'activate']);
 });
 
 Auth::routes();

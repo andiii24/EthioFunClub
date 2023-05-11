@@ -129,7 +129,7 @@
                                 <i class="mdi mdi-heart"></i>
                             </div>
                             <p class="notify-details">Carlos Crouch liked
-                                <b>Admin</b>
+                                <b>User</b>
                                 <small class="text-muted">13 days ago</small>
                             </p>
                         </a>
@@ -147,62 +147,41 @@
                 </div>
             </li>
 
-            <li class="dropdown notification-list topbar-dropdown">
+            <li class="nav-item dropdown notification-list topbar-dropdown">
                 <a
-                    class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
-                    data-bs-toggle="dropdown"
+                    id="navbarDropdown"
+                    class="nav-link dropdown-toggle"
                     href="#"
                     role="button"
-                    aria-haspopup="false"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
                     aria-expanded="false"
+                    v-pre
                 >
-                    <img
-                        src="{{ asset('assets/images/users/user-6.jpg') }}"
-                        alt="user-image"
-                        class="rounded-circle"
-                    >
-                    <span class="pro-user-name ms-1">
-                        Admin <i class="mdi mdi-chevron-down"></i>
-                    </span>
+                    {{ Auth::user()->name }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+
+                <div
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdown"
+                >
                     <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-user"></i>
-                        <span>My Account</span>
-                    </a>
-
-                    <!-- item-->
-                    {{-- <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-settings"></i>
-                        <span>Settings</span>
-                    </a> --}}
-
-                    <!-- item-->
-                    <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-lock"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-
-                    <!-- item-->
-                    <a
+                        class="dropdown-item"
                         href="{{ route('logout') }}"
-                        class="dropdown-item notify-item"
+                        onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();"
                     >
-                        <i class="fe-log-out"></i>
-                        <span>Logout</span>
+                        {{ __('Logout') }}
                     </a>
 
+                    <form
+                        id="logout-form"
+                        action="{{ route('logout') }}"
+                        method="POST"
+                        class="d-none"
+                    >
+                        @csrf
+                    </form>
                 </div>
             </li>
 
