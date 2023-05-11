@@ -25,7 +25,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('register-sales', [UserController::class, 'store']);
     Route::post('update-status', [UserCrontroller::class, 'activate']);
     Route::get('reports', [AccountManagerController::class, 'reports'])->name('admin.reports');
-    Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin.message');
+    Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
     Route::post('message-send', [AccountManagerController::class, 'sent']);
 });

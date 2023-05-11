@@ -56,15 +56,12 @@
                         <i class="fe-log-out me-1"></i>
                         <span>Logout</span>
                     </a>
-
                 </div>
             </div>
             <p class="text-muted">Admin Head</p>
-        </div>
-
+        </div
         <!--- Sidemenu -->
         <div id="sidebar-menu">
-
             <ul id="side-menu">
 
                 <li class="menu-title">Navigation</li>
@@ -137,13 +134,9 @@
                     </div>
                 </li>
             </ul>
-
         </div>
         <!-- End Sidebar -->
-
         <div class="clearfix"></div>
-
     </div>
     <!-- Sidebar -left -->
-
 </div>

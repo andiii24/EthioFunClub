@@ -18,14 +18,15 @@ class AccountManagerController extends Controller
                 return view('accounts.sales.index');
             } elseif (auth()->user()->role == 'customer') {
                 return view('accounts.customer.index');
-            } else {
-                return view('auth.login');
             }
+
+        } else {
+            return view('auth.login');
         }
     }
     public function index()
     {
-        dd(auth()->user()->role);
+        // dd(auth()->user()->role);
         // $user = auth()->user();
         return view('accounts.admin.index');
     }

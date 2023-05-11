@@ -69,7 +69,7 @@
 
                 <li class="menu-title">Navigation</li>
                 <li>
-                    <a href="{{ url('account-manager') }}">
+                    <a href="{{ url('sales-manager') }}">
                         <i data-feather="airplay"></i>
                         <span> Dashboards </span>
                     </a>
@@ -80,7 +80,7 @@
                         data-bs-toggle="collapse"
                     >
                         <i class="fe-user"></i>
-                        <span> Users </span>
+                        <span> My Customers </span>
                     </a>
                     <div
                         class="collapse"
@@ -88,21 +88,15 @@
                     >
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{ url('users') }}">
+                                <a href="{{ url('sales-customer') }}">
                                     <i class="fe-users"></i>
-                                    <span>All Users </span>
+                                    <span>All Customers </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('create-user') }}">
+                                <a href="{{ url('sales-create-customer') }}">
                                     <i class="fe-user-plus"></i>
-                                    <span>Add Sales Person</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url('all-sales') }}">
-                                    <i class="fe-user-x"></i>
-                                    <span> Sales </span>
+                                    <span>Add Customer</span>
                                 </a>
                             </li>
                         </ul>

@@ -57,7 +57,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('users')
+        return redirect()->route('admin.users')
             ->with('success', 'Property added successfully.');
     }
     public function activate(Request $request)
