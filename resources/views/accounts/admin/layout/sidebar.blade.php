@@ -60,7 +60,10 @@
             </div>
             <p class="text-muted">Admin Head</p>
         </div
-        <!--- Sidemenu -->
+            <!---
+            Sidemenu
+            --
+        >
         <div id="sidebar-menu">
             <ul id="side-menu">
 
@@ -132,6 +135,12 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li>
+                    <a href="{{ url('account-manager-payments') }}">
+                        <i class="fe-dollar-sign"></i>
+                        <span> Payments </span>
+                    </a>
                 </li>
             </ul>
         </div>

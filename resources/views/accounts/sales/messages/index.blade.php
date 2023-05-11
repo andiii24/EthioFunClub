@@ -1,4 +1,4 @@
-@extends('accounts.admin.admin')
+@extends('accounts.sales.admin')
 @section('content')
     <div class="content">
 
@@ -11,11 +11,11 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">Sales</li>
+                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">Sales</a></li>
+                                <li class="breadcrumb-item active">Messages</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Datatables</h4>
+                        <h4 class="page-title">Messages</h4>
                     </div>
                 </div>
             </div>
@@ -32,33 +32,28 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th>Phone</th>
+                                        <th>Subject</th>
+                                        <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $key => $item)
+                                    @foreach ($messages as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->role }}</td>
-                                            <td>{{ $item->phone }}</td>
+                                            <td>{{ $item->subject }}</td>
+                                            <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <button
+                                                        <a
                                                             type="button"
+                                                            href="{{ url('show-payment-slip/' . $item->id) }}"
                                                             class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Edit</button>
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Delete</button>
+                                                        >read</a>
+
                                                     </div>
                                                 </div>
-                                            </td>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -75,6 +70,26 @@
         <!-- end row-->
     </div>
     <!-- container -->
-
     </div>
+    <script>
+        function activateUser(messageId) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('update-message-status') }}',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'user_id': messageId
+                },
+                success: function(response) {
+                    alert(response.message);
+                    location.reload();
+
+                    // You can also update the UI here to reflect the new status
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.message);
+                }
+            });
+        }
+    </script>
 @endsection

@@ -30,8 +30,8 @@ class LoginController extends Controller
         if (auth()->user()->role == 'admin') {
             return route('accounts.admin.index');
         } elseif (auth()->user()->role == 'sales') {
-            return route('accounts.sales.index');
-        } else {
+            return route('sales-manager');
+        } elseif (auth()->user()->role == 'customer') {
             return route('customer.dashboard');
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AccountManager;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use auth;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -63,11 +64,15 @@ class UserController extends Controller
     public function activate(Request $request)
     {
         $userId = $request->input('user_id');
+        $paymentId = $request->input('payment_id');
+        $payment = Payment::find($paymentId);
         $user = User::find($userId);
-        if (!$user) {
+        if (!$user || !$payment) {
             return response()->json(['message' => 'User not found'], 404);
         }
         $user->status = 1;
+        $payment->status = 1;
+        $payment->save();
         $user->save();
         return response()->json(['message' => 'User activated successfully'], 200);
     }

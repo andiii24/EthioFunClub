@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
+use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SalesPersonController extends Controller
 {
@@ -11,7 +15,8 @@ class SalesPersonController extends Controller
      */
     public function index()
     {
-        return view('accounts.sales.index');
+        $payment = Payment::where('user_id', auth()->user()->id)->first();
+        return view('accounts.sales.index', compact('payment'));
 
     }
 
@@ -20,7 +25,13 @@ class SalesPersonController extends Controller
      */
     public function create()
     {
-        //
+        return view('accounts.sales.users.create');
+    }
+    public function customers()
+    {
+        $users = User::where('upid', auth()->user()->id)
+            ->where('role', 'customer')->get();
+        return view('accounts.sales.users.index', compact('users'));
     }
 
     /**
@@ -28,7 +39,26 @@ class SalesPersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'phone' => 'required|numeric|unique:users',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|min:8|same:password',
+        ]);
+
+        $user = new User;
+        if ($request->password != $request->confirm_password) {
+            return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
+        }
+        $user->name = $request->name;
+        $user->upid = auth()->user()->id;
+        $user->phone = $request->phone;
+        $user->role = 'customer';
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('sales-customer')
+            ->with('success', 'Property added successfully.');
     }
 
     /**
@@ -61,5 +91,36 @@ class SalesPersonController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function attach()
+    {
+        return view('accounts.sales.payment.membership');
+    }
+    public function submit(Request $request)
+    {
+        // dd($request);
+        $request->validate([
+            'amount' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $payment = new Payment;
+
+        $image = $request->file('image');
+        $ext = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $ext;
+        $image->move('assets/images/payment/', $filename);
+
+        $payment->paymet_img = $filename;
+        $payment->amount = $request->amount;
+        $payment->user_id = auth()->user()->id;
+        $payment->save();
+        return redirect()->route('sales-manager')
+            ->with('success', 'Payment slip attached successfully.');
+    }
+    public function messages()
+    {
+        $messages = Message::where('user_id', auth()->user()->id);
+        return view('accounts.sales.messages.index', compact('messages'));
     }
 }

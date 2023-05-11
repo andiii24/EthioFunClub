@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountManager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,8 @@ class AccountManagerController extends Controller
             if (auth()->user()->role == 'admin') {
                 return view('accounts.admin.index');
             } elseif (auth()->user()->role == 'sales') {
-                return view('accounts.sales.index');
+                $payment = Payment::where('user_id', auth()->user()->id)->first();
+                return view('sales-manager', compact('payment'));
             } elseif (auth()->user()->role == 'customer') {
                 return view('accounts.customer.index');
             }
@@ -65,5 +67,15 @@ class AccountManagerController extends Controller
         $message->save();
         return redirect()->route('admin-message')
             ->with('success', 'Message sent successfully.');
+    }
+    public function payments()
+    {
+        $payments = Payment::all();
+        return view('accounts.admin.payments.index', compact('payments'));
+    }
+    public function show_payment($id)
+    {
+        $payments = Payment::find($id);
+        return view('accounts.admin.payments.show', compact('payments'));
     }
 }

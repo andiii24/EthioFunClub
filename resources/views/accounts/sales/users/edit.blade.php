@@ -1,3 +1,3 @@
-@extends('accounts.admin.admin')
+@extends('accounts.sales.admin')
 @section('content')
 @endsection

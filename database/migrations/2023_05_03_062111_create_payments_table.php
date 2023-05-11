@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('paymet_img');
             $table->bigInteger('amount');
-            $table->string('status');
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

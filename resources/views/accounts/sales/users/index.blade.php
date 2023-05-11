@@ -1,4 +1,4 @@
-@extends('accounts.admin.admin')
+@extends('accounts.sales.admin')
 @section('content')
     <div class="content">
 
@@ -11,11 +11,11 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
+                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">{{ Auth::user()->name }}</a></li>
                                 <li class="breadcrumb-item active">Users</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Datatables</h4>
+                        <h4 class="page-title">Customers</h4>
                     </div>
                 </div>
             </div>
@@ -33,9 +33,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Role</th>
                                         <th>Phone</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,33 +41,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->role }}</td>
                                             <td>{{ $item->phone }}</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Edit</button>
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Delete</button>
-                                                        @if ($item->status == 0)
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                                onclick="activateUser(event.target.getAttribute('data-user-id'))"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Activate
-                                                            </button>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -74,39 +74,47 @@
                         <span> Dashboards </span>
                     </a>
                 </li>
-                <li>
-                    <a
-                        href="#users"
-                        data-bs-toggle="collapse"
-                    >
-                        <i class="fe-user"></i>
-                        <span> My Customers </span>
-                    </a>
-                    <div
-                        class="collapse"
-                        id="users"
-                    >
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{ url('sales-customer') }}">
-                                    <i class="fe-users"></i>
-                                    <span>All Customers </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url('sales-create-customer') }}">
-                                    <i class="fe-user-plus"></i>
-                                    <span>Add Customer</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                @if (auth()->user()->status == 1)
+                    <li>
+                        <a
+                            href="#users"
+                            data-bs-toggle="collapse"
+                        >
+                            <i class="fe-user"></i>
+                            <span> Customers </span>
+                        </a>
+                        <div
+                            class="collapse"
+                            id="users"
+                        >
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="{{ url('sales-customer') }}">
+                                        <i class="fe-users"></i>
+                                        <span>All Customers </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('sales-create-customer') }}">
+                                        <i class="fe-user-plus"></i>
+                                        <span>Add Customer</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
+                    <li>
+                        <a href="{{ url('reports') }}">
+                            <i class="fe-bar-chart-2"></i>
+                            <span> Reports </span>
+                        </a>
+                    </li>
+                @endif
                 <li>
-                    <a href="{{ url('reports') }}">
-                        <i class="fe-bar-chart-2"></i>
-                        <span> Reports </span>
+                    <a href="{{ url('sales-view-message') }}">
+                        <i class="fe-mail"></i>
+                        <span>Messages</span>
                     </a>
                 </li>
             </ul>
