@@ -91,11 +91,6 @@
     <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
     <!-- Datatables init -->
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
-    <script>
-        document.getElementById("attach-payment-button").addEventListener("click", function() {
-            window.location.href = "/attach-payment-sales";
-        });
-    </script>
 </body>
 
 </html>

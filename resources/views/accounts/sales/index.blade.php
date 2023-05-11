@@ -115,4 +115,9 @@
     </div>
     <!-- content -->
     <!-- /.content -->
+    <script>
+        document.getElementById("attach-payment-button").addEventListener("click", function() {
+            window.location.href = "/attach-payment-sales";
+        });
+    </script>
 @endsection

@@ -46,11 +46,12 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <a
+                                                        <button
                                                             type="button"
-                                                            href="{{ url('show-payment-slip/' . $item->id) }}"
+                                                            onclick="readMsg(event.target.getAttribute('data-message-id'))"
+                                                            data-message-id="{{ auth()->user()->id }}"
                                                             class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >read</a>
+                                                        >read</button>
 
                                                     </div>
                                                 </div>
@@ -72,18 +73,17 @@
     <!-- container -->
     </div>
     <script>
-        function activateUser(messageId) {
+        function readMsg(messageId) {
             $.ajax({
                 type: 'POST',
                 url: '{{ url('update-message-status') }}',
                 data: {
                     '_token': '{{ csrf_token() }}',
-                    'user_id': messageId
+                    'msg_id': messageId
                 },
                 success: function(response) {
                     alert(response.message);
-                    location.reload();
-
+                    window.location.href = '{{ url('read-message') }}' + '/' + messageId;
                     // You can also update the UI here to reflect the new status
                 },
                 error: function(xhr, status, error) {

@@ -130,6 +130,7 @@
             </div> <!-- container -->
 
         </div> <!-- content -->
+        
         <script>
             function activateUser(userId, paymentId) {
                 $.ajax({

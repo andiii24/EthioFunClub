@@ -120,7 +120,24 @@ class SalesPersonController extends Controller
     }
     public function messages()
     {
-        $messages = Message::where('user_id', auth()->user()->id);
+        $messages = Message::where('user_id', auth()->user()->id)->get();
         return view('accounts.sales.messages.index', compact('messages'));
+    }
+    public function read($id)
+    {
+        $messages = Message::find($id);
+        return view('accounts.sales.messages.show', compact('messages'));
+    }
+    public function readed(Request $request)
+    {
+        $messageId = $request->input('msg_id');
+        $message = Message::find($messageId);
+        if (!$message) {
+            return response()->json(['message' => 'Message not found'], 404);
+        }
+        $message->is_read = 1;
+
+        $message->save();
+        return response()->json(['message' => 'Message readed successfully'], 200);
     }
 }

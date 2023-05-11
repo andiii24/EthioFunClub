@@ -1,7 +1,6 @@
 @extends('accounts.admin.admin')
 @section('content')
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-fluid">
 
@@ -43,7 +42,13 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->subject }}</td>
-                                            <td>{{ $item->message_body }}</td>
+                                            <td>
+                                                @if ($item->is_read == '0')
+                                                    <span class="badge bg-success">seen</span>
+                                                @else
+                                                    <span class="badge bg-danger">Unseen</span>
+                                                @endif
+                                            </td>
                                             </td>
                                         </tr>
                                     @endforeach
