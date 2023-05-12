@@ -39,7 +39,10 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('attach-payment-sales', [SalesPersonController::class, 'attach'])->name('sales-customer');
     Route::get('sales-view-message', [SalesPersonController::class, 'messages'])->name('sales-view-message');
     Route::get('read-message/{id}', [SalesPersonController::class, 'read'])->name('sales-view-message');
+    Route::get('sales-add-product', [SalesPersonController::class, 'add_product'])->name('sales-add-product');
+    Route::get('sales-product', [SalesPersonController::class, 'products'])->name('sales-product');
     Route::post('register-customer', [SalesPersonController::class, 'store']);
+    Route::post('register-product', [SalesPersonController::class, 'store_product']);
     Route::post('update-message-status', [SalesPersonController::class, 'readed']);
     Route::post('submit-sales-slip', [SalesPersonController::class, 'submit']);
 });

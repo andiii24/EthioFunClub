@@ -17,7 +17,7 @@ class AccountManagerController extends Controller
                 return view('accounts.admin.index');
             } elseif (auth()->user()->role == 'sales') {
                 $payment = Payment::where('user_id', auth()->user()->id)->first();
-                return view('sales-manager', compact('payment'));
+                return view('accounts.sales.index', compact('payment'));
             } elseif (auth()->user()->role == 'customer') {
                 return view('accounts.customer.index');
             }
@@ -55,14 +55,13 @@ class AccountManagerController extends Controller
         $request->validate([
             'user_id' => 'required',
             'subject' => 'required|max:255',
-            'message' => 'required|string|max:255',
+            'message' => 'required|string',
         ]);
         // dd($request);
         $message = new Message;
         $message->user_id = $request->user_id;
         $message->subject = $request->subject;
         $message->message_body = $request->message;
-        $message->user_id = $request->user_id;
         $message->is_read = 0;
         $message->save();
         return redirect()->route('admin-message')

@@ -1,4 +1,4 @@
-@extends('accounts.admin.admin')
+@extends('accounts.sales.admin')
 @section('content')
     <div class="content">
         <!-- Start Content-->

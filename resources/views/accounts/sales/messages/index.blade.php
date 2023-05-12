@@ -49,7 +49,7 @@
                                                         <button
                                                             type="button"
                                                             onclick="readMsg(event.target.getAttribute('data-message-id'))"
-                                                            data-message-id="{{ auth()->user()->id }}"
+                                                            data-message-id="{{ $item->id }}"
                                                             class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >read</button>
 
@@ -84,7 +84,6 @@
                 success: function(response) {
                     alert(response.message);
                     window.location.href = '{{ url('read-message') }}' + '/' + messageId;
-                    // You can also update the UI here to reflect the new status
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseJSON.message);

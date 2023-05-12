@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,8 +16,9 @@ class SalesPersonController extends Controller
      */
     public function index()
     {
+        $product = Product::where('user_id', auth()->user()->id)->first();
         $payment = Payment::where('user_id', auth()->user()->id)->first();
-        return view('accounts.sales.index', compact('payment'));
+        return view('accounts.sales.index', compact('payment', 'product'));
 
     }
 
@@ -136,8 +138,50 @@ class SalesPersonController extends Controller
             return response()->json(['message' => 'Message not found'], 404);
         }
         $message->is_read = 1;
-
         $message->save();
         return response()->json(['message' => 'Message readed successfully'], 200);
+    }
+    public function products()
+    {
+        $product = Product::where('user_id', auth()->user()->id)->get();
+        return view('accounts.sales.products.index', compact('product'));
+    }
+    public function add_product()
+    {
+        return view('accounts.sales.products.create');
+    }
+    public function store_product(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'amount' => 'required|numeric',
+        ]);
+        if (!Product::where('user_id', auth()->user()->id)->first()) {
+            $product = new Product;
+            $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
+            $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
+            $serial_exists = true;
+            while ($serial_exists) {
+                $existing_product = Product::where('serial_num', $serial)->first();
+                if ($existing_product) {
+                    // If the serial number already exists, generate a new one
+                    $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
+                    $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
+                } else {
+                    // If the serial number is unique, set the flag to exit the loop
+                    $serial_exists = false;
+                }
+            }
+            // dd($serial);
+            $product->name = $request->name;
+            $product->serial_num = $serial;
+            $product->price = $request->amount;
+            $product->save();
+            return redirect()->route('sales-product')
+                ->with('success', 'Product slip attached successfully.');
+        }
+        return redirect()->route('sales-product')
+            ->with('success', 'you cannot register a new product');
     }
 }

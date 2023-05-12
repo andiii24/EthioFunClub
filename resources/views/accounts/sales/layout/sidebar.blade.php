@@ -103,13 +103,43 @@
                             </ul>
                         </div>
                     </li>
-
                     <li>
+                        <a
+                            href="#product"
+                            data-bs-toggle="collapse"
+                        >
+                            <i class="fe-package"></i>
+                            <span> Product </span>
+                        </a>
+                        <div
+                            class="collapse"
+                            id="product"
+                        >
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="{{ url('sales-product') }}">
+                                        <i class="mdi mdi-package-variant"></i>
+                                        <span>Product</span>
+                                    </a>
+                                </li>
+                                @if (!$hasProduct)
+                                    <li>
+                                        <a href="{{ url('sales-add-product') }}">
+                                            <i class="mdi mdi-package-down"></i>
+                                            <span>Add Product</span>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </li>
+
+                    {{-- <li>
                         <a href="{{ url('reports') }}">
                             <i class="fe-bar-chart-2"></i>
                             <span> Reports </span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
                 <li>
                     <a href="{{ url('sales-view-message') }}">

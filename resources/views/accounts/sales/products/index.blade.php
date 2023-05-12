@@ -1,6 +1,7 @@
-@extends('accounts.admin.admin')
+@extends('accounts.sales.admin')
 @section('content')
     <div class="content">
+
         <!-- Start Content-->
         <div class="container-fluid">
 
@@ -10,11 +11,11 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">Messages</li>
+                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">Sales</a></li>
+                                <li class="breadcrumb-item active">Products</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Messages</h4>
+                        <h4 class="page-title">Products</h4>
                     </div>
                 </div>
             </div>
@@ -31,27 +32,32 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Sent To</th>
-                                        <th>Message</th>
-                                        <th>Status</th>
+                                        <th>Subject</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($messages as $key => $item)
+                                    {{-- @foreach ($products as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->subject }}</td>
+                                            <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>
-                                                @if ($item->is_read == '1')
-                                                    <span class="badge bg-success">Seen</span>
-                                                @else
-                                                    <span class="badge bg-danger">Unseen</span>
-                                                @endif
-                                            </td>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button
+                                                            type="button"
+                                                            onclick="readMsg(event.target.getAttribute('data-message-id'))"
+                                                            data-message-id="{{ $item->id }}"
+                                                            class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
+                                                        >read</button>
+
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
