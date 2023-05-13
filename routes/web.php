@@ -61,6 +61,7 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::post('customer-register-customer', [CustomerController::class, 'store']);
     Route::post('update-message-status', [CustomerController::class, 'readed']);
     Route::post('submit-customer-slip', [CustomerController::class, 'submit']);
+    Route::post('customer-register-serial', [CustomerController::class, 'serial']);
 });
 
 Auth::routes();

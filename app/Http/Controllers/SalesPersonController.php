@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,11 @@ class SalesPersonController extends Controller
      */
     public function index()
     {
+        $prod = Product::where('user_id', auth()->user()->id)->first();
+        $prodId = $prod->id();
+        $todaySales = Sale::where('prod_id', auth()->user()->id)
+            ->whereDate('created_at', Carbon::today())
+            ->count();
         $product = Product::where('user_id', auth()->user()->id)->first();
         $payment = Payment::where('user_id', auth()->user()->id)->first();
         return view('accounts.sales.index', compact('payment', 'product'));

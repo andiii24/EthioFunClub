@@ -5,8 +5,11 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\Product;
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
@@ -14,7 +17,11 @@ class CustomerController extends Controller
     public function index()
     {
         $payment = Payment::where('user_id', auth()->user()->id)->first();
-        return view('accounts.customer.index', compact('payment'));
+        $sales = Sale::where('user_id', auth()->user()->id)->count();
+        $todaySales = Sale::where('user_id', auth()->user()->id)
+            ->whereDate('created_at', Carbon::today())
+            ->count();
+        return view('accounts.customer.index', compact('payment', 'sales', 'todaySales'));
 
     }
 
@@ -105,6 +112,21 @@ class CustomerController extends Controller
         $message->is_read = 1;
         $message->save();
         return response()->json(['message' => 'Message readed successfully'], 200);
+    }
+    public function serial(Request $request)
+    {
+        $request->validate([
+            'serial_no' => 'required|string',
+        ]);
+
+        $sales = new Sale;
+        $product = Product::where('user_id', auth()->user()->upid)->first();
+        $sales->serial_no = $request->serial_no;
+        $sales->product_id = $product->id;
+        $sales->user_id = auth()->user()->id;
+        $sales->save();
+        return redirect()->route('customer-manager')
+            ->with('success', 'Sales serial attached.');
     }
 
 }
