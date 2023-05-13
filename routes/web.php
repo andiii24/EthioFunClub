@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountManager\AccountManagerController;
 use App\Http\Controllers\AccountManager\UserController;
+use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\SalesPersonController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,9 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
     Route::get('all-sales', [UserController::class, 'sales'])->name('admin.users.sales');
+    Route::get('edit-sales/{id}', [UserController::class, 'edit']);
     Route::post('register-sales', [UserController::class, 'store']);
+    Route::put('update-sales/{id}', [UserController::class, 'update']);
     Route::post('update-status', [UserController::class, 'activate']);
     Route::get('reports', [AccountManagerController::class, 'reports'])->name('admin.reports');
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
@@ -36,15 +39,28 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('sales-manager', [SalesPersonController::class, 'index'])->name('sales-manager');
     Route::get('sales-create-customer', [SalesPersonController::class, 'create']);
     Route::get('sales-customer', [SalesPersonController::class, 'customers'])->name('sales-customer');
-    Route::get('attach-payment-sales', [SalesPersonController::class, 'attach'])->name('sales-customer');
+    Route::get('attach-payment-sales', [SalesPersonController::class, 'attach']);
     Route::get('sales-view-message', [SalesPersonController::class, 'messages'])->name('sales-view-message');
-    Route::get('read-message/{id}', [SalesPersonController::class, 'read'])->name('sales-view-message');
+    Route::get('read-message/{id}', [SalesPersonController::class, 'read']);
     Route::get('sales-add-product', [SalesPersonController::class, 'add_product'])->name('sales-add-product');
     Route::get('sales-product', [SalesPersonController::class, 'products'])->name('sales-product');
+    Route::get('edit-product/{id}', [SalesPersonController::class, 'edit_product']);
     Route::post('register-customer', [SalesPersonController::class, 'store']);
+    Route::put('update-product/{id}', [SalesPersonController::class, 'product_update']);
     Route::post('register-product', [SalesPersonController::class, 'store_product']);
     Route::post('update-message-status', [SalesPersonController::class, 'readed']);
     Route::post('submit-sales-slip', [SalesPersonController::class, 'submit']);
+});
+Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
+    Route::get('customer-manager', [CustomerController::class, 'index'])->name('customer-manager');
+    Route::get('customer-create-customer', [CustomerController::class, 'create']);
+    Route::get('customer-customer', [CustomerController::class, 'customers'])->name('customer-customer');
+    Route::get('attach-payment-customer', [CustomerController::class, 'attach']);
+    Route::get('customer-view-message', [CustomerController::class, 'messages'])->name('sales-view-message');
+    Route::get('read-message/{id}', [CustomerController::class, 'read']);
+    Route::post('customer-register-customer', [CustomerController::class, 'store']);
+    Route::post('update-message-status', [CustomerController::class, 'readed']);
+    Route::post('submit-customer-slip', [CustomerController::class, 'submit']);
 });
 
 Auth::routes();

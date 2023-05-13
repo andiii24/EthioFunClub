@@ -48,10 +48,11 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <button
+                                                        <a
+                                                            href="{{ url('edit-sales/' . $item->id) }}"
                                                             type="button"
                                                             class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Edit</button>
+                                                        >Edit</a>
                                                         <button
                                                             type="button"
                                                             class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"

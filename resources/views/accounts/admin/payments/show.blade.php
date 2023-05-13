@@ -78,9 +78,9 @@
                                         <p><strong>Payment Date : </strong> <span class="float-end"> &nbsp;&nbsp;&nbsp;&nbsp; {{ $payments->created_at->diffForHumans() }}</span></p>
                                         <p><strong>Payment Status : </strong> <span class="float-end">
                                                 @if ($payments->status == '0')
-                                                    <span class="badge bg-danger">Unpaid</span>
+                                                    <span class="badge bg-danger">Pending</span>
                                                 @else
-                                                    <span class="badge bg-success">Paid</span>
+                                                    <span class="badge bg-success">Approved</span>
                                                 @endif
                                             </span></p>
                                         <p><strong>Payment No. : </strong> <span class="float-end">{{ $payments->id }} </span></p>
@@ -130,7 +130,7 @@
             </div> <!-- container -->
 
         </div> <!-- content -->
-        
+
         <script>
             function activateUser(userId, paymentId) {
                 $.ajax({

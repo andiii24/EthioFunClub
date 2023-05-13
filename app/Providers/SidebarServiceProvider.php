@@ -24,5 +24,8 @@ class SidebarServiceProvider extends ServiceProvider
         View::composer('accounts.sales.layout.sidebar', function ($view) {
             $view->with('hasProduct', Product::where('user_id', auth()->user()->id)->exists());
         });
+        View::composer('accounts.customer.layout.sidebar', function ($view) {
+            $view->with('hasProduct', Product::where('user_id', auth()->user()->id)->exists());
+        });
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Payment;
 use auth;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -25,6 +26,44 @@ class UserController extends Controller
     {
         return view('accounts.admin.users.create');
     }
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('accounts.admin.users.edit', compact('user'));
+    }
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'password' => 'nullable|string|min:8|confirmed',
+            'confirm_password' => 'required|min:8|same:password',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $validated['name'];
+        $user->phone = $validated['phone'];
+
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        if ($request->hasFile('image')) {
+            $path = 'assets/images/users/' . $user->image;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/users'), $imageName);
+            $user->image = $imageName;
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.users')
+            ->with('success', 'Property added successfully.');}
     public function store(Request $request)
     {
         $request->validate([

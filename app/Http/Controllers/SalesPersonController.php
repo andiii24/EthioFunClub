@@ -63,37 +63,6 @@ class SalesPersonController extends Controller
             ->with('success', 'Property added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
     public function attach()
     {
         return view('accounts.sales.payment.membership');
@@ -143,7 +112,7 @@ class SalesPersonController extends Controller
     }
     public function products()
     {
-        $product = Product::where('user_id', auth()->user()->id)->get();
+        $product = Product::where('user_id', auth()->user()->id)->first();
         return view('accounts.sales.products.index', compact('product'));
     }
     public function add_product()
@@ -152,7 +121,6 @@ class SalesPersonController extends Controller
     }
     public function store_product(Request $request)
     {
-
         $request->validate([
             'name' => 'required|max:255',
             'amount' => 'required|numeric',
@@ -183,5 +151,23 @@ class SalesPersonController extends Controller
         }
         return redirect()->route('sales-product')
             ->with('success', 'you cannot register a new product');
+    }
+    public function edit_product($id)
+    {
+        $product = Product::find($id);
+        return view('accounts.sales.products.edit', compact('product'));
+    }
+    public function product_update(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $request->validate([
+            'name' => 'required|max:255',
+            'amount' => 'required|numeric',
+        ]);
+        $product->name = $request->name;
+        $product->price = $request->amount;
+        $product->save();
+        return redirect()->route('sales-product')
+            ->with('success', 'Product Update');
     }
 }

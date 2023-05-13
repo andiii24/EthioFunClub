@@ -1,4 +1,4 @@
-@extends('accounts.admin.admin')
+@extends('accounts.customer.admin')
 @section('content')
     <div class="content">
         <!-- Start Content-->
@@ -10,12 +10,12 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">Sales</li>
+                                <li class="breadcrumb-item"><a href="{{ asset('customer-manager') }}">Admin</a></li>
+                                <li class="breadcrumb-item active">Customer</li>
                                 <li class="breadcrumb-item active">Register</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Register Sales</h4>
+                        <h4 class="page-title">Register Customer</h4>
                     </div>
                 </div>
             </div>
@@ -28,11 +28,10 @@
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <form
-                                        action="{{ url('update-sales/' . $user->id) }}"
+                                        action="{{ url('customer-register-customer') }}"
                                         method="POST"
                                         enctype="multipart/form-data"
                                     >
-                                        @method('PUT')
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -45,9 +44,9 @@
                                                         type="text"
                                                         id="name"
                                                         name="name"
-                                                        value="{{ $user->name }}"
                                                         placeholder="Name"
                                                         class="form-control"
+                                                        required
                                                     >
                                                     @if ($errors->has('name'))
                                                         <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -62,10 +61,10 @@
                                                     <input
                                                         type="text"
                                                         id="phone"
-                                                        value="{{ $user->phone }}"
                                                         name="phone"
                                                         placeholder="Phone"
                                                         class="form-control"
+                                                        required
                                                     >
                                                     @if ($errors->has('phone'))
                                                         <span class="text-danger">{{ $errors->first('phone') }}</span>
@@ -84,16 +83,10 @@
                                                         name="password"
                                                         placeholder="Password"
                                                         class="form-control"
+                                                        required
                                                     >
                                                     @if ($errors->has('password'))
                                                         <span class="text-danger">{{ $errors->first('password') }}</span>
-                                                    @endif
-                                                    @if (!empty($user->password))
-                                                        <input
-                                                            type="hidden"
-                                                            name="hashed_password"
-                                                            value="{{ $user->password }}"
-                                                        >
                                                     @endif
                                                 </div>
 
@@ -108,38 +101,10 @@
                                                         name="confirm_password"
                                                         placeholder="Confirm Password"
                                                         class="form-control"
+                                                        required
                                                     >
                                                     @if ($errors->has('confirm_password'))
                                                         <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div
-                                                    class="col-8"
-                                                    style="margin: 20px auto;"
-                                                >
-                                                    <img
-                                                        src="{{ asset('assets/images/users/' . $user->image) }}"
-                                                        alt=""
-                                                        class="img-fluid"
-                                                        style="box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);max-width: 100%; height: auto;"
-                                                    >
-                                                </div> <!-- end col -->
-                                            </div>
-                                            <div class="col-12 ">
-                                                <div class="col-md-12 mb-3">
-                                                    <label
-                                                        for="image"
-                                                        class="form-label"
-                                                    >Profile Picture</label>
-                                                    <input
-                                                        type="file"
-                                                        name="image"
-                                                        class="form-control"
-                                                    >
-                                                    @if ($errors->has('image'))
-                                                        <span class="text-danger">{{ $errors->first('image') }}</span>
                                                     @endif
                                                 </div>
                                             </div>

@@ -48,9 +48,9 @@
                                             <td class="text-center">{{ $item->amount }}</td>
                                             <td class="text-center">
                                                 @if ($item->status == '0')
-                                                    <span class="badge bg-danger">Unpaid</span>
+                                                    <span class="badge bg-danger">pending</span>
                                                 @else
-                                                    <span class="badge bg-success">Paid</span>
+                                                    <span class="badge bg-success">Approved</span>
                                                 @endif
                                             </td>
                                             <td class="text-center">
