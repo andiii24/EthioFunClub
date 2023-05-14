@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class SalesPersonController extends Controller
@@ -17,6 +18,7 @@ class SalesPersonController extends Controller
      */
     public function index()
     {
+
         $prod = Product::where('user_id', auth()->user()->id)->first();
         $prodId = $prod->id();
         $todaySales = Sale::where('prod_id', auth()->user()->id)

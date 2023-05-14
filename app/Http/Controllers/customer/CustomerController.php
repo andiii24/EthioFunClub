@@ -17,6 +17,7 @@ class CustomerController extends Controller
     public function index()
     {
         $payment = Payment::where('user_id', auth()->user()->id)->first();
+        // dd($payment);
         $sales = Sale::where('user_id', auth()->user()->id)->count();
         $todaySales = Sale::where('user_id', auth()->user()->id)
             ->whereDate('created_at', Carbon::today())

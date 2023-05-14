@@ -151,7 +151,7 @@
     <!-- /.content -->
     <script>
         document.getElementById("attach-payment-button").addEventListener("click", function() {
-            window.location.href = "/attach-payment-sales";
+            window.location.href = "/attach-payment-customer";
         });
     </script>
 @endsection
