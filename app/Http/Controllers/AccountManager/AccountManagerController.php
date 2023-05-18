@@ -7,6 +7,9 @@ use App\Models\Message;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class AccountManagerController extends Controller
 {
@@ -76,5 +79,44 @@ class AccountManagerController extends Controller
     {
         $payments = Payment::find($id);
         return view('accounts.admin.payments.show', compact('payments'));
+    }
+    public function edit_profile()
+    {
+        $user = Auth::user();
+        return view('accounts.admin.users.profile', compact('user'));
+    }
+    public function update_profile(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'password' => 'nullable|string|min:8|confirmed',
+            'confirm_password' => 'required|min:8|same:password',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $validated['name'];
+        $user->phone = $validated['phone'];
+
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        if ($request->hasFile('image')) {
+            $path = 'assets/images/users/' . $user->image;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/users'), $imageName);
+            $user->image = $imageName;
+        }
+
+        $user->save();
+
+        return redirect()->route('admin-manager')
+            ->with('success', 'Property added successfully.');
     }
 }

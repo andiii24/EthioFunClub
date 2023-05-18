@@ -23,6 +23,9 @@ class User extends Authenticatable
         'password',
         'role',
         'upid',
+        'parent_id',
+        'middle_id',
+        'right_id',
     ];
 
     /**
@@ -46,4 +49,24 @@ class User extends Authenticatable
     public static $phoneRules = [
         'phone' => 'required|unique:users|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
     ];
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
+
+    public function leftChild()
+    {
+        return $this->hasOne(User::class, 'left_id');
+    }
+
+    public function middleChild()
+    {
+        return $this->hasOne(User::class, 'middle_id');
+    }
+
+    public function rightChild()
+    {
+        return $this->hasOne(User::class, 'right_id');
+    }
+
 }

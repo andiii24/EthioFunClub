@@ -18,48 +18,37 @@
                     href="javascript: void(0);"
                     class="text-black dropdown-toggle h5 mt-2 mb-1 d-block"
                     data-bs-toggle="dropdown"
-                >Account Manager</a>
+                >{{ Auth::user()->name }}</a>
                 <div class="dropdown-menu user-pro-dropdown">
-
                     <!-- item-->
                     <a
-                        href="javascript:void(0);"
+                        href="{{ url('sales-profile') }}"
                         class="dropdown-item notify-item"
                     >
                         <i class="fe-user me-1"></i>
-                        <span>My Account</span>
+                        <span>{{ Auth::user()->name }}</span>
                     </a>
-
                     <!-- item-->
                     <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-settings me-1"></i>
-                        <span>Settings</span>
-                    </a>
-
-                    <!-- item-->
-                    <a
-                        href="javascript:void(0);"
-                        class="dropdown-item notify-item"
-                    >
-                        <i class="fe-lock me-1"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
-                    <!-- item-->
-                    <a
-                        href="javascript:void(0);"
+                        href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                         class="dropdown-item notify-item"
                     >
                         <i class="fe-log-out me-1"></i>
                         <span>Logout</span>
                     </a>
 
+                    <form
+                        id="logout-form"
+                        action="{{ route('logout') }}"
+                        method="POST"
+                        class="d-none"
+                    >
+                        @csrf
+                    </form>
                 </div>
             </div>
-            <p class="text-muted">Admin Head</p>
+            <p class="text-muted">{{ Auth::user()->role }}</p>
         </div>
 
         <!--- Sidemenu -->

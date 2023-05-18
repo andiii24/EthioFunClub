@@ -20,6 +20,8 @@ Route::get('/', [AccountManagerController::class, 'slash']);
 
 Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
+    Route::get('admin-profile', [AccountManagerController::class, 'edit_profile'])->name('admin-profile');
+    Route::put('update-profile-admin/{id}', [AccountManagerController::class, 'update_profile']);
     Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
     Route::get('all-sales', [UserController::class, 'sales'])->name('admin.users.sales');
@@ -37,6 +39,8 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('sales-manager', [SalesPersonController::class, 'index'])->name('sales-manager');
+    Route::get('sales-profile', [AccountManagerController::class, 'edit_profile'])->name('admin-profile');
+    Route::put('update-profile-sales/{id}', [AccountManagerController::class, 'update_profile']);
     Route::get('sales-create-customer', [SalesPersonController::class, 'create']);
     Route::get('sales-customer', [SalesPersonController::class, 'customers'])->name('sales-customer');
     Route::get('attach-payment-sales', [SalesPersonController::class, 'attach']);
@@ -53,6 +57,8 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('customer-manager', [CustomerController::class, 'index'])->name('customer-manager');
+    Route::get('customer-profile', [AccountManagerController::class, 'edit_profile'])->name('admin-profile');
+    Route::put('update-profile-customer/{id}', [AccountManagerController::class, 'update_profile']);
     Route::get('customer-create-customer', [CustomerController::class, 'create']);
     Route::get('customer-customer', [CustomerController::class, 'customers'])->name('customer-customer');
     Route::get('attach-payment-customer', [CustomerController::class, 'attach']);
