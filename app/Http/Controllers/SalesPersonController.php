@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Payment;
-use App\Models\Product;
-use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -20,18 +17,8 @@ class SalesPersonController extends Controller
      */
     public function index()
     {
-
-        $prod = Product::where('user_id', auth()->user()->id)->first();
-        if ($prod) {
-            $productId = $prod->id;
-            // Use the $productId variable as needed
-            $todaySales = Sale::where('product_id', auth()->user()->id)
-                ->whereDate('created_at', Carbon::today())
-                ->count();
-        }
-        $product = Product::where('user_id', auth()->user()->id)->first();
         $payment = Payment::where('user_id', auth()->user()->id)->first();
-        return view('accounts.sales.index', compact('payment', 'product', 'todaySales'));
+        return view('accounts.sales.index', compact('payment'));
 
     }
 
@@ -155,104 +142,104 @@ class SalesPersonController extends Controller
         $message->save();
         return response()->json(['message' => 'Message readed successfully'], 200);
     }
-    public function products()
-    {
-        $product = Product::where('user_id', auth()->user()->id)->first();
-        return view('accounts.sales.products.index', compact('product'));
-    }
-    public function add_product()
-    {
-        return view('accounts.sales.products.create');
-    }
-    public function store_product(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'amount' => 'required|numeric',
-        ]);
-        if (!Product::where('user_id', auth()->user()->id)->first()) {
-            $product = new Product;
-            $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
-            $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
-            $serial_exists = true;
-            while ($serial_exists) {
-                $existing_product = Product::where('serial_num', $serial)->first();
-                if ($existing_product) {
-                    // If the serial number already exists, generate a new one
-                    $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
-                    $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
-                } else {
-                    // If the serial number is unique, set the flag to exit the loop
-                    $serial_exists = false;
-                }
-            }
-            // dd($serial);
-            $product->name = $request->name;
-            $product->serial_num = $serial;
-            $product->price = $request->amount;
-            $product->save();
-            return redirect()->route('sales-product')
-                ->with('success', 'Product slip attached successfully.');
-        }
-        return redirect()->route('sales-product')
-            ->with('success', 'you cannot register a new product');
-    }
-    public function edit_product($id)
-    {
-        $product = Product::find($id);
-        return view('accounts.sales.products.edit', compact('product'));
-    }
-    public function product_update(Request $request, $id)
-    {
-        $product = Product::find($id);
-        $request->validate([
-            'name' => 'required|max:255',
-            'amount' => 'required|numeric',
-        ]);
-        $product->name = $request->name;
-        $product->price = $request->amount;
-        $product->save();
-        return redirect()->route('sales-product')
-            ->with('success', 'Product Update');
-    }
-    public function edit_profile()
-    {
-        $user = Auth::user();
-        return view('accounts.customer.users.profile', compact('user'));
-    }
-    public function update_profile(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'password' => 'nullable|string|min:8|confirmed',
-            'confirm_password' => 'required|min:8|same:password',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+    // public function products()
+    // {
+    //     $product = Product::where('user_id', auth()->user()->id)->first();
+    //     return view('accounts.sales.products.index', compact('product'));
+    // }
+    // public function add_product()
+    // {
+    //     return view('accounts.sales.products.create');
+    // }
+    // public function store_product(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|max:255',
+    //         'amount' => 'required|numeric',
+    //     ]);
+    //     if (!Product::where('user_id', auth()->user()->id)->first()) {
+    //         $product = new Product;
+    //         $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
+    //         $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
+    //         $serial_exists = true;
+    //         while ($serial_exists) {
+    //             $existing_product = Product::where('serial_num', $serial)->first();
+    //             if ($existing_product) {
+    //                 // If the serial number already exists, generate a new one
+    //                 $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
+    //                 $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
+    //             } else {
+    //                 // If the serial number is unique, set the flag to exit the loop
+    //                 $serial_exists = false;
+    //             }
+    //         }
+    //         // dd($serial);
+    //         $product->name = $request->name;
+    //         $product->serial_num = $serial;
+    //         $product->price = $request->amount;
+    //         $product->save();
+    //         return redirect()->route('sales-product')
+    //             ->with('success', 'Product slip attached successfully.');
+    //     }
+    //     return redirect()->route('sales-product')
+    //         ->with('success', 'you cannot register a new product');
+    // }
+    // public function edit_product($id)
+    // {
+    //     $product = Product::find($id);
+    //     return view('accounts.sales.products.edit', compact('product'));
+    // }
+    // public function product_update(Request $request, $id)
+    // {
+    //     $product = Product::find($id);
+    //     $request->validate([
+    //         'name' => 'required|max:255',
+    //         'amount' => 'required|numeric',
+    //     ]);
+    //     $product->name = $request->name;
+    //     $product->price = $request->amount;
+    //     $product->save();
+    //     return redirect()->route('sales-product')
+    //         ->with('success', 'Product Update');
+    // }
+    // public function edit_profile()
+    // {
+    //     $user = Auth::user();
+    //     return view('accounts.customer.users.profile', compact('user'));
+    // }
+    // public function update_profile(Request $request, $id)
+    // {
+    //     $validated = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'phone' => 'required|string|max:20',
+    //         'password' => 'nullable|string|min:8|confirmed',
+    //         'confirm_password' => 'required|min:8|same:password',
+    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
 
-        $user = User::findOrFail($id);
-        $user->name = $validated['name'];
-        $user->phone = $validated['phone'];
+    //     $user = User::findOrFail($id);
+    //     $user->name = $validated['name'];
+    //     $user->phone = $validated['phone'];
 
-        if (!empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
-        }
+    //     if (!empty($validated['password'])) {
+    //         $user->password = Hash::make($validated['password']);
+    //     }
 
-        if ($request->hasFile('image')) {
-            $path = 'assets/images/users/' . $user->image;
-            if (File::exists($path)) {
-                File::delete($path);
-            }
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('assets/images/users'), $imageName);
-            $user->image = $imageName;
-        }
+    //     if ($request->hasFile('image')) {
+    //         $path = 'assets/images/users/' . $user->image;
+    //         if (File::exists($path)) {
+    //             File::delete($path);
+    //         }
+    //         $image = $request->file('image');
+    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
+    //         $image->move(public_path('assets/images/users'), $imageName);
+    //         $user->image = $imageName;
+    //     }
 
-        $user->save();
+    //     $user->save();
 
-        return redirect()->route('sales-manager')
-            ->with('success', 'Property added successfully.');
-    }
+    //     return redirect()->route('sales-manager')
+    //         ->with('success', 'Property added successfully.');
+    // }
 
 }
