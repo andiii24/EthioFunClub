@@ -96,6 +96,35 @@
                 </li>
                 <li>
                     <a
+                        href="#serial"
+                        data-bs-toggle="collapse"
+                    >
+                        <i class="fe-tag"></i>
+                        <span> Serial Numbers </span>
+                    </a>
+                    <div
+                        class="collapse"
+                        id="serial"
+                    >
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ url('generated') }}">
+                                    <i class="fe-hash"></i>
+                                    <span> Generated </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('generate') }}">
+                                    <i class="fe-plus"></i>
+                                    <span> Generate </span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a
                         href="#message"
                         data-bs-toggle="collapse"
                     >

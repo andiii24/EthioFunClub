@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AccountManager;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -118,5 +119,31 @@ class AccountManagerController extends Controller
 
         return redirect()->route('admin-manager')
             ->with('success', 'Property added successfully.');
+    }
+    public function generate()
+    {
+        return view('accounts.admin.serial.create');
+    }
+    public function generated()
+    {
+        $products = Product::all();
+        return view('accounts.admin.serial.index', compact('products'));
+    }
+    public function serial_store(Request $request)
+    {
+        $request->validate([
+            'count' => 'required|numeric',
+        ]);
+
+        $count = $request->input('count');
+
+        for ($i = 1; $i <= $count; $i++) {
+            $serialNumber = date('Ymd') . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4);
+            $serial = new Product();
+            $serial->serial_num = $serialNumber;
+            $serial->save();
+        }
+        $products = Product::orderBy('created_at', 'desc')->take($count)->get();
+        return view('accounts.admin.serial.instance', compact('products'))->with('success', 'Serial numbers saved successfully.');
     }
 }

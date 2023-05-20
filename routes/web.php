@@ -35,6 +35,10 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('message-send', [AccountManagerController::class, 'sent']);
     Route::get('account-manager-payments', [AccountManagerController::class, 'payments']);
     Route::get('show-payment-slip/{id}', [AccountManagerController::class, 'show_payment']);
+    Route::post('generate-serial', [AccountManagerController::class, 'serial_store']);
+    Route::get('generate', [AccountManagerController::class, 'generate'])->name('generate');
+    Route::get('generated', [AccountManagerController::class, 'generated'])->name('generated');
+    Route::get('recently-generated', [AccountManagerController::class, 'generate'])->name('recently-generated');
 });
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {

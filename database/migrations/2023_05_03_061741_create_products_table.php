@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('serial_num')->Unique();
-            $table->string('name');
-            $table->bigInteger('price');
+            $table->integer('status')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
