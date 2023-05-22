@@ -52,7 +52,7 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('read-message/{id}', [SalesPersonController::class, 'read']);
     // Route::get('sales-add-product', [SalesPersonController::class, 'add_product'])->name('sales-add-product');
     // Route::get('sales-product', [SalesPersonController::class, 'products'])->name('sales-product');
-    // Route::get('edit-product/{id}', [SalesPersonController::class, 'edit_product']);
+    Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
     Route::post('register-customer', [SalesPersonController::class, 'store']);
     // Route::put('update-product/{id}', [SalesPersonController::class, 'product_update']);
     // Route::post('register-product', [SalesPersonController::class, 'store_product']);

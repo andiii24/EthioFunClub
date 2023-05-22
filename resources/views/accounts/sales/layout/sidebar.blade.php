@@ -83,12 +83,14 @@
                                         <span>All Customers </span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="{{ url('sales-create-customer') }}">
-                                        <i class="fe-user-plus"></i>
-                                        <span>Add Customer</span>
-                                    </a>
-                                </li>
+                                @if (!auth()->user()->left_child_id || !auth()->user()->middle_child_id || !auth()->user()->right_child_id)
+                                    <li>
+                                        <a href="{{ url('sales-create-customer') }}">
+                                            <i class="fe-user-plus"></i>
+                                            <span>Add Customer</span>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
@@ -103,6 +105,12 @@
                     <a href="{{ url('sales-view-message') }}">
                         <i class="fe-mail"></i>
                         <span>Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('genealogy') }}">
+                        <i class="fe-layers"></i>
+                        <span>Genealogy</span>
                     </a>
                 </li>
             </ul>

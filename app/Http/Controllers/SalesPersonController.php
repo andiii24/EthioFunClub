@@ -48,6 +48,9 @@ class SalesPersonController extends Controller
             'confirm_password' => 'required|min:8|same:password',
         ]);
         // Get the authenticated user
+        if ($request->password != $request->confirm_password) {
+            return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
+        }
         $parentUser = Auth::user();
 
         // Check if the authenticated user already has child IDs set
@@ -66,30 +69,19 @@ class SalesPersonController extends Controller
         }
 
         // Update the parent user with the new child ID
-        $parentUser->$childId = $request->input('user_id');
-        $parentUser->save();
 
         // Create a new user
         $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
+            'name' => $request->name,
             'upid' => $parentUser->id,
+            'role' => 'customer',
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
             // Set the child IDs (left_child_id, middle_child_id, right_child_id) as needed based on your logic
         ]);
 
-        $user = new User;
-        if ($request->password != $request->confirm_password) {
-            return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
-        }
-        $user->name = $request->name;
-        $user->name = $request->name;
-        $user->name = $request->name;
-        $user->name = $request->name;
-        $user->upid = auth()->user()->id;
-        $user->phone = $request->phone;
-        $user->role = 'customer';
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $parentUser->$childId = $user->id;
+        $parentUser->save();
 
         return redirect()->route('sales-customer')
             ->with('success', 'Property added successfully.');
@@ -126,6 +118,11 @@ class SalesPersonController extends Controller
         $messages = Message::where('user_id', auth()->user()->id)->get();
         return view('accounts.sales.messages.index', compact('messages'));
     }
+    public function genealogy()
+    {
+        $users = User::where('upid', auth()->user()->id)->get();
+        return view('accounts.sales.genealogy.index', compact('users'));
+    }
     public function read($id)
     {
         $messages = Message::find($id);
@@ -142,104 +139,4 @@ class SalesPersonController extends Controller
         $message->save();
         return response()->json(['message' => 'Message readed successfully'], 200);
     }
-    // public function products()
-    // {
-    //     $product = Product::where('user_id', auth()->user()->id)->first();
-    //     return view('accounts.sales.products.index', compact('product'));
-    // }
-    // public function add_product()
-    // {
-    //     return view('accounts.sales.products.create');
-    // }
-    // public function store_product(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|max:255',
-    //         'amount' => 'required|numeric',
-    //     ]);
-    //     if (!Product::where('user_id', auth()->user()->id)->first()) {
-    //         $product = new Product;
-    //         $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
-    //         $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
-    //         $serial_exists = true;
-    //         while ($serial_exists) {
-    //             $existing_product = Product::where('serial_num', $serial)->first();
-    //             if ($existing_product) {
-    //                 // If the serial number already exists, generate a new one
-    //                 $serial = substr($request->name, 0, 4); // Get the first four characters from the product name
-    //                 $serial .= substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2); // Generate two random characters
-    //             } else {
-    //                 // If the serial number is unique, set the flag to exit the loop
-    //                 $serial_exists = false;
-    //             }
-    //         }
-    //         // dd($serial);
-    //         $product->name = $request->name;
-    //         $product->serial_num = $serial;
-    //         $product->price = $request->amount;
-    //         $product->save();
-    //         return redirect()->route('sales-product')
-    //             ->with('success', 'Product slip attached successfully.');
-    //     }
-    //     return redirect()->route('sales-product')
-    //         ->with('success', 'you cannot register a new product');
-    // }
-    // public function edit_product($id)
-    // {
-    //     $product = Product::find($id);
-    //     return view('accounts.sales.products.edit', compact('product'));
-    // }
-    // public function product_update(Request $request, $id)
-    // {
-    //     $product = Product::find($id);
-    //     $request->validate([
-    //         'name' => 'required|max:255',
-    //         'amount' => 'required|numeric',
-    //     ]);
-    //     $product->name = $request->name;
-    //     $product->price = $request->amount;
-    //     $product->save();
-    //     return redirect()->route('sales-product')
-    //         ->with('success', 'Product Update');
-    // }
-    // public function edit_profile()
-    // {
-    //     $user = Auth::user();
-    //     return view('accounts.customer.users.profile', compact('user'));
-    // }
-    // public function update_profile(Request $request, $id)
-    // {
-    //     $validated = $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'phone' => 'required|string|max:20',
-    //         'password' => 'nullable|string|min:8|confirmed',
-    //         'confirm_password' => 'required|min:8|same:password',
-    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-
-    //     $user = User::findOrFail($id);
-    //     $user->name = $validated['name'];
-    //     $user->phone = $validated['phone'];
-
-    //     if (!empty($validated['password'])) {
-    //         $user->password = Hash::make($validated['password']);
-    //     }
-
-    //     if ($request->hasFile('image')) {
-    //         $path = 'assets/images/users/' . $user->image;
-    //         if (File::exists($path)) {
-    //             File::delete($path);
-    //         }
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('assets/images/users'), $imageName);
-    //         $user->image = $imageName;
-    //     }
-
-    //     $user->save();
-
-    //     return redirect()->route('sales-manager')
-    //         ->with('success', 'Property added successfully.');
-    // }
-
 }

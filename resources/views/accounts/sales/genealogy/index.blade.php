@@ -1,0 +1,73 @@
+@php
+    use App\Models\User;
+@endphp
+@extends('accounts.sales.admin')
+@section('content')
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">Sales</a></li>
+                                <li class="breadcrumb-item active">Genealogy</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">Genealogy</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Your other HTML code -->
+                            <div class="tree">
+                                <ul>
+                                    <li>
+                                        <a href="#">{{ auth()->user()->name }}</a>
+                                        <ul>
+                                            @foreach ($users as $user)
+                                                <li>
+                                                    <a href="#">{{ $user->name }}</a>
+                                                    @php
+                                                        $children = User::where('upid', $user->id)->get();
+                                                    @endphp
+
+                                                    @if ($children->count() > 0)
+                                                        <ul>
+                                                            @foreach ($children as $child)
+                                                                <li>
+                                                                    <a href="#">{{ $child->name }}</a>
+                                                                    @include('accounts.sales.genealogy.partials.tree', ['user' => $child])
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Your other HTML code -->
+                        </div>
+                    </div>
+                    <!-- end card body-->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col-->
+        </div>
+        <!-- end row-->
+    </div>
+    <!-- container -->
+    </div>
+@endsection

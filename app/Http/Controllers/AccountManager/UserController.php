@@ -91,7 +91,6 @@ class UserController extends Controller
 
         $user->image = $filename;
         $user->name = $request->name;
-        $user->upid = auth()->user()->id;
         $user->phone = $request->phone;
         $user->role = 'sales';
         $user->password = Hash::make($request->password);

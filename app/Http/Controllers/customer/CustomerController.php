@@ -54,17 +54,40 @@ class CustomerController extends Controller
             'confirm_password' => 'required|min:8|same:password',
         ]);
 
-        $user = new User;
         if ($request->password != $request->confirm_password) {
             return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
         }
-        $user->name = $request->name;
-        $user->upid = auth()->user()->id;
-        $user->phone = $request->phone;
-        $user->role = 'customer';
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $parentUser = Auth::user();
 
+        // Check if the authenticated user already has child IDs set
+        if ($parentUser->left_child_id && $parentUser->middle_child_id && $parentUser->right_child_id) {
+            return response()->json(['error' => 'Maximum number of child IDs reached'], 400);
+        }
+
+        // Determine the child ID to set based on the available slots (left, middle, right)
+        $childId = null;
+        if (!$parentUser->left_child_id) {
+            $childId = 'left_child_id';
+        } elseif (!$parentUser->middle_child_id) {
+            $childId = 'middle_child_id';
+        } elseif (!$parentUser->right_child_id) {
+            $childId = 'right_child_id';
+        }
+
+        // Update the parent user with the new child ID
+
+        // Create a new user
+        $user = User::create([
+            'name' => $request->name,
+            'upid' => $parentUser->id,
+            'role' => 'customer',
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            // Set the child IDs (left_child_id, middle_child_id, right_child_id) as needed based on your logic
+        ]);
+
+        $parentUser->$childId = $user->id;
+        $parentUser->save();
         return redirect()->route('customer-customer')
             ->with('success', 'Property added successfully.');
     }
