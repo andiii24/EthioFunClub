@@ -4,10 +4,8 @@
 @extends('accounts.sales.admin')
 @section('content')
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-fluid">
-
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -15,16 +13,17 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">Sales</a></li>
-                                <li class="breadcrumb-item active">Genealogy</li>
+                                <li class="breadcrumb-item active"><a href="{{ url('child/' . $user->id) }}">Genealogy</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Genealogy</h4>
+                        <h4 class="page-title"><a href="{{ url('child/' . auth()->user()->id) }}">Genealogy</a></h4>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
 
-            <div class="row">
+            <div class="row justify-content-center">
+                <!-- Center the tree -->
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -32,11 +31,11 @@
                             <div class="tree">
                                 <ul>
                                     <li>
-                                        <a href="#">{{ auth()->user()->name }}</a>
+                                        <a href="#">{{ $user->name }}</a>
                                         <ul>
                                             @foreach ($users as $user)
                                                 <li>
-                                                    <a href="#">{{ $user->name }}</a>
+                                                    <a href="{{ url('child/' . $user->id) }}">{{ $user->name }}</a>
                                                     @php
                                                         $children = User::where('upid', $user->id)->get();
                                                     @endphp
@@ -45,7 +44,7 @@
                                                         <ul>
                                                             @foreach ($children as $child)
                                                                 <li>
-                                                                    <a href="#">{{ $child->name }}</a>
+                                                                    <a href="{{ url('child/' . $child->id) }}">{{ $child->name }}</a>
                                                                     @include('accounts.sales.genealogy.partials.tree', ['user' => $child])
                                                                 </li>
                                                             @endforeach

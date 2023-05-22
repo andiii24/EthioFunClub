@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -120,8 +121,40 @@ class SalesPersonController extends Controller
     }
     public function genealogy()
     {
-        $users = User::where('upid', auth()->user()->id)->get();
-        return view('accounts.sales.genealogy.index', compact('users'));
+        $user = auth()->user();
+        $users = User::where('upid', $user->id)->get();
+        return view('accounts.sales.genealogy.index', compact('users', 'user'));
+    }
+    public function sales()
+    {
+        $userId = auth()->user()->id;
+
+        // Count sales made by the user
+        $userSalesCount = Sale::where('user_id', $userId)->count();
+
+        // Get the IDs of the user's children
+        $userChildrenIds = User::where('upid', $userId)->pluck('id');
+
+        // Count sales made by the user's children
+        $childrenSalesCount = Sale::whereIn('user_id', $userChildrenIds)->count();
+
+        // Total sales count (user and their children)
+        $totalSalesCount = $userSalesCount + $childrenSalesCount;
+
+        return $totalSalesCount;
+    }
+    public function child($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        if (!$user) {
+            // Handle the case where the user does not exist
+            // For example, redirect back with an error message
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $users = User::where('upid', $user->id)->get();
+        return view('accounts.sales.genealogy.index', compact('users', 'user'));
     }
     public function read($id)
     {
