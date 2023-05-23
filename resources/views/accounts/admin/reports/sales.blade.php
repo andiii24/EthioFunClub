@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Sales Report</h4>
+                    <h4 class="page-title">{{ $title }}</h4>
                 </div>
             </div>
         </div>
@@ -78,27 +78,35 @@
                     });
                 </script>
             @endif
-            <div class=" col-12 mb-2">
-                <div class="row row-cols-sm-auto g-2 align-items-center">
-                    <div class="col-12 text-sm-center">
-                        <form
-                            action="{{ url('filtering-sales') }}"
-                            method="POST"
-                            enctype="multipart/form-data"
-                        >
+            <form
+                action="{{ url('filtering-sales') }}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                @csrf
+                <div class="col-12 mb-2">
+                    <div class="row align-items-center">
+                        <div class="col-sm-auto">
                             <select
                                 id="demo-foo-filter-status"
                                 class="form-select form-select-sm"
+                                name="filter"
                             >
                                 <option value="1">Show all</option>
                                 <option value="2">Today</option>
                                 <option value="3">This Week</option>
                                 <option value="4">This Month</option>
                             </select>
-                        </form>
+                        </div>
+                        <div class="col-6">
+                            <button
+                                type="submit"
+                                class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
+                            >Submit</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- end page title -->
 

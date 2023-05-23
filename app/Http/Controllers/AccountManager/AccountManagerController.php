@@ -198,6 +198,41 @@ class AccountManagerController extends Controller
             ->count();
         $sales = Sale::all()->count();
         $sale = Sale::all();
-        return view('accounts.admin.reports.sales', compact('sales', 'SalesCountToday', 'sale'));
+        $title = "Sales Report";
+        return view('accounts.admin.reports.sales', compact('sales', 'SalesCountToday', 'sale', 'title'));
+    }
+    public function filter(Request $request)
+    {
+        $filter = $request->input('filter');
+        $today = Carbon::today();
+
+        if ($filter == 2) {
+            // Filter for today's sales
+            $title = "Today's Sales Report";
+            $sale = Sale::whereDate('created_at', $today)->get();
+        } elseif ($filter == 3) {
+            // Filter for this week's sales
+            $title = "This Week's Sales Report";
+            $startOfWeek = $today->copy()->startOfWeek(Carbon::MONDAY);
+            $endOfWeek = $today->copy()->endOfWeek(Carbon::SUNDAY)->endOfDay();
+            $sale = Sale::whereBetween('created_at', [$startOfWeek, $endOfWeek])->get();
+        } elseif ($filter == 4) {
+            // Filter for this month's sales
+            $title = "This Month's Sales Report";
+            $startOfMonth = $today->copy()->startOfMonth();
+            $endOfMonth = $today->copy()->endOfMonth()->endOfDay();
+            $sale = Sale::whereBetween('created_at', [$startOfMonth, $endOfMonth])->get();
+        } else {
+            // Default case: show all sales
+            $title = "Sales Report";
+            $sale = Sale::all();
+        }
+        $today = Carbon::today();
+        // Count sales made by the user today
+        $SalesCountToday = Sale::whereDate('created_at', $today)
+            ->count();
+        $sales = Sale::all()->count();
+        return view('accounts.admin.reports.sales', compact('sales', 'SalesCountToday', 'sale', 'title'));
+
     }
 }

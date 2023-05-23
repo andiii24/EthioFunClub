@@ -30,6 +30,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::put('update-sales/{id}', [UserController::class, 'update']);
     Route::post('update-status', [UserController::class, 'activate']);
     Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
+    Route::post('filtering-sales', [AccountManagerController::class, 'filter']);
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
     Route::post('message-send', [AccountManagerController::class, 'sent']);
