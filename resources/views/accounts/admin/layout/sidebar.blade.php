@@ -157,6 +157,12 @@
                         <span> Payments </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url('sales-report') }}">
+                        <i class="fe-bar-chart-2"></i>
+                        <span> Sales Report </span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- End Sidebar -->

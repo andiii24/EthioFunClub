@@ -158,7 +158,7 @@ right connector from last child*/
             text-decoration: none;
             color: #666;
             font-family: arial, verdana, tahoma;
-            font-size: 11px;
+            font-size: 12px;
             display: inline-block;
 
             border-radius: 5px;

@@ -190,4 +190,14 @@ class AccountManagerController extends Controller
         $products = Product::orderBy('created_at', 'desc')->take($count)->get();
         return view('accounts.admin.serial.instance', compact('products'))->with('success', 'Serial numbers saved successfully.');
     }
+    public function sales_report()
+    {
+        $today = Carbon::today();
+        // Count sales made by the user today
+        $SalesCountToday = Sale::whereDate('created_at', $today)
+            ->count();
+        $sales = Sale::all()->count();
+        $sale = Sale::all();
+        return view('accounts.admin.reports.sales', compact('sales', 'SalesCountToday', 'sale'));
+    }
 }

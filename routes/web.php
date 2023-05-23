@@ -29,7 +29,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('register-sales', [UserController::class, 'store']);
     Route::put('update-sales/{id}', [UserController::class, 'update']);
     Route::post('update-status', [UserController::class, 'activate']);
-    Route::get('reports', [AccountManagerController::class, 'reports'])->name('admin.reports');
+    Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
     Route::post('message-send', [AccountManagerController::class, 'sent']);
