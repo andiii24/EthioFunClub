@@ -52,14 +52,14 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('read-message/{id}', [SalesPersonController::class, 'read']);
     // Route::get('sales-add-product', [SalesPersonController::class, 'add_product'])->name('sales-add-product');
     // Route::get('sales-product', [SalesPersonController::class, 'products'])->name('sales-product');
-    Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
-    Route::get('child/{id}', [SalesPersonController::class, 'child']);
     Route::post('register-customer', [SalesPersonController::class, 'store']);
     // Route::put('update-product/{id}', [SalesPersonController::class, 'product_update']);
     // Route::post('register-product', [SalesPersonController::class, 'store_product']);
     Route::post('update-message-status', [SalesPersonController::class, 'readed']);
     Route::post('submit-sales-slip', [SalesPersonController::class, 'submit']);
     Route::post('sales-register-serial', [SalesPersonController::class, 'serial']);
+    Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
+    Route::get('child/{id}', [SalesPersonController::class, 'child']);
 
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
@@ -75,6 +75,8 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::post('update-message-status', [CustomerController::class, 'readed']);
     Route::post('submit-customer-slip', [CustomerController::class, 'submit']);
     Route::post('customer-register-serial', [CustomerController::class, 'serial']);
+    Route::get('customer-genealogy', [CustomerController::class, 'genealogy']);
+    Route::get('child/{id}', [CustomerController::class, 'child']);
 });
 
 Auth::routes();

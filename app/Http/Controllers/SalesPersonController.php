@@ -150,29 +150,29 @@ class SalesPersonController extends Controller
         $messages = Message::where('user_id', auth()->user()->id)->get();
         return view('accounts.sales.messages.index', compact('messages'));
     }
+    // public function sales()
+    // {
+    //     $userId = auth()->user()->id;
+
+    //     // Count sales made by the user
+    //     $userSalesCount = Sale::where('user_id', $userId)->count();
+
+    //     // Get the IDs of the user's children
+    //     $userChildrenIds = User::where('upid', $userId)->pluck('id');
+
+    //     // Count sales made by the user's children
+    //     $childrenSalesCount = Sale::whereIn('user_id', $userChildrenIds)->count();
+
+    //     // Total sales count (user and their children)
+    //     $totalSalesCount = $userSalesCount + $childrenSalesCount;
+
+    //     return $totalSalesCount;
+    // }
     public function genealogy()
     {
         $user = auth()->user();
         $users = User::where('upid', $user->id)->get();
         return view('accounts.sales.genealogy.index', compact('users', 'user'));
-    }
-    public function sales()
-    {
-        $userId = auth()->user()->id;
-
-        // Count sales made by the user
-        $userSalesCount = Sale::where('user_id', $userId)->count();
-
-        // Get the IDs of the user's children
-        $userChildrenIds = User::where('upid', $userId)->pluck('id');
-
-        // Count sales made by the user's children
-        $childrenSalesCount = Sale::whereIn('user_id', $userChildrenIds)->count();
-
-        // Total sales count (user and their children)
-        $totalSalesCount = $userSalesCount + $childrenSalesCount;
-
-        return $totalSalesCount;
     }
     public function child($id)
     {

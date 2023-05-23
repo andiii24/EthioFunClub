@@ -41,6 +41,27 @@
             <!-- end page title -->
 
             <div class="row">
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="widget-rounded-circle card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-trending-up font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-end">
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $newUsers }}</span></h3>
+                                        <p class="text-muted mb-1 text-truncate">New Customers</p>
+                                    </div>
+                                </div>
+                            </div> <!-- end row-->
+                        </div>
+                    </div> <!-- end widget-rounded-circle-->
+                </div> <!-- end col-->
+
                 <div class="col-md-6 col-xl-3">
                     <div class="widget-rounded-circle card">
                         <div class="card-body">
@@ -52,7 +73,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-end">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">58</span></h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $users }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">Customers</p>
                                     </div>
                                 </div>
@@ -72,28 +93,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-end">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span></h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $userSalesCountToday }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">Today's Sales</p>
-                                    </div>
-                                </div>
-                            </div> <!-- end row-->
-                        </div>
-                    </div> <!-- end widget-rounded-circle-->
-                </div> <!-- end col-->
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="widget-rounded-circle card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
-                                        <i class="fe-trending-up font-22 avatar-title text-success"></i>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="text-end">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">12</span></h3>
-                                        <p class="text-muted mb-1 text-truncate">New Customers today</p>
                                     </div>
                                 </div>
                             </div> <!-- end row-->
@@ -112,7 +113,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-end">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">8</span></h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $sales }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">Total Sales</p>
                                     </div>
                                 </div>

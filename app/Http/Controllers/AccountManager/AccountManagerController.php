@@ -20,7 +20,14 @@ class AccountManagerController extends Controller
     {
         if (auth()->check()) {
             if (auth()->user()->role == 'admin') {
-                return view('accounts.admin.index');
+                $users = User::all()->count();
+                $today = Carbon::today();
+                // Count sales made by the user today
+                $userSalesCountToday = Sale::whereDate('created_at', $today)
+                    ->count();
+                $newUsers = User::whereDate('created_at', $today)->count();
+                $sales = Sale::all()->count();
+                return view('accounts.admin.index', compact('users', 'userSalesCountToday', 'newUsers', 'sales'));
             } elseif (auth()->user()->role == 'sales') {
                 $payment = Payment::where('user_id', auth()->user()->id)->first();
                 $userId = auth()->user()->id;
@@ -63,9 +70,15 @@ class AccountManagerController extends Controller
     }
     public function index()
     {
-        // dd(auth()->user()->role);
-        // $user = auth()->user();
-        return view('accounts.admin.index');
+        $users = User::all()->count();
+        $today = Carbon::today();
+
+        // Count sales made by the user today
+        $userSalesCountToday = Sale::whereDate('created_at', $today)
+            ->count();
+        $newUsers = User::whereDate('created_at', $today)->count();
+        $sales = Sale::all()->count();
+        return view('accounts.admin.index', compact('users', 'userSalesCountToday', 'newUsers', 'sales'));
     }
     public function reports()
     {

@@ -96,6 +96,12 @@
                         <span> Messages </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url('customer-genealogy') }}">
+                        <i class="fe-layers"></i>
+                        <span> My Genealogy </span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- End Sidebar -->

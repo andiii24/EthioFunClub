@@ -1,7 +1,7 @@
 @php
     use App\Models\User;
 @endphp
-@extends('accounts.sales.admin')
+@extends('accounts.customer.admin')
 @section('content')
     <div class="content">
         <!-- Start Content-->
@@ -32,11 +32,15 @@
                         });
                     </script>
                 @endif
-                <div class="col-12">
+                <div
+                    class="col-12"
+                    {{-- style="display: flex;
+                    justify-content: center;" --}}
+                >
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">Sales</a></li>
+                                <li class="breadcrumb-item"><a href="{{ asset('customer-manager') }}">Sales</a></li>
                                 <li class="breadcrumb-item active"><a href="{{ url('child/' . $user->id) }}">Genealogy</a></li>
                             </ol>
                         </div>
@@ -48,14 +52,18 @@
 
             <div class="row justify-content-center">
                 <!-- Center the tree -->
-                <div class="col-12">
+                <div
+                    class="col-12"
+                    {{-- style="display: flex;
+                    justify-content: center;" --}}
+                >
                     <div class="card">
                         <div class="card-body">
                             <!-- Your other HTML code -->
                             <div
                                 class="tree"
                                 style="display: flex;
-                                justify-content: center;"
+                                    justify-content: center;"
                             >
                                 <ul>
                                     <li>
@@ -73,7 +81,7 @@
                                                             @foreach ($children as $child)
                                                                 <li>
                                                                     <a href="{{ url('child/' . $child->id) }}">{{ $child->name }}</a>
-                                                                    @include('accounts.sales.genealogy.partials.tree', ['user' => $child])
+                                                                    @include('accounts.customer.genealogy.partials.tree', ['user' => $child])
                                                                 </li>
                                                             @endforeach
                                                         </ul>

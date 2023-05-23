@@ -201,5 +201,24 @@ class CustomerController extends Controller
         return redirect()->route('customer-manager')
             ->with('success', 'Property added successfully.');
     }
+    public function genealogy()
+    {
+        $user = auth()->user();
+        $users = User::where('upid', $user->id)->get();
+        return view('accounts.customer.genealogy.index', compact('users', 'user'));
+    }
+    public function child($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        if (!$user) {
+            // Handle the case where the user does not exist
+            // For example, redirect back with an error message
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $users = User::where('upid', $user->id)->get();
+        return view('accounts.customer.genealogy.index', compact('users', 'user'));
+    }
 
 }
