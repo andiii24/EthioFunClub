@@ -59,6 +59,8 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     // Route::post('register-product', [SalesPersonController::class, 'store_product']);
     Route::post('update-message-status', [SalesPersonController::class, 'readed']);
     Route::post('submit-sales-slip', [SalesPersonController::class, 'submit']);
+    Route::post('sales-register-serial', [SalesPersonController::class, 'serial']);
+
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('customer-manager', [CustomerController::class, 'index'])->name('customer-manager');

@@ -4,8 +4,32 @@
         <!-- Start Content-->
         <div class="container-fluid">
 
+
             <!-- start page title -->
             <div class="row">
+                @if (session('success'))
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                            });
+                        });
+                    </script>
+                @endif
+                @if (session('error'))
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: "{{ session('error') }}",
+                            });
+                        });
+                    </script>
+                @endif
                 <div class="col-12">
                     <div class="page-title-box">
                         <div class="page-title-right">
@@ -67,7 +91,7 @@
 
                             <div class="row mt-4">
                                 <div class="col-lg-12">
-                                    <h4>Saved Products:</h4>
+                                    <h4>Generated Serial Numbers:</h4>
                                     <ul>
                                         @foreach ($products as $key => $product)
                                             <li>{{ $key + 1 }}: {{ $product->serial_num }}</li>

@@ -11,7 +11,7 @@ class Sale extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'serial_no',
+        'serial_num',
     ];
     public function user()
     {

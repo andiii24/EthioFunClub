@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +21,36 @@ class SalesPersonController extends Controller
     public function index()
     {
         $payment = Payment::where('user_id', auth()->user()->id)->first();
-        return view('accounts.sales.index', compact('payment'));
+        $userId = auth()->user()->id;
+
+        // Count sales made by the user
+        $userSalesCount = Sale::where('user_id', $userId)->count();
+
+        // Get the IDs of the user's children
+        $userChildrenIds = User::where('upid', $userId)->pluck('id');
+
+        // Count sales made by the user's children
+        $childrenSalesCount = Sale::whereIn('user_id', $userChildrenIds)->count();
+
+        // Total sales count (user and their children)
+        $totalSalesCount = $userSalesCount + $childrenSalesCount;
+
+        $today = Carbon::today();
+
+// Count sales made by the user today
+        $userSalesCountToday = Sale::where('user_id', $userId)
+            ->whereDate('created_at', $today)
+            ->count();
+
+// Count sales made by the user's children today
+        $childrenSalesCountToday = Sale::whereIn('user_id', $userChildrenIds)
+            ->whereDate('created_at', $today)
+            ->count();
+
+// Total sales count today (user and their children)
+        $totalSalesCountToday = $userSalesCountToday + $childrenSalesCountToday;
+
+        return view('accounts.sales.index', compact('payment', 'totalSalesCount', 'totalSalesCountToday'));
 
     }
 
@@ -171,5 +202,27 @@ class SalesPersonController extends Controller
         $message->is_read = 1;
         $message->save();
         return response()->json(['message' => 'Message readed successfully'], 200);
+    }
+    public function serial(Request $request)
+    {
+        $request->validate([
+            'serial_num' => 'required|string',
+        ]);
+
+        $sales = new Sale;
+        if (Product::where('serial_num', $request->serial_num)->where('status', '0')->first()) {
+            $prod = Product::where('serial_num', $request->serial_num)->
+                where('status', '0')->first();
+            $prod->status = 1;
+            $prod->save();
+            $sales->serial_num = $request->serial_num;
+            $sales->product_id = $prod->id;
+            $sales->user_id = auth()->user()->id;
+            $sales->save();
+            return redirect()->route('sales-manager')
+                ->with('success', 'Sales attached');
+        }
+        return redirect()->route('sales-manager')
+            ->with('error', 'Invalid Serial attached.');
     }
 }

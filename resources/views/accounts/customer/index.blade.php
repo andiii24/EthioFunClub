@@ -6,8 +6,32 @@
         <!-- Start Content-->
         <div class="container-fluid">
 
+
             <!-- start page title -->
             <div class="row">
+                @if (session('success'))
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                            });
+                        });
+                    </script>
+                @endif
+                @if (session('error'))
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: "{{ session('error') }}",
+                            });
+                        });
+                    </script>
+                @endif
                 <div
                     id="danger-alert-modal"
                     class="modal fade"
@@ -124,7 +148,7 @@
                                         type="text"
                                         class="form-control"
                                         id="serialNumber"
-                                        name="serial_no"
+                                        name="serial_num"
                                         aria-describedby="emailHelp"
                                         placeholder="Enter Product Serial Number"
                                     >

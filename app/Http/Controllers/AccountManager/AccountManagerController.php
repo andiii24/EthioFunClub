@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +23,36 @@ class AccountManagerController extends Controller
                 return view('accounts.admin.index');
             } elseif (auth()->user()->role == 'sales') {
                 $payment = Payment::where('user_id', auth()->user()->id)->first();
-                return view('accounts.sales.index', compact('payment'));
+                $userId = auth()->user()->id;
+
+                // Count sales made by the user
+                $userSalesCount = Sale::where('user_id', $userId)->count();
+
+                // Get the IDs of the user's children
+                $userChildrenIds = User::where('upid', $userId)->pluck('id');
+
+                // Count sales made by the user's children
+                $childrenSalesCount = Sale::whereIn('user_id', $userChildrenIds)->count();
+
+                // Total sales count (user and their children)
+                $totalSalesCount = $userSalesCount + $childrenSalesCount;
+
+                $today = Carbon::today();
+
+// Count sales made by the user today
+                $userSalesCountToday = Sale::where('user_id', $userId)
+                    ->whereDate('created_at', $today)
+                    ->count();
+
+// Count sales made by the user's children today
+                $childrenSalesCountToday = Sale::whereIn('user_id', $userChildrenIds)
+                    ->whereDate('created_at', $today)
+                    ->count();
+
+// Total sales count today (user and their children)
+                $totalSalesCountToday = $userSalesCountToday + $childrenSalesCountToday;
+
+                return view('accounts.sales.index', compact('payment', 'totalSalesCount', 'totalSalesCountToday'));
             } elseif (auth()->user()->role == 'customer') {
                 return view('accounts.customer.index');
             }

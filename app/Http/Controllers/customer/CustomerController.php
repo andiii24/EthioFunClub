@@ -142,17 +142,25 @@ class CustomerController extends Controller
     public function serial(Request $request)
     {
         $request->validate([
-            'serial_no' => 'required|string',
+            'serial_num' => 'required|string',
         ]);
 
         $sales = new Sale;
-        $product = Product::where('user_id', auth()->user()->upid)->first();
-        $sales->serial_no = $request->serial_no;
-        $sales->product_id = $product->id;
-        $sales->user_id = auth()->user()->id;
-        $sales->save();
+        if (Product::where('serial_num', $request->serial_num)->exists()) {
+            $prod = Product::where('serial_num', $request->serial_num)->
+                where('status', '0')->first();
+            $prod->status = 1;
+            $prod->save();
+            $sales->serial_num = $request->serial_num;
+            $sales->product_id = $prod->id;
+            $sales->user_id = auth()->user()->id;
+            $sales->save();
+            return redirect()->route('customer-manager')
+                ->with('success', 'Sales serial attached.');
+        }
         return redirect()->route('customer-manager')
-            ->with('success', 'Sales serial attached.');
+            ->with('success', 'Invalid Serial attached.');
+
     }
     public function edit_profile()
     {

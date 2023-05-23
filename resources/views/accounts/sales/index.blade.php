@@ -6,8 +6,33 @@
         <!-- Start Content-->
         <div class="container-fluid">
 
+
             <!-- start page title -->
             <div class="row">
+                @if (session('success'))
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                            });
+                        });
+                    </script>
+                @endif
+                @if (session('error'))
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: "{{ session('error') }}",
+                            });
+                        });
+                    </script>
+                @endif
+
                 <div
                     id="danger-alert-modal"
                     class="modal fade"
@@ -77,7 +102,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-end">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span></h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $totalSalesCountToday }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">Today's Sales</p>
                                     </div>
                                 </div>
@@ -97,7 +122,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-end">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">8</span></h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $totalSalesCount }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">Total Sales</p>
                                     </div>
                                 </div>
@@ -105,6 +130,40 @@
                         </div>
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
+                <div class="col-md-6 col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3 header-title text-center">Register Sales</h4>
+
+                            <form
+                                action="{{ url('sales-register-serial') }}"
+                                method="POST"
+                                enctype="multipart/form-data"
+                            >
+                                @csrf
+                                <div class="mb-3">
+                                    <label
+                                        for="serialNumber"
+                                        class="form-label"
+                                    >Product Serial Number</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="serialNumber"
+                                        name="serial_num"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter Product Serial Number"
+                                    >
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary waves-effect waves-light"
+                                >Submit</button>
+                            </form>
+
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div><!-- end col-->
             </div>
             <!-- end row-->
 

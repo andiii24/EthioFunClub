@@ -42,6 +42,11 @@
         rel="stylesheet"
         type="text/css"
     />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css"
+    >
+
     <!-- App css -->
     <link
         href="{{ asset('assets/css/app.min.css') }}"
