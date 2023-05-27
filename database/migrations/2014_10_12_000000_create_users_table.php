@@ -17,22 +17,18 @@ return new class extends Migration
             $table->string('phone')->Unique();
             $table->string('name');
             $table->string('password');
-            $table->string('role');
+            $table->bigInteger('role');
             $table->string('image')->nullable();
-            $table->string('status')->default('0');
-            $table->string('upid')->nullable();
+            $table->bigInteger('status')->default('0');
+            $table->bigInteger('level')->default('0');
+            $table->foreignId('upid')->nullable()->constrained('users');
+            $table->foreignId('left_child_id')->nullable()->constrained('users');
+            $table->foreignId('middle_child_id')->nullable()->constrained('users');
+            $table->foreignId('right_child_id')->nullable()->constrained('users');
 
             $table->rememberToken();
             $table->timestamps();
 
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('users');
     }
 };

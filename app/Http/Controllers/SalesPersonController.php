@@ -79,6 +79,7 @@ class SalesPersonController extends Controller
             'password' => 'required|min:8',
             'confirm_password' => 'required|min:8|same:password',
         ]);
+        $user = new User();
         // Get the authenticated user
         if ($request->password != $request->confirm_password) {
             return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
@@ -98,20 +99,17 @@ class SalesPersonController extends Controller
             $childId = 'middle_child_id';
         } elseif (!$parentUser->right_child_id) {
             $childId = 'right_child_id';
+            $user->level = 2;
         }
 
         // Update the parent user with the new child ID
 
         // Create a new user
-        $user = User::create([
-            'name' => $request->name,
-            'upid' => $parentUser->id,
-            'role' => 'customer',
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-            // Set the child IDs (left_child_id, middle_child_id, right_child_id) as needed based on your logic
-        ]);
-
+        $user->name = $request->name;
+        $user->upid = $parentUser->id;
+        $user->role = 'customer';
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
         $parentUser->$childId = $user->id;
         $parentUser->save();
 

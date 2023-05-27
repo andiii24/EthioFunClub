@@ -23,9 +23,9 @@ class User extends Authenticatable
         'password',
         'role',
         'upid',
-        'parent_id',
-        'middle_id',
-        'right_id',
+        'right_child_id',
+        'middle_child_id',
+        'left_child_id',
     ];
 
     /**
@@ -51,22 +51,22 @@ class User extends Authenticatable
     ];
     public function parent()
     {
-        return $this->belongsTo(User::class, 'parent_id');
+        return $this->belongsTo(User::class, 'upid');
     }
 
     public function leftChild()
     {
-        return $this->hasOne(User::class, 'left_id');
+        return $this->hasOne(User::class, 'left_child_id');
     }
 
     public function middleChild()
     {
-        return $this->hasOne(User::class, 'middle_id');
+        return $this->hasOne(User::class, 'middle_child_id');
     }
 
     public function rightChild()
     {
-        return $this->hasOne(User::class, 'right_id');
+        return $this->hasOne(User::class, 'right_child_id');
     }
 
 }
