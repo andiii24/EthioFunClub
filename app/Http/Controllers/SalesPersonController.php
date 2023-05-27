@@ -79,11 +79,13 @@ class SalesPersonController extends Controller
             'password' => 'required|min:8',
             'confirm_password' => 'required|min:8|same:password',
         ]);
+
         $user = new User();
         // Get the authenticated user
         if ($request->password != $request->confirm_password) {
             return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
         }
+
         $parentUser = Auth::user();
 
         // Check if the authenticated user already has child IDs set
@@ -99,10 +101,35 @@ class SalesPersonController extends Controller
             $childId = 'middle_child_id';
         } elseif (!$parentUser->right_child_id) {
             $childId = 'right_child_id';
-            $user->level = 2;
         }
 
         // Update the parent user with the new child ID
+        $parentUser->$childId = $user->id;
+        $parentUser->save();
+
+        // Check if the authenticated user has three children
+        if ($parentUser->left_child_id && $parentUser->middle_child_id && $parentUser->right_child_id) {
+            // Increment the level of the authenticated user
+            $parentUser->level += 1;
+            $parentUser->save();
+
+            // Recursive function to increment the level of the parent user
+            function incrementParentLevel($user)
+            {
+                if ($user->parentUser) {
+                    // Check if the parent user has three children
+                    if ($user->parentUser->left_child_id && $user->parentUser->middle_child_id && $user->parentUser->right_child_id) {
+                        // Increment the level of the parent user
+                        $user->parentUser->level += 1;
+                        $user->parentUser->save();
+                        incrementParentLevel($user->parentUser); // Call the function for the parent user
+                    }
+                }
+            }
+
+            // Call the function to increment the level for the parent user
+            incrementParentLevel($parentUser);
+        }
 
         // Create a new user
         $user->name = $request->name;
@@ -110,8 +137,9 @@ class SalesPersonController extends Controller
         $user->role = 'customer';
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password);
-        $parentUser->$childId = $user->id;
-        $parentUser->save();
+        $user->save();
+
+        // Redirect or return the response as needed
 
         return redirect()->route('sales-customer')
             ->with('success', 'Property added successfully.');
@@ -148,24 +176,7 @@ class SalesPersonController extends Controller
         $messages = Message::where('user_id', auth()->user()->id)->get();
         return view('accounts.sales.messages.index', compact('messages'));
     }
-    // public function sales()
-    // {
-    //     $userId = auth()->user()->id;
 
-    //     // Count sales made by the user
-    //     $userSalesCount = Sale::where('user_id', $userId)->count();
-
-    //     // Get the IDs of the user's children
-    //     $userChildrenIds = User::where('upid', $userId)->pluck('id');
-
-    //     // Count sales made by the user's children
-    //     $childrenSalesCount = Sale::whereIn('user_id', $userChildrenIds)->count();
-
-    //     // Total sales count (user and their children)
-    //     $totalSalesCount = $userSalesCount + $childrenSalesCount;
-
-    //     return $totalSalesCount;
-    // }
     public function genealogy()
     {
         $user = auth()->user();

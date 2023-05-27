@@ -54,9 +54,7 @@ class CustomerController extends Controller
             'confirm_password' => 'required|min:8|same:password',
         ]);
 
-        if ($request->password != $request->confirm_password) {
-            return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
-        }
+        // Get the authenticated user
         $parentUser = Auth::user();
 
         // Check if the authenticated user already has child IDs set
@@ -65,7 +63,7 @@ class CustomerController extends Controller
         }
 
         // Determine the child ID to set based on the available slots (left, middle, right)
-        $childId = null;
+        $childId = 'null';
         if (!$parentUser->left_child_id) {
             $childId = 'left_child_id';
         } elseif (!$parentUser->middle_child_id) {
@@ -74,20 +72,29 @@ class CustomerController extends Controller
             $childId = 'right_child_id';
         }
 
-        // Update the parent user with the new child ID
-
         // Create a new user
-        $user = User::create([
-            'name' => $request->name,
-            'upid' => $parentUser->id,
-            'role' => 'customer',
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-            // Set the child IDs (left_child_id, middle_child_id, right_child_id) as needed based on your logic
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->upid = $parentUser->id;
+        $user->role = 'customer';
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
+        // Update the parent user with the new child ID
         $parentUser->$childId = $user->id;
         $parentUser->save();
+
+        // Check if the authenticated user has three children
+        if ($parentUser->left_child_id && $parentUser->middle_child_id && $parentUser->right_child_id) {
+            // Increment the level of the authenticated user
+            $parentUser->level += 1;
+            $parentUser->save();
+            $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
+        }
+
+        // Redirect or return the response as needed
+
         return redirect()->route('customer-customer')
             ->with('success', 'Property added successfully.');
     }

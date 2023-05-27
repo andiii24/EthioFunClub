@@ -80,26 +80,28 @@
                                         <span> All Customers </span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="{{ url('customer-create-customer') }}">
-                                        <i class="fe-user-plus"></i>
-                                        <span> Add Customer</span>
-                                    </a>
-                                </li>
+                                @if (!auth()->user()->left_child_id || !auth()->user()->middle_child_id || !auth()->user()->right_child_id)
+                                    <li>
+                                        <a href="{{ url('customer-create-customer') }}">
+                                            <i class="fe-user-plus"></i>
+                                            <span>Add Customer</span>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
+                    </li>
+                    <li>
+                        <a href="{{ url('customer-genealogy') }}">
+                            <i class="fe-layers"></i>
+                            <span> My Genealogy </span>
+                        </a>
                     </li>
                 @endif
                 <li>
                     <a href="{{ url('customer-view-message') }}">
                         <i class="fe-mail"></i>
                         <span> Messages </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('customer-genealogy') }}">
-                        <i class="fe-layers"></i>
-                        <span> My Genealogy </span>
                     </a>
                 </li>
             </ul>

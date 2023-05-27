@@ -61,7 +61,13 @@ class AccountManagerController extends Controller
 
                 return view('accounts.sales.index', compact('payment', 'totalSalesCount', 'totalSalesCountToday'));
             } elseif (auth()->user()->role == 'customer') {
-                return view('accounts.customer.index');
+                $payment = Payment::where('user_id', auth()->user()->id)->first();
+                // dd($payment);
+                $sales = Sale::where('user_id', auth()->user()->id)->count();
+                $todaySales = Sale::where('user_id', auth()->user()->id)
+                    ->whereDate('created_at', Carbon::today())
+                    ->count();
+                return view('accounts.customer.index', compact('payment', 'sales', 'todaySales'));
             }
 
         } else {

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\AccountManager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
-use auth;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -109,6 +108,7 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
         $user->status = 1;
+        $user->level = 1;
         $payment->status = 1;
         $payment->save();
         $user->save();

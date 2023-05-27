@@ -100,17 +100,17 @@
                             <span> Reports </span>
                         </a>
                     </li> --}}
+                    <li>
+                        <a href="{{ url('genealogy') }}">
+                            <i class="fe-layers"></i>
+                            <span>Genealogy</span>
+                        </a>
+                    </li>
                 @endif
                 <li>
                     <a href="{{ url('sales-view-message') }}">
                         <i class="fe-mail"></i>
                         <span>Messages</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('genealogy') }}">
-                        <i class="fe-layers"></i>
-                        <span>Genealogy</span>
                     </a>
                 </li>
             </ul>

@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,12 +44,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public static $phoneRules = [
         'phone' => 'required|unique:users|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
     ];
-    public function parent()
+
+    public function parentUser()
     {
         return $this->belongsTo(User::class, 'upid');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(User::class, 'upid');
     }
 
     public function leftChild()
@@ -69,4 +74,23 @@ class User extends Authenticatable
         return $this->hasOne(User::class, 'right_child_id');
     }
 
+    public function incrementParentLevel()
+    {
+        $parentUser = $this->parentUser;
+        if ($parentUser) {
+            // Check if all the parent user's siblings have three children with the desired level
+            $siblings = $parentUser->children();
+            $siblingsCount = $siblings->count();
+            $validSiblingsCount = $siblings->whereHas('children', function ($query) {
+                $query->where('level', '>=', $this->level);
+            })->count();
+
+            if ($validSiblingsCount >= $siblingsCount && $siblingsCount > 0) {
+                // Increment the level of the parent user
+                $parentUser->level += 1;
+                $parentUser->save();
+                $parentUser->incrementParentLevel(); // Call the function for the parent user
+            }
+        }
+    }
 }
