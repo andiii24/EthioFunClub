@@ -80,12 +80,7 @@ class SalesPersonController extends Controller
             'confirm_password' => 'required|min:8|same:password',
         ]);
 
-        $user = new User();
         // Get the authenticated user
-        if ($request->password != $request->confirm_password) {
-            return redirect()->back()->withErrors(['confirm_password' => 'Password confirmation does not match.'])->withInput();
-        }
-
         $parentUser = Auth::user();
 
         // Check if the authenticated user already has child IDs set
@@ -94,7 +89,7 @@ class SalesPersonController extends Controller
         }
 
         // Determine the child ID to set based on the available slots (left, middle, right)
-        $childId = null;
+        $childId = 'null';
         if (!$parentUser->left_child_id) {
             $childId = 'left_child_id';
         } elseif (!$parentUser->middle_child_id) {
@@ -103,35 +98,8 @@ class SalesPersonController extends Controller
             $childId = 'right_child_id';
         }
 
-        // Update the parent user with the new child ID
-        $parentUser->$childId = $user->id;
-        $parentUser->save();
-
-        // Check if the authenticated user has three children
-        if ($parentUser->left_child_id && $parentUser->middle_child_id && $parentUser->right_child_id) {
-            // Increment the level of the authenticated user
-            $parentUser->level += 1;
-            $parentUser->save();
-
-            // Recursive function to increment the level of the parent user
-            function incrementParentLevel($user)
-            {
-                if ($user->parentUser) {
-                    // Check if the parent user has three children
-                    if ($user->parentUser->left_child_id && $user->parentUser->middle_child_id && $user->parentUser->right_child_id) {
-                        // Increment the level of the parent user
-                        $user->parentUser->level += 1;
-                        $user->parentUser->save();
-                        incrementParentLevel($user->parentUser); // Call the function for the parent user
-                    }
-                }
-            }
-
-            // Call the function to increment the level for the parent user
-            incrementParentLevel($parentUser);
-        }
-
         // Create a new user
+        $user = new User();
         $user->name = $request->name;
         $user->upid = $parentUser->id;
         $user->role = 'customer';
@@ -139,6 +107,27 @@ class SalesPersonController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        // Update the parent user with the new child ID
+        $parentUser->$childId = $user->id;
+        $parentUser->save();
+        $parentUser = Auth::user();
+        // Check if the authenticated user has three children
+        if (
+            $parentUser->left_child_id &&
+            $parentUser->middle_child_id &&
+            $parentUser->right_child_id
+            // $parentUser->leftChild &&
+            // $parentUser->middleChild &&
+            // $parentUser->rightChild &&
+            // $parentUser->leftChild->level == 1 &&
+            // $parentUser->middleChild->level == 1 &&
+            // $parentUser->rightChild->level == 1
+        ) {
+            // Increment the level of the authenticated user
+            $parentUser->level += $parentUser->minChildLevel();
+            $parentUser->save();
+            $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
+        }
         // Redirect or return the response as needed
 
         return redirect()->route('sales-customer')

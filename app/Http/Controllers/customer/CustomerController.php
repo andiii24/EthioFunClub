@@ -84,21 +84,31 @@ class CustomerController extends Controller
         // Update the parent user with the new child ID
         $parentUser->$childId = $user->id;
         $parentUser->save();
+        $parentUser = Auth::user();
+        // dd($parentUser->minChildLevel());
 
         // Check if the authenticated user has three children
-        if ($parentUser->left_child_id && $parentUser->middle_child_id && $parentUser->right_child_id) {
+        if (
+            $parentUser->left_child_id &&
+            $parentUser->middle_child_id &&
+            $parentUser->right_child_id
+            // $parentUser->leftChild &&
+            // $parentUser->middleChild &&
+            // $parentUser->rightChild &&
+            // $parentUser->leftChild->level == 1 &&
+            // $parentUser->middleChild->level == 1 &&
+            // $parentUser->rightChild->level == 1
+        ) {
             // Increment the level of the authenticated user
-            $parentUser->level += 1;
+            $parentUser->level += $parentUser->minChildLevel();
             $parentUser->save();
             $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
         }
 
         // Redirect or return the response as needed
-
         return redirect()->route('customer-customer')
             ->with('success', 'Property added successfully.');
     }
-
     public function attach()
     {
         return view('accounts.customer.payment.membership');

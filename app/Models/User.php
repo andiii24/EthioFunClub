@@ -58,38 +58,52 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'upid');
     }
-
+    public function minChildLevel()
+    {
+        // dd($this->children()->min('level'));
+        return $this->children()->min('level');
+    }
     public function leftChild()
     {
-        return $this->hasOne(User::class, 'left_child_id');
+        return $this->belongsTo(User::class, 'left_child_id');
     }
 
     public function middleChild()
     {
-        return $this->hasOne(User::class, 'middle_child_id');
+        return $this->belongsTo(User::class, 'middle_child_id');
     }
 
     public function rightChild()
     {
-        return $this->hasOne(User::class, 'right_child_id');
+        return $this->belongsTo(User::class, 'right_child_id');
     }
 
     public function incrementParentLevel()
     {
-        $parentUser = $this->parentUser;
-        if ($parentUser) {
-            // Check if all the parent user's siblings have three children with the desired level
-            $siblings = $parentUser->children();
-            $siblingsCount = $siblings->count();
-            $validSiblingsCount = $siblings->whereHas('children', function ($query) {
-                $query->where('level', '>=', $this->level);
-            })->count();
 
-            if ($validSiblingsCount >= $siblingsCount && $siblingsCount > 0) {
-                // Increment the level of the parent user
-                $parentUser->level += 1;
-                $parentUser->save();
-                $parentUser->incrementParentLevel(); // Call the function for the parent user
+        $parent = $this->parentUser;
+        // dd($parent->left_child_id);
+        // if ($parent) {
+        //     $validChildrenCount = $parent->children()->where('level', $parent->level)->count();
+        //     if ($validChildrenCount === $parent->children()->count() && $validChildrenCount > 0) {
+        //         // Increment the level of the parent user
+        //         $parent->level += 1;
+        //         // dd($parent->level);
+        //         $parent->save();
+        //         $parent->incrementParentLevel(); // Call the method for the parent user
+        //     }
+        // }
+        if ($parent) {
+            $leftChildId = $parent->left_child_id;
+            $middleChildId = $parent->middle_child_id;
+            $rightChildId = $parent->right_child_id;
+
+            if ($leftChildId && $middleChildId && $rightChildId) {
+
+                $ot = $parent->minChildLevel();
+                $parent->level = $ot + 1;
+                $parent->save();
+                $parent->incrementParentLevel();
             }
         }
     }

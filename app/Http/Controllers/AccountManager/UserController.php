@@ -108,10 +108,28 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
         $user->status = 1;
-        $user->level = 1;
         $payment->status = 1;
         $payment->save();
-        $user->save();
+
+        $parentUser = User::find($userId);
+        // dd($parentUser->minChildLevel);
+        // Check if the authenticated user has three children
+        if (
+            $parentUser->left_child_id &&
+            $parentUser->middle_child_id &&
+            $parentUser->right_child_id
+            // $parentUser->leftChild &&
+            // $parentUser->middleChild &&
+            // $parentUser->rightChild &&
+            // $parentUser->leftChild->level == 1 &&
+            // $parentUser->middleChild->level == 1 &&
+            // $parentUser->rightChild->level == 1
+        ) {
+            // Increment the level of the authenticated user
+            $parentUser->level += $parentUser->minChildLevel();
+            $parentUser->save();
+            $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
+        }
         return response()->json(['message' => 'User activated successfully'], 200);
     }
 }
