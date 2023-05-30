@@ -24,6 +24,8 @@ class User extends Authenticatable
         'right_child_id',
         'middle_child_id',
         'left_child_id',
+        'level',
+        'level_payment',
     ];
 
     /**
@@ -82,17 +84,6 @@ class User extends Authenticatable
     {
 
         $parent = $this->parentUser;
-        // dd($parent->left_child_id);
-        // if ($parent) {
-        //     $validChildrenCount = $parent->children()->where('level', $parent->level)->count();
-        //     if ($validChildrenCount === $parent->children()->count() && $validChildrenCount > 0) {
-        //         // Increment the level of the parent user
-        //         $parent->level += 1;
-        //         // dd($parent->level);
-        //         $parent->save();
-        //         $parent->incrementParentLevel(); // Call the method for the parent user
-        //     }
-        // }
         if ($parent) {
             $leftChildId = $parent->left_child_id;
             $middleChildId = $parent->middle_child_id;

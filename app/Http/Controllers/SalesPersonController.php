@@ -116,15 +116,10 @@ class SalesPersonController extends Controller
             $parentUser->left_child_id &&
             $parentUser->middle_child_id &&
             $parentUser->right_child_id
-            // $parentUser->leftChild &&
-            // $parentUser->middleChild &&
-            // $parentUser->rightChild &&
-            // $parentUser->leftChild->level == 1 &&
-            // $parentUser->middleChild->level == 1 &&
-            // $parentUser->rightChild->level == 1
         ) {
             // Increment the level of the authenticated user
-            $parentUser->level += $parentUser->minChildLevel();
+            $ot = $parentUser->minChildLevel();
+            $parentUser->level = $ot + 1;
             $parentUser->save();
             $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
         }
