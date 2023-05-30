@@ -1,10 +1,8 @@
-{{-- <a href="#">{{ $user->name }}</a> --}}
 <ul>
     @php
         use App\Models\User;
         $children = User::where('upid', $user->id)->get();
     @endphp
-
     @foreach ($children as $child)
         <li>
             <a href="{{ url('child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> Level {{ $child->level }} </a>

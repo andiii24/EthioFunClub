@@ -32,15 +32,11 @@
                         });
                     </script>
                 @endif
-                <div
-                    class="col-12"
-                    {{-- style="display: flex;
-                    justify-content: center;" --}}
-                >
+                <div class="col-12">
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('customer-manager') }}">Sales</a></li>
+                                <li class="breadcrumb-item"><a href="{{ asset('customer-manager') }}">Customer</a></li>
                                 <li class="breadcrumb-item active"><a href="{{ url('child/' . $user->id) }}">Genealogy</a></li>
                             </ol>
                         </div>
@@ -52,18 +48,13 @@
 
             <div class="row justify-content-center">
                 <!-- Center the tree -->
-                <div
-                    class="col-12"
-                    {{-- style="display: flex;
-                    justify-content: center;" --}}
-                >
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <!-- Your other HTML code -->
                             <div
-                                class="tree"
-                                style="display: flex;
-                                    justify-content: center;"
+                                class="tree table-responsive"
+                                style="justify-content: center;"
                             >
                                 <ul>
                                     <li>
@@ -71,7 +62,7 @@
                                         <ul>
                                             @foreach ($users as $user)
                                                 <li>
-                                                    <a href="{{ url('child/' . $user->id) }}">{{ $user->name }} <br> {{ $user->phone }} <br> level {{ $user->level }} </a>
+                                                    <a href="{{ url('child/' . $user->id) }}">{{ $user->name }} <br> {{ $user->phone }} <br> Level {{ $user->level }} </a>
                                                     @php
                                                         $children = User::where('upid', $user->id)->get();
                                                     @endphp
@@ -80,7 +71,7 @@
                                                         <ul>
                                                             @foreach ($children as $child)
                                                                 <li>
-                                                                    <a href="{{ url('child/' . $child->id) }}">{{ $child->name }}<br>{{ $child->phone }}<br> level {{ $child->level }} </a>
+                                                                    <a href="{{ url('child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> Level {{ $child->level }} </a>
                                                                     @include('accounts.customer.genealogy.partials.tree', ['user' => $child])
                                                                 </li>
                                                             @endforeach

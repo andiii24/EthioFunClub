@@ -53,9 +53,8 @@
                         <div class="card-body">
                             <!-- Your other HTML code -->
                             <div
-                                class="tree"
-                                style="display: flex;
-                                justify-content: center;"
+                                class="tree table-responsive"
+                                style="justify-content: center;"
                             >
                                 <ul>
                                     <li>
