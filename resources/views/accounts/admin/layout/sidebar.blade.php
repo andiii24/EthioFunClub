@@ -158,6 +158,35 @@
                     </a>
                 </li>
                 <li>
+                    <a
+                        href="#payment"
+                        data-bs-toggle="collapse"
+                    >
+                        <i class="fe-tag"></i>
+                        <span>Payments </span>
+                    </a>
+                    <div
+                        class="collapse"
+                        id="payment"
+                    >
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ url('account-manager-payments') }}">
+                                    <i class="fe-hash"></i>
+                                    <span> Membership </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('level-payment-update') }}">
+                                    <i class="fe-plus"></i>
+                                    <span> Level Based </span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li>
                     <a href="{{ url('sales-report') }}">
                         <i class="fe-bar-chart-2"></i>
                         <span> Sales Report </span>

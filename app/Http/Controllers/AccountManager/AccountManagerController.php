@@ -241,4 +241,9 @@ class AccountManagerController extends Controller
         return view('accounts.admin.reports.sales', compact('sales', 'SalesCountToday', 'sale', 'title'));
 
     }
+    public function level_based()
+    {
+        $users = User::where('level_payment', 1)->get();
+        return view('accounts.admin.payments.level', compact('level_payment'));
+    }
 }

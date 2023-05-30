@@ -29,12 +29,14 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('register-sales', [UserController::class, 'store']);
     Route::put('update-sales/{id}', [UserController::class, 'update']);
     Route::post('update-status', [UserController::class, 'activate']);
+    Route::post('level-payment-update', [UserController::class, 'level_update']);
     Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
     Route::post('filtering-sales', [AccountManagerController::class, 'filter']);
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
     Route::post('message-send', [AccountManagerController::class, 'sent']);
     Route::get('account-manager-payments', [AccountManagerController::class, 'payments']);
+    Route::get('level-based', [AccountManagerController::class, 'level_based']);
     Route::get('show-payment-slip/{id}', [AccountManagerController::class, 'show_payment']);
     Route::post('generate-serial', [AccountManagerController::class, 'serial_store']);
     Route::get('generate', [AccountManagerController::class, 'generate'])->name('generate');

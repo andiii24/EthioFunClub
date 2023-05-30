@@ -128,10 +128,26 @@ class UserController extends Controller
 
                 $ot = $parentUser->minChildLevel();
                 $parentUser->level = $ot + 1;
+                if ($parentUser->level >= 3) {
+                    $parentUser->level_payment = 1;
+                }
                 $parentUser->save();
                 $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
             }
         }
+
+        return response()->json(['message' => 'User activated successfully'], 200);
+    }
+
+    public function level_update(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        $user->level_payment = 0;
+        $user->save();
 
         return response()->json(['message' => 'User activated successfully'], 200);
     }

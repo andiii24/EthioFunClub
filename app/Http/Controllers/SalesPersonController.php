@@ -120,6 +120,9 @@ class SalesPersonController extends Controller
             // Increment the level of the authenticated user
             $ot = $parentUser->minChildLevel();
             $parentUser->level = $ot + 1;
+            if ($parentUser->level >= 3) {
+                $parentUser->level_payment = 1;
+            }
             $parentUser->save();
             $parentUser->incrementParentLevel(); // Call the method to increment the level for the parent user and its ancestors
         }

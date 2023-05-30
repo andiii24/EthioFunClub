@@ -93,6 +93,10 @@ class User extends Authenticatable
 
                 $ot = $parent->minChildLevel();
                 $parent->level = $ot + 1;
+                $level = $parent->level;
+                if ($level >= 3) {
+                    $parent->level_payment = 1;
+                }
                 $parent->save();
                 $parent->incrementParentLevel();
             }
