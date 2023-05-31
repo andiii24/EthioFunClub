@@ -104,6 +104,11 @@ class AccountManagerController extends Controller
         // dd($users);
         return view('accounts.admin.messages.send', compact('users'));
     }
+    public function send_composed()
+    {
+        // dd($users);
+        return view('accounts.admin.messages.compose');
+    }
     public function sent(Request $request)
     {
         $request->validate([
@@ -118,6 +123,125 @@ class AccountManagerController extends Controller
         $message->message_body = $request->message;
         $message->is_read = 0;
         $message->save();
+        return redirect()->route('admin-message')
+            ->with('success', 'Message sent successfully.');
+    }
+    public function sent_compose(Request $request)
+    {
+        $request->validate([
+            'send_to' => 'required',
+            'subject' => 'required|max:255',
+            'message' => 'required|string',
+        ]);
+        // dd($request);
+        $all = User::all();
+        $sales = User::where('role', 'sales')->get();
+        $customer = User::where('role', 'customer')->get();
+        $level0 = User::where('level', '0')->get();
+        $level1 = User::where('level', '1')->get();
+        $level2 = User::where('level', '2')->get();
+        $level3 = User::where('level', '3')->get();
+        $level4 = User::where('level', '4')->get();
+        $level5 = User::where('level', '5')->get();
+        if ($request->send_to == "all") {
+            foreach ($all as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "sales") {
+            foreach ($sales as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "customer") {
+            foreach ($customer as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "level0") {
+            foreach ($level0 as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "level1") {
+            foreach ($level1 as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "level2") {
+            foreach ($level2 as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "level3") {
+            foreach ($level3 as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "level4") {
+            foreach ($level4 as $item) {
+                # code...
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
+        if ($request->send_to == "level5") {
+            foreach ($level5 as $item) {
+                # code..
+                $message = new Message;
+                $message->user_id = $item->id;
+                $message->subject = $request->subject;
+                $message->message_body = $request->message;
+                $message->is_read = 0;
+                $message->save();
+            }
+        }
         return redirect()->route('admin-message')
             ->with('success', 'Message sent successfully.');
     }
@@ -244,6 +368,6 @@ class AccountManagerController extends Controller
     public function level_based()
     {
         $users = User::where('level_payment', 1)->get();
-        return view('accounts.admin.payments.level', compact('level_payment'));
+        return view('accounts.admin.payments.level', compact('users'));
     }
 }

@@ -69,7 +69,7 @@
                                             <td class="text-center">{{ $item->name }}</td>
                                             <td class="text-center">{{ $item->level }}</td>
                                             = <td class="text-center">
-                                                @if ($item->payment == '0')
+                                                @if ($item->level_payment == '1')
                                                     <span class="badge bg-danger">pending</span>
                                                 @else
                                                     <span class="badge bg-success">Approved</span>
@@ -78,14 +78,14 @@
                                             <td class="text-center">
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        @if ($item->level_payment == 0)
+                                                        @if ($item->level_payment == 1)
                                                             <button
                                                                 type="button"
                                                                 class="btn btn-success rounded-pill waves-effect waves-light"
-                                                                onclick="activateUser(event.target.getAttribute('data-user-id')"
-                                                                data-user-id="{{ $user->id }}"
+                                                                onclick="activateUser(event.target.getAttribute('data-user-id'))"
+                                                                data-user-id="{{ $item->id }}"
                                                             >
-                                                                Paid
+                                                                Pay
                                                             </button>
                                                         @endif
                                                     </div>

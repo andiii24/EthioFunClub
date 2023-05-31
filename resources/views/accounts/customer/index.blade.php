@@ -128,7 +128,7 @@
                         </div>
                     </div> <!-- end widget-rounded-circle-->
                 </div>
-                <div class="col-md-6 col-xl-6">
+                <div class="col-md-6 col-xl-6 {{ auth()->user()->status == 0 ? 'inactive-menu' : '' }}">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3 header-title text-center">Register Sales</h4>
@@ -153,12 +153,14 @@
                                         placeholder="Enter Product Serial Number"
                                     >
                                 </div>
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary waves-effect waves-light"
-                                >Submit</button>
+                                @if (auth()->user()->status == 1)
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary waves-effect waves-light"
+                                    >Submit</button>
+                                @endif
                             </form>
-
+                            <h1>{{ __('dashboard.title') }}</h1>
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
                 </div><!-- end col-->

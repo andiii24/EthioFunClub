@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountManager\AccountManagerController;
 use App\Http\Controllers\AccountManager\UserController;
 use App\Http\Controllers\customer\CustomerController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\SalesPersonController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
  */
 Route::get('/', [AccountManagerController::class, 'slash']);
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+Route::get('/{lang}', [LangController::class, 'setLocale']);
 
 Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
@@ -29,12 +32,16 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('register-sales', [UserController::class, 'store']);
     Route::put('update-sales/{id}', [UserController::class, 'update']);
     Route::post('update-status', [UserController::class, 'activate']);
+    Route::post('diactivate', [UserController::class, 'diactivate']);
+    Route::post('activation', [UserController::class, 'activation']);
     Route::post('level-payment-update', [UserController::class, 'level_update']);
     Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
     Route::post('filtering-sales', [AccountManagerController::class, 'filter']);
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
+    Route::get('send-composed-message', [AccountManagerController::class, 'send_composed']);
     Route::post('message-send', [AccountManagerController::class, 'sent']);
+    Route::post('message-composed-send', [AccountManagerController::class, 'sent_compose']);
     Route::get('account-manager-payments', [AccountManagerController::class, 'payments']);
     Route::get('level-based', [AccountManagerController::class, 'level_based']);
     Route::get('show-payment-slip/{id}', [AccountManagerController::class, 'show_payment']);
@@ -62,7 +69,7 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::post('submit-sales-slip', [SalesPersonController::class, 'submit']);
     Route::post('sales-register-serial', [SalesPersonController::class, 'serial']);
     Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
-    Route::get('child/{id}', [SalesPersonController::class, 'child']);
+    Route::get('sales-child/{id}', [SalesPersonController::class, 'child']);
 
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
@@ -80,8 +87,8 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::post('customer-register-serial', [CustomerController::class, 'serial']);
     Route::get('customer-genealogy', [CustomerController::class, 'genealogy']);
     Route::get('child/{id}', [CustomerController::class, 'child']);
-});
 
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

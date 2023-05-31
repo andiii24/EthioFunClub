@@ -216,9 +216,9 @@ class SalesPersonController extends Controller
             $sales->user_id = auth()->user()->id;
             $sales->save();
             return redirect()->route('sales-manager')
-                ->with('success', 'Sales attached');
+                ->with('success', 'Sales Approved');
         }
         return redirect()->route('sales-manager')
-            ->with('error', 'Invalid Serial attached.');
+            ->with('error', 'Invalid Serial Number.');
     }
 }

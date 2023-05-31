@@ -130,40 +130,42 @@
                         </div>
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
-                <div class="col-md-6 col-xl-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="mb-3 header-title text-center">Register Sales</h4>
+                @if (auth()->user()->status == 1)
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3 header-title text-center">Register Sales</h4>
 
-                            <form
-                                action="{{ url('sales-register-serial') }}"
-                                method="POST"
-                                enctype="multipart/form-data"
-                            >
-                                @csrf
-                                <div class="mb-3">
-                                    <label
-                                        for="serialNumber"
-                                        class="form-label"
-                                    >Product Serial Number</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="serialNumber"
-                                        name="serial_num"
-                                        aria-describedby="emailHelp"
-                                        placeholder="Enter Product Serial Number"
-                                    >
-                                </div>
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary waves-effect waves-light"
-                                >Submit</button>
-                            </form>
+                                <form
+                                    action="{{ url('sales-register-serial') }}"
+                                    method="POST"
+                                    enctype="multipart/form-data"
+                                >
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label
+                                            for="serialNumber"
+                                            class="form-label"
+                                        >Product Serial Number</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="serialNumber"
+                                            name="serial_num"
+                                            aria-describedby="emailHelp"
+                                            placeholder="Enter Product Serial Number"
+                                        >
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary waves-effect waves-light"
+                                    >Submit</button>
+                                </form>
 
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div><!-- end col-->
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div><!-- end col-->
+                @endif
             </div>
             <!-- end row-->
 

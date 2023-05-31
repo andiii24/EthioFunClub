@@ -62,7 +62,7 @@
                                         <ul>
                                             @foreach ($users as $user)
                                                 <li>
-                                                    <a href="{{ url('child/' . $user->id) }}">{{ $user->name }} <br> {{ $user->phone }} <br> Level {{ $user->level }} </a>
+                                                    <a href="{{ url('sales-child/' . $user->id) }}">{{ $user->name }} <br> {{ $user->phone }} <br> Level {{ $user->level }} </a>
                                                     @php
                                                         $children = User::where('upid', $user->id)->get();
                                                     @endphp
@@ -71,7 +71,7 @@
                                                         <ul>
                                                             @foreach ($children as $child)
                                                                 <li>
-                                                                    <a href="{{ url('child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> Level {{ $child->level }} </a>
+                                                                    <a href="{{ url('sales-child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> Level {{ $child->level }} </a>
                                                                     @include('accounts.sales.genealogy.partials.tree', ['user' => $child])
                                                                 </li>
                                                             @endforeach

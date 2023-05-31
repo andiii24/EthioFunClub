@@ -200,6 +200,45 @@
                     </form>
                 </div>
             </li>
+            <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
+                <a
+                    class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-haspopup="false"
+                    aria-expanded="false"
+                >
+                    <img
+                        src="assets/images/flags/us.jpg"
+                        alt="user-image"
+                        height="16"
+                    >
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <div class="col-md-4">
+                        <select class="form-control changeLang">
+                            <option
+                                value="en"
+                                {{ session()->get('locale') == 'en' ? 'selected' : '' }}
+                            >English</option>
+                            <option
+                                value="de"
+                                {{ session()->get('locale') == 'de' ? 'selected' : '' }}
+                            >Amharic</option>
+                            <option
+                                value="it"
+                                {{ session()->get('locale') == 'it' ? 'selected' : '' }}
+                            >Oromifa</option>
+                            <option
+                                value="es"
+                                {{ session()->get('locale') == 'es' ? 'selected' : '' }}
+                            >Tigregna</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+
         </ul>
 
         <!-- LOGO -->

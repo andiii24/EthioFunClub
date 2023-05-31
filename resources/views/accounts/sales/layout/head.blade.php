@@ -62,6 +62,10 @@
         type="text/css"
     />
     <style>
+        .inactive-menu {
+            opacity: 0.5;
+        }
+
         body {
             font-family: sans-serif;
             font-size: 12px;
@@ -157,16 +161,16 @@
 
         .tree li a:hover,
         .tree li a:hover+ul li a {
-            background: #e9453f;
+            background: #eef73e;
             color: #fff;
-            border: 1px solid #e9453f;
+            border: 1px solid #eef73e;
         }
 
         .tree li a:hover+ul li::after,
         .tree li a:hover+ul li::before,
         .tree li a:hover+ul::before,
         .tree li a:hover+ul ul::before {
-            border-color: #e9453f;
+            border-color: #eef73e;
         }
 
         @media only screen and (max-width: 768px) {

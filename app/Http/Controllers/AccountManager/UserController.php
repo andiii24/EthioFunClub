@@ -138,6 +138,30 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User activated successfully'], 200);
     }
+    public function diactivate(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        $user->status = 0;
+        $user->save();
+
+        return response()->json(['message' => 'User Deactivated successfully'], 200);
+    }
+    public function activation(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        $user->status = 1;
+        $user->save();
+
+        return response()->json(['message' => 'User Activated successfully'], 200);
+    }
 
     public function level_update(Request $request)
     {

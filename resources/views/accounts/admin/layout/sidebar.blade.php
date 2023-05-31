@@ -148,14 +148,14 @@
                                     <span>Send Message</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ url('send-composed-message') }}">
+                                    <i class="fe-navigation"></i>
+                                    <span>Send Composed Message</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                </li>
-                <li>
-                    <a href="{{ url('account-manager-payments') }}">
-                        <i class="fe-dollar-sign"></i>
-                        <span> Payments </span>
-                    </a>
                 </li>
                 <li>
                     <a
@@ -177,7 +177,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('level-payment-update') }}">
+                                <a href="{{ url('level-based') }}">
                                     <i class="fe-plus"></i>
                                     <span> Level Based </span>
                                 </a>

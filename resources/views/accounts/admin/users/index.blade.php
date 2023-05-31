@@ -75,16 +75,25 @@
                                                         <a
                                                             href="{{ url('edit-sales/' . $item->id) }}"
                                                             type="button"
-                                                            class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
+                                                            class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >Edit</a>
                                                         <button
                                                             type="button"
                                                             class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >Delete</button>
-                                                        @if ($item->status == 0)
+                                                        @if ($item->status == 1)
                                                             <button
                                                                 type="button"
-                                                                class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
+                                                                class="btn btn-outline-warning width-xs rounded-pill waves-effect waves-light btn-xs"
+                                                                onclick="deactivateUser(event.target.getAttribute('data-user-id'))"
+                                                                data-user-id="{{ $item->id }}"
+                                                            >
+                                                                Deactivate
+                                                            </button>
+                                                        @elseif($item->status == 0)
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
                                                                 onclick="activateUser(event.target.getAttribute('data-user-id'))"
                                                                 data-user-id="{{ $item->id }}"
                                                             >
@@ -113,10 +122,30 @@
 
     </div>
     <script>
+        function deactivateUser(userId) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('diactivate') }}',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'user_id': userId
+                },
+                success: function(response) {
+                    alert(response.message);
+                    location.reload();
+
+                    // You can also update the UI here to reflect the new status
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.message);
+                }
+            });
+        }
+
         function activateUser(userId) {
             $.ajax({
                 type: 'POST',
-                url: '{{ url('update-status') }}',
+                url: '{{ url('activation') }}',
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'user_id': userId

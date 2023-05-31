@@ -36,10 +36,10 @@
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
                                 <li class="breadcrumb-item active">Admin</li>
-                                <li class="breadcrumb-item active">Send Message</li>
+                                <li class="breadcrumb-item active">Send Composed Message</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Send Message</h4>
+                        <h4 class="page-title">Send Composed Message</h4>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <form
-                                        action="{{ url('message-send') }}"
+                                        action="{{ url('message-composed-send') }}"
                                         method="POST"
                                         enctype="multipart/form-data"
                                     >
@@ -71,12 +71,18 @@
                                                     <select
                                                         class="form-select"
                                                         id="example-select"
-                                                        name="user_id"
+                                                        name="send_to"
                                                         required
                                                     >
-                                                        @foreach ($users as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
+                                                        <option value="all">All</option>
+                                                        <option value="sales">Sales</option>
+                                                        <option value="customer">Customers</option>
+                                                        <option value="level0">Level 0</option>
+                                                        <option value="level1">Level 1</option>
+                                                        <option value="level2">Level 2</option>
+                                                        <option value="level3">Level 3</option>
+                                                        <option value="level4">Level 4</option>
+                                                        <option value="level5">Level 5</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">

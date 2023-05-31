@@ -177,10 +177,10 @@ class CustomerController extends Controller
             $sales->user_id = auth()->user()->id;
             $sales->save();
             return redirect()->route('customer-manager')
-                ->with('success', 'Sales serial attached.');
+                ->with('success', 'Sales Registered');
         }
         return redirect()->route('customer-manager')
-            ->with('success', 'Invalid Serial attached.');
+            ->with('error', 'Invalid Serial Number.');
 
     }
     public function edit_profile()
