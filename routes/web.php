@@ -3,7 +3,6 @@
 use App\Http\Controllers\AccountManager\AccountManagerController;
 use App\Http\Controllers\AccountManager\UserController;
 use App\Http\Controllers\customer\CustomerController;
-use App\Http\Controllers\LangController;
 use App\Http\Controllers\SalesPersonController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 Route::get('/', [AccountManagerController::class, 'slash']);
-Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
-Route::get('/{lang}', [LangController::class, 'setLocale']);
 
 Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
@@ -89,6 +86,8 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('child/{id}', [CustomerController::class, 'child']);
 
 });
+Route::get('/{lang}', [LangController::class, 'setLocale']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

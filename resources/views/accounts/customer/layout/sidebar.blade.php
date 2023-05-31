@@ -33,7 +33,7 @@
                         class="dropdown-item notify-item"
                     >
                         <i class="fe-log-out me-1"></i>
-                        <span>Logout</span>
+                        <span>{{ __('dashboard.Logout') }}</span>
                     </a>
 
                     <form
@@ -53,11 +53,11 @@
 
             <ul id="side-menu">
 
-                <li class="menu-title">Navigation</li>
+                <li class="menu-title">{{ __('dashboard.Navigation') }}</li>
                 <li>
                     <a href="{{ url('customer-manager') }}">
                         <i data-feather="airplay"></i>
-                        <span> Dashboards </span>
+                        <span> {{ __('dashboard.Dashboards') }} </span>
                     </a>
                 </li>
                 @if (auth()->user()->status == 1)
@@ -67,7 +67,7 @@
                             data-bs-toggle="collapse"
                         >
                             <i class="fe-user"></i>
-                            <span> Customers </span>
+                            <span> {{ __('dashboard.Customers') }}</span>
                         </a>
                         <div
                             class="collapse"
@@ -77,14 +77,14 @@
                                 <li>
                                     <a href="{{ url('customer-customer') }}">
                                         <i class="fe-users"></i>
-                                        <span> All Customers </span>
+                                        <span> {{ __('dashboard.All_Customers') }}</span>
                                     </a>
                                 </li>
                                 @if (!auth()->user()->left_child_id || !auth()->user()->middle_child_id || !auth()->user()->right_child_id)
                                     <li>
                                         <a href="{{ url('customer-create-customer') }}">
                                             <i class="fe-user-plus"></i>
-                                            <span>Add Customer</span>
+                                            <span>{{ __('dashboard.Add_Customer') }}</span>
                                         </a>
                                     </li>
                                 @endif
@@ -94,7 +94,7 @@
                     <li>
                         <a href="{{ url('customer-genealogy') }}">
                             <i class="fe-layers"></i>
-                            <span> My Genealogy </span>
+                            <span> {{ __('dashboard.My_Genealogy') }} </span>
                         </a>
                     </li>
                 @elseif (auth()->user()->status == 0)
@@ -104,7 +104,7 @@
                             data-bs-toggle="collapse"
                         >
                             <i class="fe-user"></i>
-                            <span> Customers </span>
+                            <span> {{ __('dashboard.Customers') }} </span>
                         </a>
                         <div
                             class="collapse"
@@ -114,14 +114,14 @@
                                 <li>
                                     <a href="#">
                                         <i class="fe-users"></i>
-                                        <span> All Customers </span>
+                                        <span>{{ __('dashboard.All_Customers') }} </span>
                                     </a>
                                 </li>
                                 @if (!auth()->user()->left_child_id || !auth()->user()->middle_child_id || !auth()->user()->right_child_id)
                                     <li>
                                         <a href="#">
                                             <i class="fe-user-plus"></i>
-                                            <span>Add Customer</span>
+                                            <span>{{ __('dashboard.Add_Customer') }}</span>
                                         </a>
                                     </li>
                                 @endif
@@ -131,14 +131,14 @@
                     <li class="inactive-menu">
                         <a href="#">
                             <i class="fe-layers"></i>
-                            <span> My Genealogy </span>
+                            <span>{{ __('dashboard.My_Genealogy') }} </span>
                         </a>
                     </li>
                 @endif
                 <li>
                     <a href="{{ url('customer-view-message') }}">
                         <i class="fe-mail"></i>
-                        <span> Messages </span>
+                        <span> {{ __('dashboard.Messages') }}</span>
                     </a>
                 </li>
             </ul>

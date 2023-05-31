@@ -36,10 +36,10 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ asset('customer-manager') }}">customer</a></li>
-                                <li class="breadcrumb-item active">Messages</li>
+                                <li class="breadcrumb-item active">{{ __('dashboard.Messages') }}</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Messages</h4>
+                        <h4 class="page-title">{{ __('dashboard.Messages') }}</h4>
                     </div>
                 </div>
             </div>
@@ -55,10 +55,10 @@
                             >
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Subject</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
+                                        <th>{{ __('dashboard.No') }}</th>
+                                        <th>{{ __('dashboard.Subject') }}</th>
+                                        <th>{{ __('dashboard.Date') }}</th>
+                                        <th>{{ __('dashboard.Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,7 +75,7 @@
                                                             onclick="readMsg(event.target.getAttribute('data-message-id'))"
                                                             data-message-id="{{ $item->id }}"
                                                             class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >read</button>
+                                                        >{{ __('dashboard.read') }}</button>
 
                                                     </div>
                                                 </div>

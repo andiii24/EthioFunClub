@@ -93,22 +93,6 @@
     <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
     <!-- Datatables init -->
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
-    <script>
-        const selectLang = document.querySelector('.changeLang');
-        selectLang.addEventListener('change', function() {
-            const selectedLang = this.value;
-            fetch(`/set-locale/${selectedLang}`, {
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(error => console.log(error));
-        });
-    </script>
 </body>
 
 </html>

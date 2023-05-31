@@ -7,7 +7,7 @@
 
     @foreach ($children as $child)
         <li>
-            <a href="{{ url('child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> Level {{ $child->level }} </a>
+            <a href="{{ url('child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> {{ __('dashboard.Level') }} {{ $child->level }} </a>
             <p></p>
 
             @php
@@ -18,7 +18,7 @@
                 <ul>
                     @foreach ($grandchildren as $grandchild)
                         <li>
-                            <a href="{{ url('child/' . $grandchild->id) }}">{{ $grandchild->name }} <br> {{ $grandchild->phone }} <br> Level {{ $grandchild->level }} </a>
+                            <a href="{{ url('child/' . $grandchild->id) }}">{{ $grandchild->name }} <br> {{ $grandchild->phone }} <br> {{ __('dashboard.Level') }} {{ $grandchild->level }} </a>
                             @include('accounts.customer.genealogy.partials.tree', ['user' => $grandchild])
                         </li>
                     @endforeach
