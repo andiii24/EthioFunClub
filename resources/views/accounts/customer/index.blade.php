@@ -44,22 +44,22 @@
                             <div class="modal-body p-4">
                                 <div class="text-center">
                                     <i class="dripicons-wrong h1 text-white"></i>
-                                    <h4 class="mt-2 text-white">Account Not Active!</h4>
+                                    <h4 class="mt-2 text-white">{{ __('dashboard.AccountNotActive') }}</h4>
                                     @if ($payment)
-                                        <p class="mt-3 text-white">Waiting for payment approval</p>
+                                        <p class="mt-3 text-white">{{ __('dashboard.waitingForApproval') }}</p>
                                         <button
                                             type="button"
                                             class="btn btn-light my-2"
                                             data-bs-dismiss="modal"
-                                        >Continue</button>
+                                        >{{ __('dashboard.Continue') }}</button>
                                     @else
-                                        <p class="mt-3 text-white">To activate your account you have to pay for your membership</p>
+                                        <p class="mt-3 text-white">{{ __('dashboard.') }}To activate your account you have to pay for your membership</p>
                                         <button
                                             type="button"
                                             class="btn btn-light my-2"
                                             data-bs-dismiss="modal"
                                             id="attach-payment-button"
-                                        >Attach payment</button>
+                                        >{{ __('dashboard.Attach_payment_slip') }}</button>
                                     @endif
 
                                 </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-10">
                     <div class="page-title-box">
-                        <h4 class="page-title">Dashboard</h4>
+                        <h4 class="page-title">{{ __('dashboard.Dashboard') }}</h4>
                     </div>
                 </div>
                 @if (auth()->user()->status == 0)
@@ -80,7 +80,7 @@
                                 class="btn btn-danger rounded-pill"
                                 data-bs-toggle="modal"
                                 data-bs-target="#danger-alert-modal"
-                            >Not Active</button>
+                            >{{ __('dashboard.NotActive') }}</button>
                         </div>
                     </div>
                 @else
@@ -102,7 +102,7 @@
                                 <div class="col-6">
                                     <div class="text-end">
                                         <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $todaySales }}</span></h3>
-                                        <p class="text-muted mb-1 text-truncate">Today's Sales</p>
+                                        <p class="text-muted mb-1 text-truncate">{{ __('dashboard.TodaySale') }}</p>
                                     </div>
                                 </div>
                             </div> <!-- end row-->
@@ -121,7 +121,7 @@
                                 <div class="col-6">
                                     <div class="text-end">
                                         <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $sales }}</span></h3>
-                                        <p class="text-muted mb-1 text-truncate">Total Sales</p>
+                                        <p class="text-muted mb-1 text-truncate">{{ __('dashboard.TotalSales') }}</p>
                                     </div>
                                 </div>
                             </div> <!-- end row-->
@@ -131,7 +131,7 @@
                 <div class="col-md-6 col-xl-6 {{ auth()->user()->status == 0 ? 'inactive-menu' : '' }}">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-3 header-title text-center">Register Sales</h4>
+                            <h4 class="mb-3 header-title text-center">{{ __('dashboard.RegisterSerialNumber') }}</h4>
 
                             <form
                                 action="{{ url('customer-register-serial') }}"
@@ -143,7 +143,7 @@
                                     <label
                                         for="serialNumber"
                                         class="form-label"
-                                    >Product Serial Number</label>
+                                    >{{ __('dashboard.productSerialNumber') }}</label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -157,7 +157,7 @@
                                     <button
                                         type="submit"
                                         class="btn btn-primary waves-effect waves-light"
-                                    >Submit</button>
+                                    >{{ __('dashboard.Submit') }}</button>
                                 @endif
                             </form>
                             <h1>{{ __('dashboard.title') }}</h1>

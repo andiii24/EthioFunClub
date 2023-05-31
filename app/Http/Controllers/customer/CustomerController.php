@@ -92,12 +92,7 @@ class CustomerController extends Controller
             $parentUser->left_child_id &&
             $parentUser->middle_child_id &&
             $parentUser->right_child_id
-            // $parentUser->leftChild &&
-            // $parentUser->middleChild &&
-            // $parentUser->rightChild &&
-            // $parentUser->leftChild->level == 1 &&
-            // $parentUser->middleChild->level == 1 &&
-            // $parentUser->rightChild->level == 1
+
         ) {
             // Increment the level of the authenticated user
             $ot = $parentUser->minChildLevel();
@@ -111,7 +106,7 @@ class CustomerController extends Controller
 
         // Redirect or return the response as needed
         return redirect()->route('customer-customer')
-            ->with('success', 'Property added successfully.');
+            ->with('success', __('dashboard.CustomerRegisterdSuccess'));
     }
     public function attach()
     {
@@ -137,7 +132,7 @@ class CustomerController extends Controller
         $payment->user_id = auth()->user()->id;
         $payment->save();
         return redirect()->route('customer-manager')
-            ->with('success', 'Payment slip attached successfully.');
+            ->with('success', __('dashboard.Paymentslipattachedsuccessfully'));
     }
     public function messages()
     {
@@ -180,7 +175,7 @@ class CustomerController extends Controller
                 ->with('success', 'Sales Registered');
         }
         return redirect()->route('customer-manager')
-            ->with('error', 'Invalid Serial Number.');
+            ->with('error', __('dashboard.InvalidSerialNumber'));
 
     }
     public function edit_profile()
@@ -220,7 +215,7 @@ class CustomerController extends Controller
         $user->save();
 
         return redirect()->route('customer-manager')
-            ->with('success', 'Property added successfully.');
+            ->with('success', __('dashboard.ProfileUpdatedSuccessfully'));
     }
     public function genealogy()
     {

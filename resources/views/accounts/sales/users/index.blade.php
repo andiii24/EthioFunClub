@@ -36,10 +36,10 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">{{ Auth::user()->name }}</a></li>
-                                <li class="breadcrumb-item active">Users</li>
+                                <li class="breadcrumb-item active">{{ __('dashboard.Users') }}</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Customers</h4>
+                        <h4 class="page-title">{{ __('dashboard.Sales') }}</h4>
                     </div>
                 </div>
             </div>
@@ -55,9 +55,9 @@
                             >
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
+                                        <th>{{ __('dashboard.No') }}</th>
+                                        <th>{{ __('dashboard.Name') }}</th>
+                                        <th>{{ __('dashboard.Phone') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

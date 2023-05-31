@@ -34,12 +34,12 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Sales</a></li>
-                                <li class="breadcrumb-item active">Payment</li>
-                                <li class="breadcrumb-item active">Attach</li>
+                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">{{ __('dashboard.Sales') }}</a></li>
+                                <li class="breadcrumb-item active">{{ __('dashboard.Payment') }}</li>
+                                <li class="breadcrumb-item active">{{ __('dashboard.Attach') }}</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Attach payment-slip</h4>
+                        <h4 class="page-title">{{ __('dashboard.Attach_payment_slip') }}</h4>
                     </div>
                 </div>
             </div>
@@ -66,13 +66,13 @@
                                                     <label
                                                         for="name"
                                                         class="form-label"
-                                                    >Acount Number: 10001232321 (CBE)</label>
+                                                    >{{ __('dashboard.Acount_Number') }}: 10001232321 (CBE)</label>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label
                                                         for="name"
                                                         class="form-label"
-                                                    >Name: Abebe Tolosa</label>
+                                                    >{{ __('dashboard.Name') }}: {{ __('dashboard.Account_Holder') }}</label>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
@@ -80,7 +80,7 @@
                                                             <label
                                                                 for="amount"
                                                                 class="form-label"
-                                                            >Amount (ETB)</label>
+                                                            >{{ __('dashboard.Amount') }} (ETB)</label>
                                                             <input
                                                                 type="number"
                                                                 id="number"
@@ -98,7 +98,7 @@
                                                         <label
                                                             for="image"
                                                             class="form-label"
-                                                        >Attach Slip</label>
+                                                        >{{ __('dashboard.Attach_Slip') }}</label>
                                                         <input
                                                             type="file"
                                                             name="image"
@@ -115,14 +115,13 @@
                                                 <button
                                                     type="submit"
                                                     class="btn btn-success rounded-pill waves-effect waves-light"
-                                                >Submit</button>
+                                                >{{ __('dashboard.Submit') }}</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div> <!-- end col -->
                             </div>
                             <!-- end row-->
-
                         </div> <!-- end card-body -->
                     </div> <!-- end card -->
                 </div><!-- end col -->

@@ -129,7 +129,7 @@ class SalesPersonController extends Controller
         // Redirect or return the response as needed
 
         return redirect()->route('sales-customer')
-            ->with('success', 'Property added successfully.');
+            ->with('success', __('dashboard.CustomerRegisterdSuccess'));
     }
 
     public function attach()
@@ -156,7 +156,7 @@ class SalesPersonController extends Controller
         $payment->user_id = auth()->user()->id;
         $payment->save();
         return redirect()->route('sales-manager')
-            ->with('success', 'Payment slip attached successfully.');
+            ->with('success', __('dashboard.Paymentslipattachedsuccessfully'));
     }
     public function messages()
     {
@@ -219,6 +219,45 @@ class SalesPersonController extends Controller
                 ->with('success', 'Sales Approved');
         }
         return redirect()->route('sales-manager')
-            ->with('error', 'Invalid Serial Number.');
+            ->with('error', __('dashboard.InvalidSerialNumber'));
+    }
+    public function edit_profile()
+    {
+        $user = Auth::user();
+        return view('accounts.admin.users.profile', compact('user'));
+    }
+    public function update_profile(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'password' => 'nullable|string|min:8|confirmed',
+            'confirm_password' => 'required|min:8|same:password',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $validated['name'];
+        $user->phone = $validated['phone'];
+
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        if ($request->hasFile('image')) {
+            $path = 'assets/images/users/' . $user->image;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/users'), $imageName);
+            $user->image = $imageName;
+        }
+
+        $user->save();
+
+        return redirect()->route('admin-manager')
+            ->with('success', __('dashboard.ProfileUpdatedSuccessfully'));
     }
 }

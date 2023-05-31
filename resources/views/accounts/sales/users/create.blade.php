@@ -34,12 +34,12 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">Customer</li>
-                                <li class="breadcrumb-item active">Register</li>
+                                <li class="breadcrumb-item"><a href="{{ asset('sales-manager') }}">{{ __('dashboard.Admin') }}</a></li>
+                                <li class="breadcrumb-item active">{{ __('dashboard.Sales') }}</li>
+                                <li class="breadcrumb-item active">{{ __('dashboard.Register') }}</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Register Customer</h4>
+                        <h4 class="page-title">{{ __('dashboard.Register_Sales') }}</h4>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <form
-                                        action="{{ url('register-customer') }}"
+                                        action="{{ url('customer-register-customer') }}"
                                         method="POST"
                                         enctype="multipart/form-data"
                                     >
@@ -63,7 +63,7 @@
                                                     <label
                                                         for="name"
                                                         class="form-label"
-                                                    >Name</label>
+                                                    >{{ __('dashboard.Name') }}</label>
                                                     <input
                                                         type="text"
                                                         id="name"
@@ -81,7 +81,7 @@
                                                     <label
                                                         for="phone"
                                                         class="form-label"
-                                                    >Phone</label>
+                                                    >{{ __('dashboard.Phone') }}</label>
                                                     <input
                                                         type="text"
                                                         id="phone"
@@ -100,7 +100,7 @@
                                                     <label
                                                         for="password"
                                                         class="form-label"
-                                                    >Password</label>
+                                                    >{{ __('dashboard.Password') }}</label>
                                                     <input
                                                         type="password"
                                                         id="password"
@@ -118,7 +118,7 @@
                                                     <label
                                                         for="confirm_password"
                                                         class="form-label"
-                                                    >Confirm Password</label>
+                                                    >{{ __('dashboard.Confirm_Password') }}</label>
                                                     <input
                                                         type="password"
                                                         id="confirm_password"
@@ -136,7 +136,7 @@
                                                 <button
                                                     type="submit"
                                                     class="btn btn-success rounded-pill waves-effect waves-light"
-                                                >Submit</button>
+                                                >{{ __('dashboard.Submit') }}</button>
                                             </div>
                                         </div>
                                     </form>

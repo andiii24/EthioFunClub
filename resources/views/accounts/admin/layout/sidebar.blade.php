@@ -57,7 +57,7 @@
                 <li>
                     <a href="{{ url('account-manager') }}">
                         <i data-feather="airplay"></i>
-                        <span> Dashboards </span>
+                        <span> Dashboard </span>
                     </a>
                 </li>
                 <li>

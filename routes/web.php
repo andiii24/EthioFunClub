@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\AccountManager\AccountManagerController;
-use App\Http\Controllers\AccountManager\UserController;
-use App\Http\Controllers\customer\CustomerController;
-use App\Http\Controllers\SalesPersonController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LangController;
+use App\Http\Controllers\SalesPersonController;
+use App\Http\Controllers\customer\CustomerController;
+use App\Http\Controllers\AccountManager\UserController;
+use App\Http\Controllers\AccountManager\AccountManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +51,8 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('sales-manager', [SalesPersonController::class, 'index'])->name('sales-manager');
-    Route::get('sales-profile', [AccountManagerController::class, 'edit_profile'])->name('admin-profile');
-    Route::put('update-profile-sales/{id}', [AccountManagerController::class, 'update_profile']);
+    Route::get('sales-profile', [SalesPersonController::class, 'edit_profile'])->name('admin-profile');
+    Route::put('update-profile-sales/{id}', [SalesPersonController::class, 'update_profile']);
     Route::get('sales-create-customer', [SalesPersonController::class, 'create']);
     Route::get('sales-customer', [SalesPersonController::class, 'customers'])->name('sales-customer');
     Route::get('attach-payment-sales', [SalesPersonController::class, 'attach']);

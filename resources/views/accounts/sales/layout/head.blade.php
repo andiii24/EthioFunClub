@@ -1,7 +1,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Ethio FunClub</title>
+    <title>{{ __('dashboard.title') }}</title>
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
