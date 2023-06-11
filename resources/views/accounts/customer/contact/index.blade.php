@@ -80,15 +80,19 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
+                                        <h1>Sales Agent Information</h1>
                                         <img
-                                            src="{{ asset('assets/images/payment/' . $user->image) }}"
+                                            src="{{ asset('assets/images/users/' . $currentPerson->image) }}"
                                             alt=""
+                                            style="width:70px;height: 70px"
                                         >
-                                        <h5>WhatsApp Number: +036 95895 9559</h5>
+                                        <h5>Name : {{ $currentPerson->name }}</h5>
+                                        <h5>Phone : {{ $currentPerson->phone }}</h5>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="mb-3">
+                                    <div class="mb-3 mt-5">
+                                        <h4>WhatsApp Number: +036 95895 9559</h4>
                                     </div>
                                 </div>
                             </div>

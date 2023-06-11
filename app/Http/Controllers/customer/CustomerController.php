@@ -238,7 +238,17 @@ class CustomerController extends Controller
     }
     public function contact()
     {
-        return view('accounts.customer.contact.index');
+
+        $currentPerson = auth()->user();
+        while ($currentPerson) {
+            if ($currentPerson->role == 'sales') {
+                // dd($currentPerson->image);
+                return view('accounts.customer.contact.index', compact('currentPerson'));
+            }
+            $currentPerson = User::where('id', $currentPerson->upid)->first(); // Assuming a 'parent' relationship exists in the Person model
+        }
+
+        return view('accounts.customer.contact.index', compact('currentPerson'));
     }
 
 }
