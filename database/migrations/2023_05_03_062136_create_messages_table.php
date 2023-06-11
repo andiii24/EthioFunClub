@@ -16,7 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('subject');
+            $table->string('subject_am');
             $table->text('message_body');
+            $table->text('message_body_am');
             $table->bigInteger('is_read')->default(0);
             $table->timestamps();
         });

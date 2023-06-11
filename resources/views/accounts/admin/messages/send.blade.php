@@ -96,11 +96,28 @@
                                                         <span class="text-danger">{{ $errors->first('subject') }}</span>
                                                     @endif
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="subject"
+                                                        class="form-label"
+                                                    >Subject in amharic</label>
+                                                    <input
+                                                        type="text"
+                                                        id="subject"
+                                                        name="subject_am"
+                                                        placeholder="subject"
+                                                        class="form-control"
+                                                        required
+                                                    >
+                                                    @if ($errors->has('subject'))
+                                                        <span class="text-danger">{{ $errors->first('subject') }}</span>
+                                                    @endif
+                                                </div>
                                                 <div class="mb-3 text">
                                                     <label
                                                         for="example-textarea"
                                                         class="form-label"
-                                                    >Text area</label>
+                                                    >Message</label>
                                                     <textarea
                                                         class="form-control"
                                                         id="example-textarea"
@@ -108,14 +125,25 @@
                                                         name="message"
                                                     ></textarea>
                                                 </div>
+                                                <div class="mb-3 text">
+                                                    <label
+                                                        for="example-textarea"
+                                                        class="form-label"
+                                                    >Message in Amharic</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        id="example-textarea"
+                                                        rows="5"
+                                                        name="message_am"
+                                                    ></textarea>
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-success rounded-pill waves-effect waves-light"
+                                                    >Submit</button>
+                                                </div>
                                             </div>
-                                            <div class="col-12 text-center">
-                                                <button
-                                                    type="submit"
-                                                    class="btn btn-success rounded-pill waves-effect waves-light"
-                                                >Submit</button>
-                                            </div>
-                                        </div>
                                     </form>
                                 </div> <!-- end col -->
                             </div>

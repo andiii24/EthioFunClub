@@ -114,13 +114,17 @@ class AccountManagerController extends Controller
         $request->validate([
             'user_id' => 'required',
             'subject' => 'required|max:255',
+            'subject_am' => 'required|max:255',
             'message' => 'required|string',
+            'message_am' => 'required|string',
         ]);
         // dd($request);
         $message = new Message;
         $message->user_id = $request->user_id;
         $message->subject = $request->subject;
+        $message->subject_am = $request->subject_am;
         $message->message_body = $request->message;
+        $message->message_body_am = $request->message_am;
         $message->is_read = 0;
         $message->save();
         return redirect()->route('admin-message')
@@ -131,7 +135,9 @@ class AccountManagerController extends Controller
         $request->validate([
             'send_to' => 'required',
             'subject' => 'required|max:255',
+            'subject_am' => 'required|max:255',
             'message' => 'required|string',
+            'message_am' => 'required|string',
         ]);
         // dd($request);
         $all = User::all();
@@ -149,7 +155,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -160,7 +168,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -171,7 +181,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -182,7 +194,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -193,7 +207,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -204,7 +220,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -215,7 +233,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -226,7 +246,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }
@@ -237,7 +259,9 @@ class AccountManagerController extends Controller
                 $message = new Message;
                 $message->user_id = $item->id;
                 $message->subject = $request->subject;
+                $message->subject_am = $request->subject_am;
                 $message->message_body = $request->message;
+                $message->message_body_am = $request->message_am;
                 $message->is_read = 0;
                 $message->save();
             }

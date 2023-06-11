@@ -68,4 +68,5 @@ return [
     'Paymentslipattachedsuccessfully.' => 'Payment slip attached successfully.',
     'InvalidSerialNumber' => 'Invalid Serial Number.',
     'ProfileUpdatedSuccessfully' => 'Profile Updated Successfully.',
+    'ContactUs' => 'Contact Us',
 ];

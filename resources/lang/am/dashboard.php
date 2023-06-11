@@ -68,4 +68,5 @@ return [
     'Paymentslipattachedsuccessfully.' => 'የክፍያ ደረሰኙ ተልኳል',
     'InvalidSerialNumber' => 'ይህ ልዩ ቁጥር አይታወቅም.',
     'ProfileUpdatedSuccessfully' => 'በትክክል ተስተካክሏል',
+    'contacUs' => 'መገናኛ',
 ];

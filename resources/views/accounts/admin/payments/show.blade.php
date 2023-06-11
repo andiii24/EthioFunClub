@@ -65,7 +65,7 @@
                                         <div class="logo logo-dark">
                                             <span class="logo-lg">
                                                 <img
-                                                    src="assets/images/logo-dark.png"
+                                                    src="{{ asset('assets/images/logo-dark.png') }}"
                                                     alt=""
                                                     height="22"
                                                 >
@@ -75,7 +75,7 @@
                                         <div class="logo logo-light">
                                             <span class="logo-lg">
                                                 <img
-                                                    src="assets/images/logo-light.png"
+                                                    src="{{ asset('assets/images/logo-light.png') }}"
                                                     alt=""
                                                     height="22"
                                                 >

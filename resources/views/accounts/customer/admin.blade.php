@@ -61,6 +61,9 @@
     <script>
         $(document).ready(function() {
             var table = $('#data_table').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/am.json',
+                },
                 "paging": true,
                 "ordering": true,
                 "info": true,
@@ -68,8 +71,10 @@
             });
         });
     </script>
-
-    <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+    <script
+        script
+        src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"
+    ></script>
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/libs/selectize/js/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/dashboard-1.init.js') }}"></script>

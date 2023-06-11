@@ -61,6 +61,9 @@
     <script>
         $(document).ready(function() {
             var table = $('#data_table').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/am.json',
+                },
                 "paging": true,
                 "ordering": true,
                 "info": true,

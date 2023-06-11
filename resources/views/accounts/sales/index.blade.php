@@ -161,14 +161,12 @@
                                         class="btn btn-primary waves-effect waves-light"
                                     >{{ __('dashboard.Submit') }}</button>
                                 </form>
-
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                     </div><!-- end col-->
                 @endif
             </div>
             <!-- end row-->
-
             <!-- end row -->
 
         </div> <!-- container -->

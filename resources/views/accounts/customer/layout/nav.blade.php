@@ -42,13 +42,6 @@
                     >
                         አማርኛ
                     </a>
-                    <a
-                        class="dropdown-item"
-                        style="color: #6c757d;"
-                        href="/or"
-                    >
-                        Oromiffa
-                    </a>
                 </div>
             </li>
             <li class="dropdown notification-list topbar-dropdown">

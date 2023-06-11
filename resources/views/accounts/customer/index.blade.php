@@ -160,7 +160,6 @@
                                     >{{ __('dashboard.Submit') }}</button>
                                 @endif
                             </form>
-                            <h1>{{ __('dashboard.title') }}</h1>
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
                 </div><!-- end col-->

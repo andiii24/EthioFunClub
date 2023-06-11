@@ -48,7 +48,7 @@
                     </form>
                 </div>
             </div>
-            <p class="text-muted">{{ Auth::user()->role }}</p>
+            {{-- <p class="text-muted">{{ Auth::user()->role }}</p> --}}
         </div>
 
         <!--- Sidemenu -->

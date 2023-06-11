@@ -236,5 +236,9 @@ class CustomerController extends Controller
         $users = User::where('upid', $user->id)->get();
         return view('accounts.customer.genealogy.index', compact('users', 'user'));
     }
+    public function contact()
+    {
+        return view('accounts.customer.contact.index');
+    }
 
 }

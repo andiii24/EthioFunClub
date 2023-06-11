@@ -89,29 +89,18 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mt-3">
-                                        <p><b style="text-transform: capitalize;">{{ __('dashboard.To') }} :{{ auth()->user()->name }}</b></p>
-                                    </div>
-
-                                </div><!-- end col -->
-                                <div class="col-md-4 offset-md-2">
-                                    <div class="mt-3 float-end">
-                                        <p><strong>{{ __('dashboard.Message_Date') }} : </strong> <span class="float-end"> &nbsp;&nbsp;&nbsp;&nbsp; {{ $messages->created_at->diffForHumans() }}</span></p>
-                                        </span></p>
-                                    </div>
-                                </div><!-- end col -->
-                            </div>
-                            <!-- end row -->
-
-                            <div class="row">
                                 <div
                                     class="col-8"
                                     style="margin: 20px auto;"
                                 >
-                                    <label for="">{{ __('dashboard.Subject') }} : {{ $messages->subject }}</label>
-                                    <p>{{ $messages->message_body }}</p>
-                                </div> <!-- end col -->
+                                    @if (app()->getLocale() === 'en')
+                                        <label for="">{{ __('dashboard.Subject') }} : {{ $messages->subject }}</label>
+                                        <p>{{ $messages->message_body }}</p>
+                                    @else
+                                        <label for="">{{ __('dashboard.Subject') }} : {{ $messages->subject_am }}</label>
+                                        <p>{{ $messages->message_body_am }}</p>
+                                    @endif
+                                </div>
                             </div>
                             <!-- end row -->
                         </div> <!-- end card -->

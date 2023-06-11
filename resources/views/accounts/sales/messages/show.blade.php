@@ -109,9 +109,14 @@
                                     class="col-8"
                                     style="margin: 20px auto;"
                                 >
-                                    <label for="">{{ __('dashboard.Subject') }} : {{ $messages->subject }}</label>
-                                    <p>{{ $messages->message_body }}</p>
-                                </div> <!-- end col -->
+                                    @if (app()->getLocale() === 'am')
+                                        <label for="">{{ __('dashboard.Subject_am') }} : {{ $messages->subject_am }}</label>
+                                        <p>{{ $messages->message_body_am }}</p>
+                                    @else
+                                        <label for="">{{ __('dashboard.Subject') }} : {{ $messages->subject }}</label>
+                                        <p>{{ $messages->message_body }}</p>
+                                    @endif
+                                </div>
                             </div>
                             <!-- end row -->
                         </div> <!-- end card -->

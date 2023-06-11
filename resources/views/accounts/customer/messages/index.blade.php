@@ -1,7 +1,6 @@
 @extends('accounts.customer.admin')
 @section('content')
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-fluid">
 
@@ -65,7 +64,13 @@
                                     @foreach ($messages as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $item->subject }}</td>
+                                            <td>
+                                                @if (app()->getLocale() === 'am')
+                                                    {{ $item->subject_am }}
+                                                @else
+                                                    {{ $item->subject }}
+                                                @endif
+                                            </td>
                                             <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <div class="row">

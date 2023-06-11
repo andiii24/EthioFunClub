@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountManager\AccountManagerController;
+use App\Http\Controllers\AccountManager\UserController;
+use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\SalesPersonController;
-use App\Http\Controllers\customer\CustomerController;
-use App\Http\Controllers\AccountManager\UserController;
-use App\Http\Controllers\AccountManager\AccountManagerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,8 +72,8 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('customer-manager', [CustomerController::class, 'index'])->name('customer-manager');
-    Route::get('customer-profile', [AccountManagerController::class, 'edit_profile'])->name('admin-profile');
-    Route::put('update-profile-customer/{id}', [AccountManagerController::class, 'update_profile']);
+    Route::get('customer-profile', [CustomerController::class, 'edit_profile']);
+    Route::put('update-profile-customer/{id}', [CustomerController::class, 'update_profile']);
     Route::get('customer-create-customer', [CustomerController::class, 'create']);
     Route::get('customer-customer', [CustomerController::class, 'customers'])->name('customer-customer');
     Route::get('attach-payment-customer', [CustomerController::class, 'attach']);
@@ -85,6 +85,7 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::post('customer-register-serial', [CustomerController::class, 'serial']);
     Route::get('customer-genealogy', [CustomerController::class, 'genealogy']);
     Route::get('child/{id}', [CustomerController::class, 'child']);
+    Route::get('contact-us', [CustomerController::class, 'contact']);
 
 });
 Route::get('/{lang}', [LangController::class, 'setLocale']);

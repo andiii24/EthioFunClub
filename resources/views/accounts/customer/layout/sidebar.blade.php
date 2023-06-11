@@ -46,7 +46,6 @@
                     </form>
                 </div>
             </div>
-            <p class="text-muted">{{ Auth::user()->role }}</p>
         </div>
         <!--- Sidemenu -->
         <div id="sidebar-menu">
@@ -134,7 +133,7 @@
                             <span>{{ __('dashboard.My_Genealogy') }} </span>
                         </a>
                     </li>
-                    @@elseif (auth()->user()->status == 0)
+                @elseif (auth()->user()->status == 0)
                     <li class="inactive-menu">
                         <a
                             href="#users"
@@ -176,6 +175,12 @@
                     <a href="{{ url('customer-view-message') }}">
                         <i class="fe-mail"></i>
                         <span> {{ __('dashboard.Messages') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('contact-us') }}">
+                        <i class="fe-mail"></i>
+                        <span> {{ __('dashboard.ContactUs') }}</span>
                     </a>
                 </li>
             </ul>

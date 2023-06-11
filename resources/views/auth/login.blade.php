@@ -69,7 +69,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="form-check">
@@ -80,7 +79,6 @@
                                             id="remember"
                                             {{ old('remember') ? 'checked' : '' }}
                                         >
-
                                         <label
                                             class="form-check-label"
                                             for="remember"
