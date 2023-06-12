@@ -69,4 +69,6 @@ return [
     'InvalidSerialNumber' => 'Invalid Serial Number.',
     'ProfileUpdatedSuccessfully' => 'Profile Updated Successfully.',
     'ContactUs' => 'Contact Us',
+    'ParentName'=> 'Registerd By',
+    'SendRequest'=>'Send Request',
 ];

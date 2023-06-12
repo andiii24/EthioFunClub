@@ -26,6 +26,7 @@ class User extends Authenticatable
         'left_child_id',
         'level',
         'level_payment',
+        'password_reset'
     ];
 
     /**

@@ -20,6 +20,8 @@ class AccountManagerController extends Controller
     {
         if (auth()->check()) {
             if (auth()->user()->role == 'admin') {
+
+                $requestCount = User::where('password_reset', 1)->count();
                 $users = User::all()->count();
                 $today = Carbon::today();
                 // Count sales made by the user today
@@ -27,7 +29,7 @@ class AccountManagerController extends Controller
                     ->count();
                 $newUsers = User::whereDate('created_at', $today)->count();
                 $sales = Sale::all()->count();
-                return view('accounts.admin.index', compact('users', 'userSalesCountToday', 'newUsers', 'sales'));
+                return view('accounts.admin.index', compact('users', 'userSalesCountToday', 'newUsers', 'sales', 'requestCount'));
             } elseif (auth()->user()->role == 'sales') {
                 $payment = Payment::where('user_id', auth()->user()->id)->first();
                 $userId = auth()->user()->id;
@@ -77,6 +79,7 @@ class AccountManagerController extends Controller
     public function index()
     {
         $users = User::all()->count();
+        $requestCount = User::where('password_reset', 1)->count();
         $today = Carbon::today();
 
         // Count sales made by the user today
@@ -84,7 +87,7 @@ class AccountManagerController extends Controller
             ->count();
         $newUsers = User::whereDate('created_at', $today)->count();
         $sales = Sale::all()->count();
-        return view('accounts.admin.index', compact('users', 'userSalesCountToday', 'newUsers', 'sales'));
+        return view('accounts.admin.index', compact('users', 'userSalesCountToday', 'newUsers', 'sales', 'requestCount'));
     }
     public function reports()
     {
@@ -289,7 +292,7 @@ class AccountManagerController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|',
             'confirm_password' => 'required|min:8|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -315,8 +318,8 @@ class AccountManagerController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin-manager')
-            ->with('success', 'Property added successfully.');
+        return redirect()->route('accounts.admin.index')
+            ->with('success', 'Profile Updated successfully.');
     }
     public function generate()
     {
@@ -393,5 +396,50 @@ class AccountManagerController extends Controller
     {
         $users = User::where('level_payment', 1)->get();
         return view('accounts.admin.payments.level', compact('users'));
+    }
+    public function forgot(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|numeric',
+            'name' => 'required|max:255',
+        ]);
+        $userName = User::where('name', $request->name)->first();
+        $userPhone = User::where('phone', $request->phone)->first();
+
+        // dd($userPhone);
+        if ($userName && $userPhone) {
+            // dd($userName);
+            $userName->password_reset = 1;
+            $userName->save();
+            return redirect()->route('login')
+                ->with('success', 'Password Reset Requested.');}
+    }
+    public function password_request()
+    {
+        $users = User::where('password_reset', 1)->get();
+        return view('accounts.admin.password.index', compact('users'));
+    }
+    public function reset_password($id)
+    {
+        $user = User::where('id', $id)->first();
+        return view('accounts.admin.password.show', compact('user'));
+    }
+    public function update_password(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'password' => 'required|string|min:8',
+            'confirm_password' => 'required|min:8|same:password',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+        $user->password_reset = 0;
+        $user->save();
+
+        return redirect()->route('accounts.admin.index')
+            ->with('success', 'Password Updated successfully.');
     }
 }

@@ -17,12 +17,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+Auth::routes();
+Route::post('password-forgot', [AccountManagerController::class, 'forgot']);
+
 Route::get('/', [AccountManagerController::class, 'slash']);
 
 Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
     Route::get('admin-profile', [AccountManagerController::class, 'edit_profile'])->name('admin-profile');
     Route::put('update-profile-admin/{id}', [AccountManagerController::class, 'update_profile']);
+    Route::put('change-password-admin/{id}', [AccountManagerController::class, 'update_password']);
     Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
     Route::get('all-sales', [UserController::class, 'sales'])->name('admin.users.sales');
@@ -47,6 +51,8 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('generate', [AccountManagerController::class, 'generate'])->name('generate');
     Route::get('generated', [AccountManagerController::class, 'generated'])->name('generated');
     Route::get('recently-generated', [AccountManagerController::class, 'generate'])->name('recently-generated');
+    Route::get('password-request', [AccountManagerController::class, 'password_request']);
+    Route::get('reset-password/{id}', [AccountManagerController::class, 'reset_password']);
 });
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
@@ -89,7 +95,5 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
 
 });
 Route::get('/{lang}', [LangController::class, 'setLocale']);
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

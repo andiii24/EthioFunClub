@@ -69,4 +69,6 @@ return [
     'InvalidSerialNumber' => 'ይህ ልዩ ቁጥር አይታወቅም.',
     'ProfileUpdatedSuccessfully' => 'በትክክል ተስተካክሏል',
     'contacUs' => 'መገናኛ',
+    'ParentName'=> 'የመዘገቦት ሰው ስም',
+    'SendRequest'=>'ላክ',
 ];

@@ -60,7 +60,19 @@
         rel="stylesheet"
         type="text/css"
     />
+    <style>
+        .counter {
+            background-color: red;
+            color: white;
+            font-size: 8px;
+            /* padding: 4px 8px; */
+            border-radius: 50%;
+            /* position: absolute; */
+            top: -8px;
+            right: -8px;
+        }
+    </style>
     <!-- Head js -->
-    <script src="assets/js/head.js"></script>
+    <script src="{{ asset('assets/js/head.js') }}"></script>
 
 </head>

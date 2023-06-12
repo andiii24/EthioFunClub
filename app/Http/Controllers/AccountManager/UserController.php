@@ -62,7 +62,7 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('admin.users')
-            ->with('success', 'Property added successfully.');}
+            ->with('success', 'Profile Updated successfully.');}
     public function store(Request $request)
     {
         $request->validate([
@@ -96,7 +96,7 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('admin.users')
-            ->with('success', 'Property added successfully.');
+            ->with('success', 'Sales added successfully.');
     }
     public function activate(Request $request)
     {

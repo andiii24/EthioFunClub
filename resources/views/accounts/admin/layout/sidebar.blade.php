@@ -192,6 +192,15 @@
                         <span> Sales Report </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url('password-request') }}">
+                        <i class="fe-lock"></i>
+                        <span> Password Reset </span>
+                        @if ($requestCount > 0)
+                            <span class="badge bg-danger rounded-circle noti-icon-badge counter">{{ $requestCount }}</span>
+                        @endif
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- End Sidebar -->
