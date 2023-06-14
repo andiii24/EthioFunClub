@@ -53,6 +53,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('recently-generated', [AccountManagerController::class, 'generate'])->name('recently-generated');
     Route::get('password-request', [AccountManagerController::class, 'password_request']);
     Route::get('reset-password/{id}', [AccountManagerController::class, 'reset_password']);
+    Route::delete('delete-user/{id}', [AccountManagerController::class, 'delete']);
 });
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {

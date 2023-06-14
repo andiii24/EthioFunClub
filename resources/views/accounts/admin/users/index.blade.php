@@ -59,6 +59,7 @@
                                         <th>Name</th>
                                         <th>Role</th>
                                         <th>Phone</th>
+                                        <th>Registerd Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -69,18 +70,18 @@
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->role }}</td>
                                             <td>{{ $item->phone }}</td>
+                                            <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-12">
+                                                    <div class="col-3">
                                                         <a
                                                             href="{{ url('edit-sales/' . $item->id) }}"
                                                             type="button"
                                                             class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >Edit</a>
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Delete</button>
+                                                    </div>
+
+                                                    <div class="col-3">
                                                         @if ($item->status == 1)
                                                             <button
                                                                 type="button"
@@ -99,6 +100,21 @@
                                                             >
                                                                 Activate
                                                             </button>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-3">
+                                                        @if ($item->level == 0 && $item->role != 'admin')
+                                                            <form
+                                                                action="{{ url('delete-user/' . $item->id) }}"
+                                                                method="POST"
+                                                            >
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
+                                                                >Delete</button>
+                                                            </form>
                                                         @endif
                                                     </div>
                                                 </div>

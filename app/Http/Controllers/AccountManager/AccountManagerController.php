@@ -442,4 +442,15 @@ class AccountManagerController extends Controller
         return redirect()->route('accounts.admin.index')
             ->with('success', 'Password Updated successfully.');
     }
+    public function delete($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
+    }
 }

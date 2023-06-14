@@ -80,7 +80,6 @@
                                                         <span class="text-danger">{{ $errors->first('name') }}</span>
                                                     @endif
                                                 </div>
-
                                                 <div class="mb-3">
                                                     <label
                                                         for="phone"

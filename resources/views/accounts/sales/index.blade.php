@@ -91,7 +91,7 @@
             <!-- end page title -->
 
             <div class="row">
-                <div class="col-md-6 col-xl-3">
+                <div class="col-md-6 col-xl-4">
                     <div class="widget-rounded-circle card">
                         <div class="card-body">
                             <div class="row">
@@ -111,7 +111,7 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
-                <div class="col-md-6 col-xl-3">
+                <div class="col-md-6 col-xl-4">
                     <div class="widget-rounded-circle card">
                         <div class="card-body">
                             <div class="row">
@@ -131,10 +131,10 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
                 @if (auth()->user()->status == 1)
-                    <div class="col-md-6 col-xl-6">
+                    <div class="col-md-6 col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mb-3 header-title text-center">{{ __('dashboard.RegisterSerialNumber') }}</h4>
+                                <h4 class="mb-3 header-title text-justify">{{ __('dashboard.RegisterSerialNumber') }}</h4>
 
                                 <form
                                     action="{{ url('sales-register-serial') }}"

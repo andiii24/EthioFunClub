@@ -54,8 +54,8 @@ return [
     'waitingForApproval' => 'Waiting for payment approval',
     'Continue' => 'Continue',
     'NotActive' => 'Not Active',
-    'TodaySale' => 'Today\'s Sales',
-    'TotalSales' => 'TotalSales',
+    'TodaySale' => 'Today\'s Purchase',
+    'TotalSales' => 'Total Purchases',
     'RegisterSerialNumber' => 'Sold Item Serial Number Registration',
     'productSerialNumber' => 'Product Serial Number',
     // sales
@@ -69,6 +69,6 @@ return [
     'InvalidSerialNumber' => 'Invalid Serial Number.',
     'ProfileUpdatedSuccessfully' => 'Profile Updated Successfully.',
     'ContactUs' => 'Contact Us',
-    'ParentName'=> 'Registerd By',
-    'SendRequest'=>'Send Request',
+    'ParentName' => 'Registerd By',
+    'SendRequest' => 'Send Request',
 ];

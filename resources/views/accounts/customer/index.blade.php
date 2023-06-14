@@ -90,7 +90,7 @@
             <!-- end page title -->
 
             <div class="row">
-                <div class="col-md-6 col-xl-3">
+                <div class="col-md-6 col-xl-4">
                     <div class="widget-rounded-circle card">
                         <div class="card-body">
                             <div class="row">
@@ -109,7 +109,7 @@
                         </div>
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
-                <div class="col-md-6 col-xl-3">
+                <div class="col-md-6 col-xl-4">
                     <div class="widget-rounded-circle card">
                         <div class="card-body">
                             <div class="row">
@@ -128,10 +128,10 @@
                         </div>
                     </div> <!-- end widget-rounded-circle-->
                 </div>
-                <div class="col-md-6 col-xl-6 {{ auth()->user()->status == 0 ? 'inactive-menu' : '' }}">
+                <div class="col-md-4 col-xl-4 {{ auth()->user()->status == 0 ? 'inactive-menu' : '' }}">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-3 header-title text-center">{{ __('dashboard.RegisterSerialNumber') }}</h4>
+                            <h4 class="mb-3 header-title text-justify">{{ __('dashboard.RegisterSerialNumber') }}</h4>
 
                             <form
                                 action="{{ url('customer-register-serial') }}"
