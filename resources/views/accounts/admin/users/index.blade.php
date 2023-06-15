@@ -86,7 +86,7 @@
                                                             <button
                                                                 type="button"
                                                                 class="btn btn-outline-warning width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                                onclick="deactivateUser(event.target.getAttribute('data-user-id'))"
+                                                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'deactivate')"
                                                                 data-user-id="{{ $item->id }}"
                                                             >
                                                                 Deactivate
@@ -94,8 +94,8 @@
                                                         @elseif($item->status == 0)
                                                             <button
                                                                 type="button"
-                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                                onclick="activateUser(event.target.getAttribute('data-user-id'))"
+                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs "
+                                                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'activate')"
                                                                 data-user-id="{{ $item->id }}"
                                                             >
                                                                 Activate
@@ -138,39 +138,22 @@
 
     </div>
     <script>
-        function deactivateUser(userId) {
+        function changeUserStatus(userId, action) {
             $.ajax({
                 type: 'POST',
-                url: '{{ url('diactivate') }}',
+                url: '{{ url('change-user-status') }}',
                 data: {
                     '_token': '{{ csrf_token() }}',
-                    'user_id': userId
+                    'user_id': userId,
+                    'action': action
                 },
                 success: function(response) {
-                    alert(response.message);
-                    location.reload();
-
-                    // You can also update the UI here to reflect the new status
-                },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseJSON.message);
-                }
-            });
-        }
-
-        function activateUser(userId) {
-            $.ajax({
-                type: 'POST',
-                url: '{{ url('activation') }}',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'user_id': userId
-                },
-                success: function(response) {
-                    alert(response.message);
-                    location.reload();
-
-                    // You can also update the UI here to reflect the new status
+                    // Update the UI to reflect the new status instantly
+                    if (action === 'deactivate') {
+                        $('#status_' + userId).text('Inactive');
+                    } else if (action === 'activate') {
+                        $('#status_' + userId).text('Active');
+                    }
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseJSON.message);

@@ -453,4 +453,19 @@ class AccountManagerController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
     }
+    public function changeUserStatus(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $action = $request->input('action');
+
+        $user = User::find($userId);
+        if ($action === 'deactivate') {
+            $user->status = 0;
+        } elseif ($action === 'activate') {
+            $user->status = 1;
+        }
+        $user->save();
+
+        return response()->json(['message' => 'User status changed successfully']);
+    }
 }

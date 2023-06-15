@@ -34,8 +34,9 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('register-sales', [UserController::class, 'store']);
     Route::put('update-sales/{id}', [UserController::class, 'update']);
     Route::post('update-status', [UserController::class, 'activate']);
-    Route::post('diactivate', [UserController::class, 'diactivate']);
-    Route::post('activation', [UserController::class, 'activation']);
+    // Route::post('diactivate', [UserController::class, 'diactivate']);
+    // Route::post('activation', [UserController::class, 'activation']);
+    Route::post('change-user-status/{id}', [AccountManagerController::class, 'changeUserStatus']);
     Route::post('level-payment-update', [UserController::class, 'level_update']);
     Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
     Route::post('filtering-sales', [AccountManagerController::class, 'filter']);

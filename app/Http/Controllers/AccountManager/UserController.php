@@ -13,7 +13,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::orderByDesc('created_at')
+            ->orderBy('status', 'desc')
+            ->get();
         return view('accounts.admin.users.index', compact('users'));
     }
     public function sales()
