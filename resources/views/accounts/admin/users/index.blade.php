@@ -15,6 +15,11 @@
                                 icon: 'success',
                                 title: 'Success',
                                 text: '{{ session('success') }}',
+                                timer: 3000, // Display duration in milliseconds (e.g., 3000ms = 3 seconds)
+                                showConfirmButton: false, // Hide the "OK" button
+                                toast: true, // Display the message as a toast notification
+                                position: 'top', // Position of the toast notification
+                                timerProgressBar: true, // Show a progress bar during the display duration
                             });
                         });
                     </script>
@@ -22,11 +27,15 @@
                 @if (session('error'))
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
-
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
                                 text: "{{ session('error') }}",
+                                timer: 3000, // Display duration in milliseconds (e.g., 3000ms = 3 seconds)
+                                showConfirmButton: false, // Hide the "OK" button
+                                toast: true, // Display the message as a toast notification
+                                position: 'top', // Position of the toast notification
+                                timerProgressBar: true, // Show a progress bar during the display duration
                             });
                         });
                     </script>
@@ -94,7 +103,7 @@
                                                         @elseif($item->status == 0)
                                                             <button
                                                                 type="button"
-                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs "
+                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
                                                                 onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'activate')"
                                                                 data-user-id="{{ $item->id }}"
                                                             >
@@ -154,6 +163,9 @@
                     } else if (action === 'activate') {
                         $('#status_' + userId).text('Active');
                     }
+
+                    // Reload the table while preserving the current page and session
+                    reloadTable();
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseJSON.message);

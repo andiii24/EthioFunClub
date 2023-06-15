@@ -71,6 +71,26 @@
             top: -8px;
             right: -8px;
         }
+
+        .deactivate-btn {
+            display: none;
+        }
+
+        .active .activate-btn {
+            display: none;
+        }
+
+        .active .deactivate-btn {
+            display: inline-block;
+        }
+
+        .inactive .activate-btn {
+            display: inline-block;
+        }
+
+        .inactive .deactivate-btn {
+            display: none;
+        }
     </style>
     <!-- Head js -->
     <script src="{{ asset('assets/js/head.js') }}"></script>
