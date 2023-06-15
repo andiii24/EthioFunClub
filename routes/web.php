@@ -75,6 +75,7 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::post('sales-register-serial', [SalesPersonController::class, 'serial']);
     Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
     Route::get('sales-child/{id}', [SalesPersonController::class, 'child']);
+    Route::get('sales-sales', [SalesPersonController::class, 'sales_sales']);
 
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
@@ -93,6 +94,7 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('customer-genealogy', [CustomerController::class, 'genealogy']);
     Route::get('child/{id}', [CustomerController::class, 'child']);
     Route::get('contact-us', [CustomerController::class, 'contact']);
+    Route::get('customer-sales', [CustomerController::class, 'customer_sales']);
 
 });
 Route::get('/{lang}', [LangController::class, 'setLocale']);

@@ -236,6 +236,14 @@ class CustomerController extends Controller
         $users = User::where('upid', $user->id)->get();
         return view('accounts.customer.genealogy.index', compact('users', 'user'));
     }
+    public function customer_sales()
+    {
+
+        $sales = Sale::where('user_id', auth()->user()->id)
+            ->orderByDesc('created_at')
+            ->get();
+        return view('accounts.customer.purchased.index', compact('sales'));
+    }
     public function contact()
     {
 

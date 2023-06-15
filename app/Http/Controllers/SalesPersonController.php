@@ -260,4 +260,12 @@ class SalesPersonController extends Controller
         return redirect()->route('admin-manager')
             ->with('success', __('dashboard.ProfileUpdatedSuccessfully'));
     }
+    public function sales_sales()
+    {
+
+        $sales = Sale::where('user_id', auth()->user()->id)
+            ->orderByDesc('created_at')
+            ->get();
+        return view('accounts.sales.purchased.index', compact('sales'));
+    }
 }

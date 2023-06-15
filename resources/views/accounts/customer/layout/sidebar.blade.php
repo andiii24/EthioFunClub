@@ -96,41 +96,10 @@
                             <span> {{ __('dashboard.My_Genealogy') }} </span>
                         </a>
                     </li>
-                @elseif (auth()->user()->status == 0)
-                    <li class="inactive-menu">
-                        <a
-                            href="#users"
-                            data-bs-toggle="collapse"
-                        >
-                            <i class="fe-user"></i>
-                            <span> {{ __('dashboard.Customers') }} </span>
-                        </a>
-                        <div
-                            class="collapse"
-                            id="users"
-                        >
-                            <ul class="nav-second-level">
-                                <li>
-                                    <a href="#">
-                                        <i class="fe-users"></i>
-                                        <span>{{ __('dashboard.All_Customers') }} </span>
-                                    </a>
-                                </li>
-                                @if (!auth()->user()->left_child_id || !auth()->user()->middle_child_id || !auth()->user()->right_child_id)
-                                    <li>
-                                        <a href="#">
-                                            <i class="fe-user-plus"></i>
-                                            <span>{{ __('dashboard.Add_Customer') }}</span>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="inactive-menu">
-                        <a href="#">
-                            <i class="fe-layers"></i>
-                            <span>{{ __('dashboard.My_Genealogy') }} </span>
+                    <li>
+                        <a href="{{ url('customer-sales') }}">
+                            <i class="fe-dollar-sign"></i>
+                            <span> {{ __('dashboard.Sales') }} </span>
                         </a>
                     </li>
                 @elseif (auth()->user()->status == 0)
@@ -168,6 +137,12 @@
                         <a href="#">
                             <i class="fe-layers"></i>
                             <span> {{ __('dashboard.My_Genealogy') }} </span>
+                        </a>
+                    </li>
+                    <li class="inactive-menu">
+                        <a href="#">
+                            <i class="fe-dollar-sign"></i>
+                            <span> {{ __('dashboard.Sales') }} </span>
                         </a>
                     </li>
                 @endif

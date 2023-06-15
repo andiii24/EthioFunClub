@@ -100,6 +100,12 @@
                             <span> {{ __('dashboard.My_Genealogy') }} </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ url('sales-sales') }}">
+                            <i class="fe-dollar-sign"></i>
+                            <span> {{ __('dashboard.Sales') }} </span>
+                        </a>
+                    </li>
                 @elseif (auth()->user()->status == 0)
                     <li class="inactive-menu">
                         <a
@@ -135,6 +141,12 @@
                         <a href="#">
                             <i class="fe-layers"></i>
                             <span> {{ __('dashboard.My_Genealogy') }} </span>
+                        </a>
+                    </li>
+                    <li class="inactive-menu">
+                        <a href="#">
+                            <i class="fe-dollar-sign"></i>
+                            <span> {{ __('dashboard.Sales') }} </span>
                         </a>
                     </li>
                 @endif

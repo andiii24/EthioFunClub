@@ -71,4 +71,5 @@ return [
     'ContactUs' => 'Contact Us',
     'ParentName' => 'Registerd By',
     'SendRequest' => 'Send Request',
+    'ProductSerial' => 'Product Serial Number',
 ];
