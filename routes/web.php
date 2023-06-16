@@ -28,6 +28,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::put('update-profile-admin/{id}', [AccountManagerController::class, 'update_profile']);
     Route::put('change-password-admin/{id}', [AccountManagerController::class, 'update_password']);
     Route::get('create-user', [UserController::class, 'create'])->name('admin.user.create');
+    Route::get('inactive-users', [AccountManagerController::class, 'inactive']);
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
     Route::get('all-sales', [UserController::class, 'sales'])->name('admin.users.sales');
     Route::get('edit-sales/{id}', [UserController::class, 'edit']);

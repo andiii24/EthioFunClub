@@ -13,11 +13,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderByDesc('created_at')
+        $users = User::orderByDesc('created_at')->where('role', 'customer')
             ->orderBy('status', 'desc')
             ->get();
         return view('accounts.admin.users.index', compact('users'));
     }
+
     public function sales()
     {
         $users = User::where('role', 'sales')->get();
@@ -176,5 +177,12 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['message' => 'User activated successfully'], 200);
+    }
+    public function inactive()
+    {
+        $users = User::orderByDesc('created_at')->where('status', 0)
+            ->orderBy('status', 'desc')
+            ->get();
+        return view('accounts.admin.users.inactive', compact('users'));
     }
 }

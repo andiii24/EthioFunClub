@@ -74,9 +74,15 @@
                     >
                         <ul class="nav-second-level">
                             <li>
+                                <a href="{{ url('inactive-users') }}">
+                                    <i class="fe-user-minus"></i>
+                                    <span> Inactive </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ url('users') }}">
                                     <i class="fe-users"></i>
-                                    <span>All Users </span>
+                                    <span>Customers</span>
                                 </a>
                             </li>
                             <li>

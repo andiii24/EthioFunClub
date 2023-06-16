@@ -48,7 +48,7 @@
                                 <li class="breadcrumb-item active">Users</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Datatables</h4>
+                        <h4 class="page-title">Inactive Users</h4>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <div class="card">
                         <div class="card-body">
                             <table
-                                id="data_table"
+                                id="basic-datatable"
                                 class="table dt-responsive nowrap w-100"
                             >
                                 <thead>
@@ -91,43 +91,41 @@
                                                     </div>
 
                                                     <div class="col-3">
-                                                        @if ($item->status == 1)
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-warning width-xs rounded-pill waves-effect waves-light btn-xs btn-deactivate"
-                                                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'deactivate')"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Deactivate
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs btn-activate d-none"
-                                                                disabled
-                                                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'activate')"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Activate
-                                                            </button>
-                                                        @elseif($item->status == 0)
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-warning width-xs rounded-pill waves-effect waves-light btn-xs btn-deactivate d-none"
-                                                                disabled
-                                                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'deactivate')"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Deactivate
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs btn-activate"
-                                                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'activate')"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Activate
-                                                            </button>
-                                                        @endif
+                                                        <div class="col-3">
+                                                            @if ($item->status == 1)
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn btn-outline-warning width-xs rounded-pill waves-effect waves-light btn-xs btn-deactivate"
+                                                                    onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'deactivate')"
+                                                                    data-user-id="{{ $item->id }}"
+                                                                >
+                                                                    Deactivate
+                                                                </button>
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs btn-activate d-none"
+                                                                    disabled
+                                                                >
+                                                                    Activate
+                                                                </button>
+                                                            @elseif($item->status == 0)
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn btn-outline-warning width-xs rounded-pill waves-effect waves-light btn-xs btn-deactivate d-none"
+                                                                    disabled
+                                                                >
+                                                                    Deactivate
+                                                                </button>
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs btn-activate"
+                                                                    onclick="changeUserStatus(event.target.getAttribute('data-user-id'), 'activate')"
+                                                                    data-user-id="{{ $item->id }}"
+                                                                >
+                                                                    Activate
+                                                                </button>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                     <div class="col-3">
                                                         @if ($item->level == 0 && $item->role != 'admin')
@@ -145,6 +143,7 @@
                                                         @endif
                                                     </div>
                                                 </div>
+                                            </td>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -172,24 +171,37 @@
                     '_token': '{{ csrf_token() }}',
                     'user_id': userId,
                     'action': action
-                }
-            }).done(function(response) {
-                // Update the UI to reflect the new status instantly
-                if (action === 'deactivate') {
-                    $('#status_' + userId).text('Inactive');
-                    $('.btn-deactivate[data-user-id="' + userId + '"]').addClass('d-none').attr('disabled', true);
-                    $('.btn-activate[data-user-id="' + userId + '"]').removeClass('d-none').removeAttr('disabled');
-                } else if (action === 'activate') {
-                    $('#status_' + userId).text('Active');
-                    $('.btn-activate[data-user-id="' + userId + '"]').addClass('d-none').attr('disabled', true);
-                    $('.btn-deactivate[data-user-id="' + userId + '"]').removeClass('d-none').removeAttr('disabled');
-                }
+                },
+                success: function(response) {
+                    // Update the UI to reflect the new status instantly
+                    if (action === 'deactivate') {
+                        $('#status_' + userId).text('Inactive');
+                        $('.btn-deactivate[data-user-id="' + userId + '"]').addClass('d-none').attr('disabled', true);
+                        $('.btn-activate[data-user-id="' + userId + '"]').removeClass('d-none').removeAttr('disabled');
+                    } else if (action === 'activate') {
+                        $('#status_' + userId).text('Active');
+                        $('.btn-activate[data-user-id="' + userId + '"]').addClass('d-none').attr('disabled', true);
+                        $('.btn-deactivate[data-user-id="' + userId + '"]').removeClass('d-none').removeAttr('disabled');
+                    }
 
-                // Reload the table while preserving the current page and session
-                // $('#data_table').DataTable().ajax.reload(null, false);
-            }).fail(function(xhr, status, error) {
-                alert(xhr.responseJSON.message);
+                    // Reload the table while preserving the current page and session
+                    reloadTable();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.message);
+                }
             });
+        }
+
+        function reloadTable() {
+            // Get a reference to the DataTable instance
+            var dataTable = $('#basic-datatable').DataTable();
+
+            // Clear the existing table data
+            dataTable.clear().draw();
+
+            // Reload the table data
+            dataTable.ajax.reload();
         }
     </script>
 @endsection
