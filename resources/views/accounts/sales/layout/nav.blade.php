@@ -69,7 +69,7 @@
 
                     <!-- item-->
                     <a
-                        href="{{ url('admin-profile') }}"
+                        href="{{ url('sales-profile') }}"
                         class="dropdown-item notify-item"
                     >
                         <i class="fe-user"></i>

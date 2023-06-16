@@ -68,7 +68,7 @@
 
                     <!-- item-->
                     <a
-                        href="{{ url('admin-profile') }}"
+                        href="{{ url('customer-profile') }}"
                         class="dropdown-item notify-item"
                     >
                         <i class="fe-user"></i>

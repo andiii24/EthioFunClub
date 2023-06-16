@@ -161,16 +161,16 @@
 
         .tree li a:hover,
         .tree li a:hover+ul li a {
-            background: #eef73e;
+            background: #ffd831;
             color: #fff;
-            border: 1px solid #eef73e;
+            border: 1px solid #ffd831;
         }
 
         .tree li a:hover+ul li::after,
         .tree li a:hover+ul li::before,
         .tree li a:hover+ul::before,
         .tree li a:hover+ul ul::before {
-            border-color: #eef73e;
+            border-color: #ffd831;
         }
 
         @media only screen and (max-width: 768px) {

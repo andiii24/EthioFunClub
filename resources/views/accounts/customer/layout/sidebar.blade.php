@@ -154,7 +154,7 @@
                 </li>
                 <li>
                     <a href="{{ url('contact-us') }}">
-                        <i class="fe-mail"></i>
+                        <i class="fe-info"></i>
                         <span> {{ __('dashboard.ContactUs') }}</span>
                     </a>
                 </li>

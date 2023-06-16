@@ -75,13 +75,12 @@
                                                     @php
                                                         $children = User::where('upid', $user->id)->get();
                                                     @endphp
-
                                                     @if ($children->count() > 0)
                                                         <ul>
                                                             @foreach ($children as $child)
                                                                 <li>
                                                                     <a href="{{ url('sales-child/' . $child->id) }}">{{ $child->name }} <br> {{ $child->phone }} <br> {{ __('dashboard.Level') }}{{ $child->level }} </a>
-                                                                    @include('accounts.sales.genealogy.partials.tree', ['user' => $child])
+                                                                    {{-- @include('accounts.sales.genealogy.partials.tree', ['user' => $child]) --}}
                                                                 </li>
                                                             @endforeach
                                                         </ul>
