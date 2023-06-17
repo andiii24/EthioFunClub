@@ -392,6 +392,43 @@ class AccountManagerController extends Controller
         return view('accounts.admin.reports.sales', compact('sales', 'SalesCountToday', 'sale', 'title'));
 
     }
+    public function filter_customer(Request $request)
+    {
+        $filter = $request->input('filter');
+
+        if ($filter == 0) {
+            // Filter for today's sales
+            $title = "Level 0 Customers";
+            $users = User::where('level', 0)->get();
+        } elseif ($filter == 2) {
+            // Filter for this week's sales
+            $title = "Level 1 Customers";
+            $users = User::where('level', 1)->get();
+        } elseif ($filter == 3) {
+            // Filter for this week's sales
+            $title = "Level 2 Customers";
+            $users = User::where('level', 2)->get();
+        } elseif ($filter == 4) {
+            // Filter for this month's sales
+            $title = "Level 3 Customers";
+            $users = User::where('level', 3)->get();
+        } elseif ($filter == 5) {
+            // Filter for this month's sales
+            $title = "Level 4 Customers";
+            $users = User::where('level', 4)->get();
+        } elseif ($filter == 6) {
+            // Filter for this month's sales
+            $title = "Level 5 & Above Customers";
+            $users = User::where('level', '>=', 5)->get();
+        } else {
+            // Default case: show all sales
+            $title = "All Customers";
+            $users = User::all();
+        }
+        // Count sales made by the user today
+        return view('accounts.admin.users.index', compact('users', 'title'));
+
+    }
     public function level_based()
     {
         $users = User::where('level_payment', 1)->get();
@@ -448,10 +485,25 @@ class AccountManagerController extends Controller
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-
-        $user->delete();
-
-        return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
+        if ($user->status == 0 && !$user->left_child_id && !$user->right_child_id && !$user->middle_child_id) {
+            // The user meets the conditions, proceed with deletion
+            $parent = User::where('id', $user->upid)->first();
+            if ($parent->left_child_id == $user->id) {
+                $parent->left_child_id = null;
+                $parent->save();
+            } elseif ($parent->right_child_id == $user->id) {
+                $parent->right_child_id = null;
+                $parent->save();
+            } elseif ($parent->middle_child_id == $user->id) {
+                $parent->middle_child_id = null;
+                $parent->save();
+            }
+            $user->delete();
+            return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
+        } else {
+            // The user does not meet the conditions, display an error message or take appropriate action
+            return redirect()->back()->with('error', 'User cannot be deleted.');
+        }
     }
     public function changeUserStatus(Request $request)
     {
@@ -467,5 +519,11 @@ class AccountManagerController extends Controller
         $user->save();
 
         return response()->json(['message' => 'User status changed successfully']);
+    }
+    public function inactive()
+    {
+        $users = User::orderByDesc('created_at')->where('status', 0)
+            ->get();
+        return view('accounts.admin.users.inactive', compact('users'));
     }
 }

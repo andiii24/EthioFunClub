@@ -48,9 +48,41 @@
                                 <li class="breadcrumb-item active">Users</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Datatables</h4>
+                        <h4 class="page-title">{{ $title }}</h4>
                     </div>
                 </div>
+                <form
+                    action="{{ url('filtering-customers') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+                    @csrf
+                    <div class="col-12 mb-2">
+                        <div class="row align-items-center">
+                            <div class="col-sm-auto">
+                                <select
+                                    id="demo-foo-filter-status"
+                                    class="form-select form-select-sm"
+                                    name="filter"
+                                >
+                                    <option value="1">Show all</option>
+                                    <option value="0">Level 0</option>
+                                    <option value="2">Level 1</option>
+                                    <option value="3">Level 2</option>
+                                    <option value="4">Level 3</option>
+                                    <option value="5">Level 4</option>
+                                    <option value="6">Level 5 and above</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
+                                >Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <!-- end page title -->
 
@@ -66,7 +98,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Role</th>
+                                        <th>Level</th>
                                         <th>Phone</th>
                                         <th>Registerd Date</th>
                                         <th>Action</th>
@@ -77,7 +109,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->role }}</td>
+                                            <td>{{ $item->level }}</td>
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>

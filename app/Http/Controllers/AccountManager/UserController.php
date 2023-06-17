@@ -16,13 +16,15 @@ class UserController extends Controller
         $users = User::orderByDesc('created_at')->where('role', 'customer')
             ->orderBy('status', 'desc')
             ->get();
-        return view('accounts.admin.users.index', compact('users'));
+        $title = "All Customers";
+        return view('accounts.admin.users.index', compact('users', 'title'));
     }
 
     public function sales()
     {
+        $title = 'all Sales';
         $users = User::where('role', 'sales')->get();
-        return view('accounts.admin.users.index', compact('users'));
+        return view('accounts.admin.users.sales', compact('users'));
     }
     public function create()
     {

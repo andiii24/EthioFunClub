@@ -63,8 +63,16 @@ class SalesPersonController extends Controller
     }
     public function customers()
     {
-        $users = User::where('upid', auth()->user()->id)
-            ->where('role', 'customer')->get();
+        $user = auth()->user();
+
+        $users = User::with('descendants')
+            ->where(function ($query) use ($user) {
+                $query->where('id', $user->id)
+                    ->orWhere('upid', $user->id);
+            })
+            ->where('role', 'customer')
+            ->get();
+
         return view('accounts.sales.users.index', compact('users'));
     }
 

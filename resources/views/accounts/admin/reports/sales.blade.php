@@ -102,7 +102,7 @@
                             <button
                                 type="submit"
                                 class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
-                            >Submit</button>
+                            >Search</button>
                         </div>
                     </div>
                 </div>

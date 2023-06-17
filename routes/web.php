@@ -37,10 +37,10 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::post('update-status', [UserController::class, 'activate']);
     // Route::post('diactivate', [UserController::class, 'diactivate']);
     // Route::post('activation', [UserController::class, 'activation']);
-    Route::post('change-user-status/{id}', [AccountManagerController::class, 'changeUserStatus']);
     Route::post('level-payment-update', [UserController::class, 'level_update']);
     Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
     Route::post('filtering-sales', [AccountManagerController::class, 'filter']);
+    Route::post('filtering-customers', [AccountManagerController::class, 'filter_customer']);
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
     Route::get('send-composed-message', [AccountManagerController::class, 'send_composed']);
@@ -56,6 +56,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('password-request', [AccountManagerController::class, 'password_request']);
     Route::get('reset-password/{id}', [AccountManagerController::class, 'reset_password']);
     Route::delete('delete-user/{id}', [AccountManagerController::class, 'delete']);
+    Route::post('change-user-status', [AccountManagerController::class, 'changeUserStatus']);
 });
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
