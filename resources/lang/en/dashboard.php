@@ -72,4 +72,6 @@ return [
     'ParentName' => 'Registerd By',
     'SendRequest' => 'Send Request',
     'ProductSerial' => 'Product Serial Number',
+    'PaymentHistory' => 'Payment History',
+    'MakePayment' => 'Attach Payment',
 ];

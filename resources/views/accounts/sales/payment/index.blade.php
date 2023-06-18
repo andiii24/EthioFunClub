@@ -1,4 +1,4 @@
-@extends('accounts.admin.admin')
+@extends('accounts.sales.admin')
 @section('content')
     <div class="content">
 
@@ -48,7 +48,7 @@
                                 <li class="breadcrumb-item active">Payments</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Level Based Payment</h4>
+                        <h4 class="page-title">Payments</h4>
                     </div>
                 </div>
             </div>
@@ -65,42 +65,31 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Level Reached</th>
-                                        <th class="text-center">Payment Status</th>
                                         <th class="text-center">Amount</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center">Payment Type</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $key => $item)
+                                    @foreach ($payments as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
-                                            <td class="text-center">{{ $item->user->name }}</td>
-                                            <td class="text-center">{{ $item->user->level }}</td>
                                             <td class="text-center">{{ $item->amount }}</td>
-                                            = <td class="text-center">
+                                            <td class="text-center">
+                                                @if ($item->type == '0')
+                                                    <span class="badge bg-warning">Paid For service</span>
+                                                @else
+                                                    <span class="badge bg-success">Recived for reaching a new level</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $item->created_at->diffForHumans() }}</td>
+                                            <td class="text-center">
                                                 @if ($item->status == '0')
                                                     <span class="badge bg-danger">pending</span>
                                                 @else
-                                                    <span class="badge bg-success">Approved</span>
+                                                    <span class="badge bg-success">Paid</span>
                                                 @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        @if ($item->status == 0)
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-success rounded-pill waves-effect btn-lg btn-activate"
-                                                                onclick="activateUser(event.target.getAttribute('data-user-id'))"
-                                                                data-user-id="{{ $item->id }}"
-                                                            >
-                                                                Pay
-                                                            </button>
-                                                        @endif
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -117,26 +106,5 @@
         <!-- end row-->
     </div>
     <!-- container -->
-
     </div>
-    <script>
-        function activateUser(userId) {
-            $.ajax({
-                type: 'POST',
-                url: '{{ url('level-payment-update') }}',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'user_id': userId
-                },
-                success: function(response) {
-                    $('.btn-activate[data-user-id="' + userId + '"]').addClass('d-none').attr('disabled', true);
-                    alert(response.message);
-                    // You can also update the UI here to reflect the new status
-                },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseJSON.message);
-                }
-            });
-        }
-    </script>
 @endsection

@@ -79,6 +79,9 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
     Route::get('sales-child/{id}', [SalesPersonController::class, 'child']);
     Route::get('sales-sales', [SalesPersonController::class, 'sales_sales']);
+    Route::post('request-level-payment', [SalesPersonController::class, 'request_level']);
+    Route::get('sales-payment-history', [SalesPersonController::class, 'payment_history']);
+    Route::get('sales-make-payment', [SalesPersonController::class, 'make_payment']);
 
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
@@ -98,6 +101,9 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('child/{id}', [CustomerController::class, 'child']);
     Route::get('contact-us', [CustomerController::class, 'contact']);
     Route::get('customer-sales', [CustomerController::class, 'customer_sales']);
+    Route::post('customer-request-level-payment', [CustomerController::class, 'request_level']);
+    Route::get('customer-payment-history', [CustomerController::class, 'payment_history']);
+    Route::get('customer-make-payment', [CustomerController::class, 'make_payment']);
 
 });
 Route::get('/{lang}', [LangController::class, 'setLocale']);

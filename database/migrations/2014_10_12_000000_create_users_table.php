@@ -23,6 +23,7 @@ return new class extends Migration
             $table->bigInteger('level')->default('0');
             $table->bigInteger('password_reset')->default('0');
             $table->bigInteger('level_payment')->default('0');
+            $table->bigInteger('request_payment')->default('0');
             $table->foreignId('upid')->nullable()->constrained('users');
             $table->foreignId('left_child_id')->nullable()->constrained('users');
             $table->foreignId('middle_child_id')->nullable()->constrained('users');

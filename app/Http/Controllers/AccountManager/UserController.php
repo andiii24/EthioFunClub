@@ -171,13 +171,12 @@ class UserController extends Controller
     public function level_update(Request $request)
     {
         $userId = $request->input('user_id');
-        $user = User::find($userId);
+        $user = Payment::find($userId);
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => 'Payment not found'], 404);
         }
-        $user->level_payment = 0;
+        $user->status = 1;
         $user->save();
-
         return response()->json(['message' => 'User activated successfully'], 200);
     }
     public function inactive()

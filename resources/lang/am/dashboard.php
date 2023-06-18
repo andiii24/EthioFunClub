@@ -69,6 +69,10 @@ return [
     'InvalidSerialNumber' => 'ይህ ልዩ ቁጥር አይታወቅም.',
     'ProfileUpdatedSuccessfully' => 'በትክክል ተስተካክሏል',
     'contacUs' => 'መገናኛ',
-    'ParentName'=> 'የመዘገቦት ሰው ስም',
-    'SendRequest'=>'ላክ',
+    'ParentName' => 'የመዘገቦት ሰው ስም',
+    'SendRequest' => 'ላክ',
+    'ProductSerial' => 'የሽያጭ ልዩ ቁጥር',
+    'PaymentHistory' => 'የተከፈሉ ክፍያዎች',
+    'MakePayment' => 'ክፍያ ማያያዣ',
+
 ];

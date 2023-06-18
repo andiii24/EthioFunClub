@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-    protected $fillable = ['paymet_img', 'amount', 'status'];
+    protected $fillable = ['paymet_img', 'amount', 'status', 'type'];
     public function user()
     {
         return $this->belongsTo(User::class);

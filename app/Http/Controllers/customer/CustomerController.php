@@ -129,6 +129,7 @@ class CustomerController extends Controller
 
         $payment->paymet_img = $filename;
         $payment->amount = $request->amount;
+        $payment->type = 0;
         $payment->user_id = auth()->user()->id;
         $payment->save();
         return redirect()->route('customer-manager')
@@ -257,6 +258,45 @@ class CustomerController extends Controller
         }
 
         return view('accounts.customer.contact.index', compact('currentPerson'));
+    }
+    public function request_level(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+        if ($user->level >= 3 && $user->level_payment == 1 && $user->request_payment == 0) {
+            $user->level_payment = 0;
+            $user->request_payment = 1;
+            $user->save();
+            $payment = new Payment();
+            $level = $user->level;
+            if ($level == 3) {
+                $payment->amount = 1000;
+            } elseif ($level == 4) {
+                $payment->amount = 2000;
+            } elseif ($level == 5) {
+                $payment->amount = 3000;
+            } elseif ($level == 6) {
+                $payment->amount = 4000;
+            } else {
+                $payment->amount = 5000;
+            }
+            $payment->type = 1;
+            $payment->status = 0;
+            $payment->user_id = $userId;
+            $payment->save();
+            return response()->json(['message' => 'User status changed successfully']);
+        }
+        return response()->json(['error' => 'You Can not request Payment!']);
+    }
+    public function payment_history()
+    {
+        $payments = Payment::where('user_id', auth()->user()->id)->get();
+        return view('accounts.customer.payment.index', compact('payments'));
+    }
+    public function make_payment()
+    {
+        // $payments = Payment::where('user_id', auth()->user()->id)->get();
+        return view('accounts.customer.payment.attach');
     }
 
 }

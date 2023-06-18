@@ -431,7 +431,7 @@ class AccountManagerController extends Controller
     }
     public function level_based()
     {
-        $users = User::where('level_payment', 1)->get();
+        $users = Payment::where('type', 1)->get();
         return view('accounts.admin.payments.level', compact('users'));
     }
     public function forgot(Request $request)
@@ -520,6 +520,7 @@ class AccountManagerController extends Controller
 
         return response()->json(['message' => 'User status changed successfully']);
     }
+
     public function inactive()
     {
         $users = User::orderByDesc('created_at')->where('status', 0)

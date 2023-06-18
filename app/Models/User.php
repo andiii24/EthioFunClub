@@ -27,6 +27,7 @@ class User extends Authenticatable
         'level',
         'level_payment',
         'password_reset',
+        'request_payment',
     ];
 
     /**
@@ -63,7 +64,7 @@ class User extends Authenticatable
     }
     public function descendants()
     {
-        return $this->hasMany(User::class, 'upid')->with('descendants');
+        return $this->children()->with('descendants');
     }
     public function minChildLevel()
     {

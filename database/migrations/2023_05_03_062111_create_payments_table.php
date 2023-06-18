@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->string('paymet_img');
+            $table->string('paymet_img')->nullable();
             $table->bigInteger('amount');
+            $table->bigInteger('type')->required();
             $table->string('status')->default(0);
             $table->timestamps();
         });

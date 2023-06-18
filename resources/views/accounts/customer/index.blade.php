@@ -76,9 +76,23 @@
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div>
-                <div class="col-10">
+                <div class="col-6">
                     <div class="page-title-box">
                         <h4 class="page-title">{{ __('dashboard.Dashboard') }}</h4>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="mt-2">
+                        @if (auth()->user()->level >= 3 && auth()->user()->level_payment == 1 && auth()->user()->request_payment == 0)
+                            <button
+                                type="button"
+                                class="btn btn-success rounded-pill waves-effect btn-lg btn-activate"
+                                onclick="changeUserStatus(event.target.getAttribute('data-user-id'))"
+                                data-user-id="{{ auth()->user()->id }}"
+                            >
+                                Request Payment
+                            </button>
+                        @endif
                     </div>
                 </div>
                 @if (auth()->user()->status == 0)
@@ -183,6 +197,25 @@
     </div>
     <!-- content -->
     <!-- /.content -->
+    <script>
+        function changeUserStatus(userId) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('request-level-payment') }}',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'user_id': userId,
+                }
+            }).done(function(response) {
+                // Update the UI to reflect the new status instantly
+                $('.btn-activate[data-user-id="' + userId + '"]').addClass('d-none').attr('disabled', true);
+                // Reload the table while preserving the current page and session
+                // $('#data_table').DataTable().ajax.reload(null, false);
+            }).fail(function(xhr, status, error) {
+                alert(xhr.responseJSON.message);
+            });
+        }
+    </script>
     <script>
         document.getElementById("attach-payment-button").addEventListener("click", function() {
             window.location.href = "/attach-payment-customer";

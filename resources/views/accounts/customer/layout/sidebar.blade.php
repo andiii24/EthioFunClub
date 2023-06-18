@@ -147,6 +147,36 @@
                     </li>
                 @endif
                 <li>
+                    <a
+                        href="#payment"
+                        data-bs-toggle="collapse"
+                    >
+                        <i class="fe-award"></i>
+                        <span> {{ __('dashboard.Payment') }}</span>
+                    </a>
+                    <div
+                        class="collapse"
+                        id="payment"
+                    >
+                        <ul class="nav-second-level">
+                            @if (auth()->user()->status == 1)
+                                <li>
+                                    <a href="{{ url('customer-payment-history') }}">
+                                        <i class="fe-award"></i>
+                                        <span> {{ __('dashboard.PaymentHistory') }}</span>
+                                    </a>
+                                </li>
+                            @endif
+                            <li>
+                                <a href="{{ url('customer-make-payment') }}">
+                                    <i class="fe-plus-circle"></i>
+                                    <span>{{ __('dashboard.MakePayment') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
                     <a href="{{ url('customer-view-message') }}">
                         <i class="fe-mail"></i>
                         <span> {{ __('dashboard.Messages') }}</span>
