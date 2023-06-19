@@ -24,7 +24,9 @@ class UserController extends Controller
     {
         $title = 'all Sales';
         $users = User::where('role', 'sales')->get();
-        return view('accounts.admin.users.sales', compact('users'));
+        $title = "All Sales Persons";
+
+        return view('accounts.admin.users.sales', compact('users', 'title'));
     }
     public function create()
     {

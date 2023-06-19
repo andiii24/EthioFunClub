@@ -104,6 +104,12 @@
                                 class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
                             >Search</button>
                         </div>
+                        <div class="col-3">
+                            <a
+                                class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
+                                href="{{ url('export-sales') }}"
+                            > Export to Excel <i class=" fas fa-file-excel"></i> </a>
+                        </div>
                     </div>
                 </div>
             </form>

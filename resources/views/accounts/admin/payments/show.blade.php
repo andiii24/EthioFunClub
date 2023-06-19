@@ -175,7 +175,7 @@
                         'payment_id': paymentId
                     },
                     success: function(response) {
-                        alert(response.message);
+                        // alert(response.message);
                         location.reload();
 
                         // You can also update the UI here to reflect the new status

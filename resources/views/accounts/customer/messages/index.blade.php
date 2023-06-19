@@ -80,7 +80,14 @@
                                                     {{ $item->subject }}
                                                 @endif
                                             </td>
-                                            <td>{{ $item->created_at->diffForHumans() }}</td>
+                                            <td>{{ $item->created_at->format('F j, Y') }}
+                                                @if ($item->is_read == 0)
+                                                    <i
+                                                        class="fe-info"
+                                                        style="color: green"
+                                                    > {{ __('dashboard.new') }}</i>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-12">
@@ -120,7 +127,7 @@
                     'msg_id': messageId
                 },
                 success: function(response) {
-                    alert(response.message);
+                    // alert(response.message);
                     window.location.href = '{{ url('read-message') }}' + '/' + messageId;
                 },
                 error: function(xhr, status, error) {

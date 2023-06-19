@@ -8,7 +8,7 @@
         <!-- User box -->
         <div class="user-box text-center">
             <img
-                src="{{ asset('assets/images/users/user-6.jpg') }}"
+                src="{{ asset('assets/images/users/' . auth()->user()->image) }}"
                 alt="user-img"
                 title="Mat Helme"
                 class="rounded-circle avatar-md"
@@ -184,6 +184,9 @@
                     <a href="{{ url('sales-view-message') }}">
                         <i class="fe-mail"></i>
                         <span> {{ __('dashboard.Messages') }}</span>
+                        @if ($requestCount > 0)
+                            <span class="badge bg-danger rounded-circle noti-icon-badge counter">{{ $requestCount }}</span>
+                        @endif
                     </a>
                 </li>
             </ul>

@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountManager\AccountManagerController;
 use App\Http\Controllers\AccountManager\UserController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SalesPersonController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,12 +42,15 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('sales-report', [AccountManagerController::class, 'sales_report'])->name('sales-report');
     Route::post('filtering-sales', [AccountManagerController::class, 'filter']);
     Route::post('filtering-customers', [AccountManagerController::class, 'filter_customer']);
+    Route::post('filtering-user-sales', [AccountManagerController::class, 'filter_sales']);
+    Route::post('filtering-inactive', [AccountManagerController::class, 'filter_inactive']);
     Route::get('admin-message', [AccountManagerController::class, 'message'])->name('admin-message');
     Route::get('send-message', [AccountManagerController::class, 'send']);
     Route::get('send-composed-message', [AccountManagerController::class, 'send_composed']);
     Route::post('message-send', [AccountManagerController::class, 'sent']);
     Route::post('message-composed-send', [AccountManagerController::class, 'sent_compose']);
     Route::get('account-manager-payments', [AccountManagerController::class, 'payments']);
+    Route::get('account-manager-payments-history', [AccountManagerController::class, 'allPayments']);
     Route::get('level-based', [AccountManagerController::class, 'level_based']);
     Route::get('show-payment-slip/{id}', [AccountManagerController::class, 'show_payment']);
     Route::post('generate-serial', [AccountManagerController::class, 'serial_store']);
@@ -57,6 +61,11 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('reset-password/{id}', [AccountManagerController::class, 'reset_password']);
     Route::delete('delete-user/{id}', [AccountManagerController::class, 'delete']);
     Route::post('change-user-status', [AccountManagerController::class, 'changeUserStatus']);
+    Route::get('export-customers', [AccountManagerController::class, 'exportCustomers']);
+    Route::get('export-sales', [AccountManagerController::class, 'exportSales']);
+    Route::get('export-serial-numbers', [AccountManagerController::class, 'exportSerialNumbers']);
+    Route::get('export-payments', [AccountManagerController::class, 'exportPayments']);
+
 });
 
 Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
@@ -67,13 +76,13 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::get('sales-customer', [SalesPersonController::class, 'customers'])->name('sales-customer');
     Route::get('attach-payment-sales', [SalesPersonController::class, 'attach']);
     Route::get('sales-view-message', [SalesPersonController::class, 'messages'])->name('sales-view-message');
-    Route::get('read-message/{id}', [SalesPersonController::class, 'read']);
+    Route::get('sales-read-message/{id}', [SalesPersonController::class, 'read']);
     // Route::get('sales-add-product', [SalesPersonController::class, 'add_product'])->name('sales-add-product');
     // Route::get('sales-product', [SalesPersonController::class, 'products'])->name('sales-product');
     Route::post('register-customer', [SalesPersonController::class, 'store']);
     // Route::put('update-product/{id}', [SalesPersonController::class, 'product_update']);
     // Route::post('register-product', [SalesPersonController::class, 'store_product']);
-    Route::post('update-message-status', [SalesPersonController::class, 'readed']);
+    Route::post('sales-update-message-status', [SalesPersonController::class, 'readed']);
     Route::post('submit-sales-slip', [SalesPersonController::class, 'submit']);
     Route::post('sales-register-serial', [SalesPersonController::class, 'serial']);
     Route::get('genealogy', [SalesPersonController::class, 'genealogy']);
@@ -106,6 +115,8 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::get('customer-make-payment', [CustomerController::class, 'make_payment']);
 
 });
+Route::get('/export-pdf', [PDFController::class, 'exportToPDF'])->name('export.pdf');
+
 Route::get('/{lang}', [LangController::class, 'setLocale']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

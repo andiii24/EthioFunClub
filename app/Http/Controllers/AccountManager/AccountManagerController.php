@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\AccountManager;
 
+use App\Exports\CustomersExport;
+use App\Exports\GeneratedSerialNumbers;
+use App\Exports\SalesExport;
+use App\Exports\TotalPayments;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Payment;
@@ -13,6 +17,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AccountManagerController extends Controller
 {
@@ -272,9 +277,14 @@ class AccountManagerController extends Controller
         return redirect()->route('admin-message')
             ->with('success', 'Message sent successfully.');
     }
+    public function allPayments()
+    {
+        $payments = Payment::where('status', '1')->get();
+        return view('accounts.admin.payments.all', compact('payments'));
+    }
     public function payments()
     {
-        $payments = Payment::all();
+        $payments = Payment::where('type', 0)->get();
         return view('accounts.admin.payments.index', compact('payments'));
     }
     public function show_payment($id)
@@ -429,6 +439,80 @@ class AccountManagerController extends Controller
         return view('accounts.admin.users.index', compact('users', 'title'));
 
     }
+    public function filter_sales(Request $request)
+    {
+        $filter = $request->input('filter');
+
+        if ($filter == 0) {
+            // Filter for today's sales
+            $title = "Level 0 Sales Persons";
+            $users = User::where('level', 0)->where('role', 'sales')->get();
+        } elseif ($filter == 2) {
+            // Filter for this week's sales
+            $title = "Level 1 Sales Persons";
+            $users = User::where('level', 1)->where('role', 'sales')->get();
+        } elseif ($filter == 3) {
+            // Filter for this week's sales
+            $title = "Level 2 Sales Persons";
+            $users = User::where('level', 2)->where('role', 'sales')->get();
+        } elseif ($filter == 4) {
+            // Filter for this month's sales
+            $title = "Level 3 Sales Persons";
+            $users = User::where('level', 3)->where('role', 'sales')->get();
+        } elseif ($filter == 5) {
+            // Filter for this month's sales
+            $title = "Level 4 Sales Persons";
+            $users = User::where('level', 4)->where('role', 'sales')->get();
+        } elseif ($filter == 6) {
+            // Filter for this month's sales
+            $title = "Level 5 & Above Sales Persons";
+            $users = User::where('level', '>=', 5)->where('role', 'sales')->get();
+        } else {
+            // Default case: show all sales
+            $title = "All Sales Persons";
+            $users = User::where('role', 'sales')->get();
+        }
+        // Count sales made by the user today
+        return view('accounts.admin.users.sales', compact('users', 'title'));
+
+    }
+    public function filter_inactive(Request $request)
+    {
+        $filter = $request->input('filter');
+
+        if ($filter == 0) {
+            // Filter for today's sales
+            $title = "Level 0 Inactive Users";
+            $users = User::where('level', 0)->where('status', 0)->get();
+        } elseif ($filter == 2) {
+            // Filter for this week's sales
+            $title = "Level 1 Inactive Users";
+            $users = User::where('level', 1)->where('status', 0)->get();
+        } elseif ($filter == 3) {
+            // Filter for this week's sales
+            $title = "Level 2 Inactive Users";
+            $users = User::where('level', 2)->where('status', 0)->get();
+        } elseif ($filter == 4) {
+            // Filter for this month's sales
+            $title = "Level 3 Inactive Users";
+            $users = User::where('level', 3)->where('status', 0)->get();
+        } elseif ($filter == 5) {
+            // Filter for this month's sales
+            $title = "Level 4 Inactive Users";
+            $users = User::where('level', 4)->where('status', 0)->get();
+        } elseif ($filter == 6) {
+            // Filter for this month's sales
+            $title = "Level 5 & Above Inactive Users";
+            $users = User::where('level', '>=', 5)->where('status', 0)->get();
+        } else {
+            // Default case: show all sales
+            $title = "All Inactive Users";
+            $users = User::where('status', 0)->get();
+        }
+        // Count sales made by the user today
+        return view('accounts.admin.users.inactive', compact('users', 'title'));
+
+    }
     public function level_based()
     {
         $users = Payment::where('type', 1)->get();
@@ -525,6 +609,24 @@ class AccountManagerController extends Controller
     {
         $users = User::orderByDesc('created_at')->where('status', 0)
             ->get();
-        return view('accounts.admin.users.inactive', compact('users'));
+        $title = "All Inactive Users";
+
+        return view('accounts.admin.users.inactive', compact('users', 'title'));
+    }
+    public function exportCustomers()
+    {
+        return Excel::download(new CustomersExport(), 'AllCustomers.xlsx');
+    }
+    public function exportSales()
+    {
+        return Excel::download(new SalesExport(), 'SalesReport.xlsx');
+    }
+    public function exportSerialNumbers()
+    {
+        return Excel::download(new GeneratedSerialNumbers(), 'GeneratedSerialNumbers.xlsx');
+    }
+    public function exportPayments()
+    {
+        return Excel::download(new TotalPayments(), 'GeneratedSerialNumbers.xlsx');
     }
 }

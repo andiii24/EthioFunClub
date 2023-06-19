@@ -67,6 +67,7 @@
                                         <th>{{ __('dashboard.No') }}</th>
                                         <th>{{ __('dashboard.Name') }}</th>
                                         <th>{{ __('dashboard.Phone') }}</th>
+                                        <th>{{ __('dashboard.Level') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,6 +76,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->phone }}</td>
+                                            <td>{{ $item->level }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

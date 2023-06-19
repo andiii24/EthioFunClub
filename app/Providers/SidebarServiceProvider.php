@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\View;
@@ -30,6 +31,14 @@ class SidebarServiceProvider extends ServiceProvider
         });
         View::composer('accounts.admin.layout.sidebar', function ($view) {
             $requestCount = User::where('password_reset', 1)->count();
+            $view->with('requestCount', $requestCount);
+        });
+        View::composer('accounts.customer.layout.sidebar', function ($view) {
+            $requestCount = Message::where('user_id', auth()->user()->id)->where('is_read', 0)->count();
+            $view->with('requestCount', $requestCount);
+        });
+        View::composer('accounts.sales.layout.sidebar', function ($view) {
+            $requestCount = Message::where('user_id', auth()->user()->id)->where('is_read', 0)->count();
             $view->with('requestCount', $requestCount);
         });
     }

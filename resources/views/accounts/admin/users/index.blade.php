@@ -51,38 +51,48 @@
                         <h4 class="page-title">{{ $title }}</h4>
                     </div>
                 </div>
-                <form
-                    action="{{ url('filtering-customers') }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-                >
-                    @csrf
-                    <div class="col-12 mb-2">
-                        <div class="row align-items-center">
-                            <div class="col-sm-auto">
-                                <select
-                                    id="demo-foo-filter-status"
-                                    class="form-select form-select-sm"
-                                    name="filter"
-                                >
-                                    <option value="1">Show all</option>
-                                    <option value="0">Level 0</option>
-                                    <option value="2">Level 1</option>
-                                    <option value="3">Level 2</option>
-                                    <option value="4">Level 3</option>
-                                    <option value="5">Level 4</option>
-                                    <option value="6">Level 5 and above</option>
-                                </select>
+                <div class="col-9">
+                    <form
+                        action="{{ url('filtering-customers') }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+                        @csrf
+                        <div class="col-12 mb-2">
+                            <div class="row align-items-center">
+                                <div class="col-sm-auto">
+                                    <select
+                                        id="demo-foo-filter-status"
+                                        class="form-select form-select-sm"
+                                        name="filter"
+                                    >
+                                        <option value="1">Show all</option>
+                                        <option value="0">Level 0</option>
+                                        <option value="2">Level 1</option>
+                                        <option value="3">Level 2</option>
+                                        <option value="4">Level 3</option>
+                                        <option value="5">Level 4</option>
+                                        <option value="6">Level 5 and above</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
+                                    >Search</button>
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <button
-                                    type="submit"
-                                    class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
-                                >Search</button>
-                            </div>
+                            
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
+                <div class="col-3">
+                    <a
+                        class="btn btn-sm btn-success rounded-pill waves-effect waves-light"
+                        href="{{ url('export-customers') }}"
+                    > Export to Excel <i class=" fas fa-file-excel"></i> </a>
+                </div>
             </div>
             <!-- end page title -->
 
@@ -114,14 +124,14 @@
                                             <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-3">
+                                                    <div class="col-2">
                                                         <a
                                                             href="{{ url('edit-sales/' . $item->id) }}"
                                                             type="button"
                                                             class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >Edit</a>
                                                     </div>
-
+                                                    <div class="col-1"></div>
                                                     <div class="col-3">
                                                         @if ($item->status == 1)
                                                             <button
@@ -161,8 +171,8 @@
                                                             </button>
                                                         @endif
                                                     </div>
-                                                    <div class="col-3">
-                                                        @if ($item->level == 0 && $item->role != 'admin')
+                                                    @if ($item->level == 0 && $item->role != 'admin')
+                                                        <div class="col-3">
                                                             <form
                                                                 action="{{ url('delete-user/' . $item->id) }}"
                                                                 method="POST"
@@ -174,8 +184,11 @@
                                                                     class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
                                                                 >Delete</button>
                                                             </form>
-                                                        @endif
-                                                    </div>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-3 "></div>
+                                                    @endif
+
                                                 </div>
                                             </td>
                                         </tr>

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -64,9 +65,17 @@ class SalesPersonController extends Controller
 
     public function customers()
     {
-        $user = auth()->user();
-
-        $users = User::with('descendants')->where('upid', $user->id)->get();
+        $userId = auth()->user()->id;
+        $user = User::with('parentUser')->get();
+        $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = :userId
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+            )
+            SELECT * FROM family_tree
+        ", ['userId' => $userId]);
 
         return view('accounts.sales.users.index', compact('users'));
     }

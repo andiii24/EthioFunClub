@@ -37,8 +37,18 @@ class CustomerController extends Controller
     }
     public function customers()
     {
-        $users = User::where('upid', auth()->user()->id)
-            ->where('role', 'customer')->get();
+        $userId = auth()->user()->id;
+
+        $users = DB::select("
+                WITH RECURSIVE family_tree AS (
+                    SELECT * FROM users WHERE id = :userId
+                    UNION ALL
+                    SELECT u.* FROM users u
+                    JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree
+            ", ['userId' => $userId]);
+
         return view('accounts.customer.users.index', compact('users'));
     }
 
@@ -187,10 +197,10 @@ class CustomerController extends Controller
     public function update_profile(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'name' => 'string|max:255',
+            'phone' => 'string|max:20',
             'password' => 'nullable|string|min:8|confirmed',
-            'confirm_password' => 'required|min:8|same:password',
+            'confirm_password' => 'nullable|min:8|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -239,7 +249,6 @@ class CustomerController extends Controller
     }
     public function customer_sales()
     {
-
         $sales = Sale::where('user_id', auth()->user()->id)
             ->orderByDesc('created_at')
             ->get();
@@ -247,7 +256,6 @@ class CustomerController extends Controller
     }
     public function contact()
     {
-
         $currentPerson = auth()->user();
         while ($currentPerson) {
             if ($currentPerson->role == 'sales') {

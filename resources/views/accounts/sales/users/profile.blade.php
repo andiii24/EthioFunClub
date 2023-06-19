@@ -176,6 +176,35 @@
                                                     @endif
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div
+                                                    class="col-8"
+                                                    style="margin: 20px auto;"
+                                                >
+                                                    <img
+                                                        src="{{ asset('assets/images/users/' . $user->image) }}"
+                                                        alt=""
+                                                        class="img-fluid"
+                                                        style="box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);max-width: 100%; height: auto;"
+                                                    >
+                                                </div> <!-- end col -->
+                                                <div class="col-12 ">
+                                                    <div class="col-md-12 mb-3">
+                                                        <label
+                                                            for="image"
+                                                            class="form-label"
+                                                        >Profile Picture</label>
+                                                        <input
+                                                            type="file"
+                                                            name="image"
+                                                            class="form-control"
+                                                        >
+                                                        @if ($errors->has('image'))
+                                                            <span class="text-danger">{{ $errors->first('image') }}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-12 text-center">
                                                 <button
                                                     type="submit"

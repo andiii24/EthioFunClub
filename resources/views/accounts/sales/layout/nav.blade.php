@@ -55,7 +55,7 @@
                     aria-expanded="false"
                 >
                     <img
-                        src="assets/images/users/user-6.jpg"
+                        src="{{ asset('assets/images/users/' . auth()->user()->image) }}"
                         alt="user-image"
                         class="rounded-circle"
                     >

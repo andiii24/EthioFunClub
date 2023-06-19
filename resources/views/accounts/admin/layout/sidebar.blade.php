@@ -177,6 +177,12 @@
                     >
                         <ul class="nav-second-level">
                             <li>
+                                <a href="{{ url('account-manager-payments-history') }}">
+                                    <i class="fe-dollar-sign"></i>
+                                    <span> Payment History </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ url('account-manager-payments') }}">
                                     <i class="fe-hash"></i>
                                     <span> Membership </span>

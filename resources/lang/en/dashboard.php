@@ -74,4 +74,7 @@ return [
     'ProductSerial' => 'Product Serial Number',
     'PaymentHistory' => 'Payment History',
     'MakePayment' => 'Attach Payment',
+    'new' => 'New',
+    'terms' => 'Terms & Conditons',
+    'parent' => 'Registered By',
 ];

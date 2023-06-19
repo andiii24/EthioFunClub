@@ -74,5 +74,7 @@ return [
     'ProductSerial' => 'የሽያጭ ልዩ ቁጥር',
     'PaymentHistory' => 'የተከፈሉ ክፍያዎች',
     'MakePayment' => 'ክፍያ ማያያዣ',
+    'new' => 'አዲስ',
+    'parent' => 'መዝጋቢ(አስገቢ)',
 
 ];

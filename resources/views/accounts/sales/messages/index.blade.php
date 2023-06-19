@@ -81,7 +81,14 @@
                                                     {{ $item->subject }}
                                                 @endif
                                             </td>
-                                            <td>{{ $item->created_at->diffForHumans() }}</td>
+                                            <td>{{ $item->created_at->format('F j, Y') }}
+                                                @if ($item->is_read == 0)
+                                                    <i
+                                                        class="fe-info"
+                                                        style="color: green"
+                                                    > {{ __('dashboard.new') }}</i>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-12">
@@ -115,14 +122,14 @@
         function readMsg(messageId) {
             $.ajax({
                 type: 'POST',
-                url: '{{ url('update-message-status') }}',
+                url: '{{ url('sales-update-message-status') }}',
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'msg_id': messageId
                 },
                 success: function(response) {
-                    alert(response.message);
-                    window.location.href = '{{ url('read-message') }}' + '/' + messageId;
+                    // alert(response.message);
+                    window.location.href = '{{ url('sales-read-message') }}' + '/' + messageId;
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseJSON.message);
