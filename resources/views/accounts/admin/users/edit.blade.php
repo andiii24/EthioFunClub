@@ -44,11 +44,11 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ asset('account-manager') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">Sales</li>
-                                <li class="breadcrumb-item active">Register</li>
+                                <li class="breadcrumb-item active">User</li>
+                                <li class="breadcrumb-item active">Update</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Register Sales</h4>
+                        <h4 class="page-title">Update Sales</h4>
                     </div>
                 </div>
             </div>

@@ -72,6 +72,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Serial Number</th>
+                                        <th>Generated Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,6 +80,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->serial_num }}</td>
+                                            <td>{{ $item->created_at->format('F j, Y') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
