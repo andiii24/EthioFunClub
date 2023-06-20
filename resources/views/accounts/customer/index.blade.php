@@ -201,7 +201,7 @@
         function changeUserStatus(userId) {
             $.ajax({
                 type: 'POST',
-                url: '{{ url('request-level-payment') }}',
+                url: '{{ url('customer-request-level-payment') }}',
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'user_id': userId,
