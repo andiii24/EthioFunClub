@@ -66,6 +66,7 @@
                                     <tr>
                                         <th>{{ __('dashboard.No') }}</th>
                                         <th>{{ __('dashboard.ProductSerial') }}</th>
+                                        <th>{{ __('dashboard.Date') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,6 +74,8 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->serial_num }}</td>
+                                                                                    <td>{{ $item->created_at->format('F j, Y') }}</td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

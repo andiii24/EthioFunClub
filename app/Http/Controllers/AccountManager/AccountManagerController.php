@@ -337,7 +337,7 @@ class AccountManagerController extends Controller
     }
     public function generated()
     {
-        $products = Product::all();
+        $products = Product::orderByDesc('created_at')->get();
         return view('accounts.admin.serial.index', compact('products'));
     }
     public function serial_store(Request $request)

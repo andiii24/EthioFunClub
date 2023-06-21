@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -173,7 +174,7 @@ class CustomerController extends Controller
         ]);
 
         $sales = new Sale;
-        if (Product::where('serial_num', $request->serial_num)->exists()) {
+         if (Product::where('serial_num', $request->serial_num)->where('status', '0')->first()) {
             $prod = Product::where('serial_num', $request->serial_num)->
                 where('status', '0')->first();
             $prod->status = 1;

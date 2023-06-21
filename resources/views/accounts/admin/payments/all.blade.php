@@ -74,6 +74,7 @@
                                         <th class="text-center">Paid By</th>
                                         <th class="text-center">Role</th>
                                         <th class="text-center">Amount</th>
+                                        <th class="text-center">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,6 +84,8 @@
                                             <td class="text-center">{{ $item->user->name }}</td>
                                             <td class="text-center">{{ $item->user->role }}</td>
                                             <td class="text-center">{{ $item->amount }}</td>
+                                            <td class="text-center">{{ $item->created_at->format('F j, Y') }}</td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

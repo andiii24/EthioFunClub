@@ -34,7 +34,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('all-sales', [UserController::class, 'sales'])->name('admin.users.sales');
     Route::get('edit-sales/{id}', [UserController::class, 'edit']);
     Route::post('register-sales', [UserController::class, 'store']);
-    Route::put('update-sales/{id}', [UserController::class, 'update']);
+    Route::put('update-sales/{id}', [UserController::class, 'update_sales']);
     Route::post('update-status', [UserController::class, 'activate']);
     // Route::post('diactivate', [UserController::class, 'diactivate']);
     // Route::post('activation', [UserController::class, 'activation']);

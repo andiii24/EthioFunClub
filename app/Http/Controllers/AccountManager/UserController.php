@@ -37,13 +37,13 @@ class UserController extends Controller
         $user = User::find($id);
         return view('accounts.admin.users.edit', compact('user'));
     }
-    public function update(Request $request, $id)
+    public function update_sales(Request $request, $id)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'password' => 'nullable|string|min:8|confirmed',
-            'confirm_password' => 'required|min:8|same:password',
+            'confirm_password' => 'nullable|min:8|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -67,9 +67,14 @@ class UserController extends Controller
         }
 
         $user->save();
-
-        return redirect()->route('admin.users')
-            ->with('success', 'Profile Updated successfully.');}
+        if ($user->role == "customer") {
+            return redirect()->route('admin.users')
+                ->with('success', 'Profile Updated successfully.');
+        } else {
+            return redirect()->route('admin.users.sales')
+                ->with('success', 'Profile Updated successfully.');
+        }
+    }
     public function store(Request $request)
     {
         $request->validate([
