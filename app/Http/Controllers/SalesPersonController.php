@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
+use App\Models\User;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Product;
-use App\Models\Sale;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Exports\MembershipPayments;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalesPersonController extends Controller
 {
@@ -318,5 +320,9 @@ class SalesPersonController extends Controller
     {
         // $payments = Payment::where('user_id', auth()->user()->id)->get();
         return view('accounts.sales.payment.attach');
+    }
+    public function exportProducts()
+    {
+        return Excel::download(new MembershipPayments(), 'ExportPrurshases.xlsx');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\customer;
 
+use App\Exports\MembershipPayments;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Payment;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -176,7 +178,7 @@ class CustomerController extends Controller
         ]);
 
         $sales = new Sale;
-        if (Product::where('serial_num', $request->serial_num)->exists()) {
+        if (Product::where('serial_num', $request->serial_num)->where('status', '0')->first()) {
             $prod = Product::where('serial_num', $request->serial_num)->
                 where('status', '0')->first();
             $prod->status = 1;
@@ -308,6 +310,10 @@ class CustomerController extends Controller
     {
         // $payments = Payment::where('user_id', auth()->user()->id)->get();
         return view('accounts.customer.payment.attach');
+    }
+    public function exportProducts()
+    {
+        return Excel::download(new MembershipPayments(), 'ExportPrurshases.xlsx');
     }
 
 }

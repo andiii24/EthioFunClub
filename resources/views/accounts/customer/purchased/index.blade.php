@@ -51,6 +51,12 @@
                         <h4 class="page-title">{{ __('dashboard.Sales') }}</h4>
                     </div>
                 </div>
+                <div class="col-12 mb-2">
+                    <a
+                        class="btn btn-sm btn-success rounded-pill waves-effect waves-light float-end"
+                        href="{{ url('export-product-customer') }}"
+                    > Export to Excel <i class=" fas fa-file-excel"></i> </a>
+                </div>
             </div>
             <!-- end page title -->
 

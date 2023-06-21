@@ -91,6 +91,7 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::post('request-level-payment', [SalesPersonController::class, 'request_level']);
     Route::get('sales-payment-history', [SalesPersonController::class, 'payment_history']);
     Route::get('sales-make-payment', [SalesPersonController::class, 'make_payment']);
+    Route::get('export-product-sales', [SalesPersonController::class, 'exportProducts']);
 
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
@@ -113,6 +114,7 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::post('customer-request-level-payment', [CustomerController::class, 'request_level']);
     Route::get('customer-payment-history', [CustomerController::class, 'payment_history']);
     Route::get('customer-make-payment', [CustomerController::class, 'make_payment']);
+    Route::get('export-product-customer', [CustomerController::class, 'exportProducts']);
 
 });
 Route::get('/export-pdf', [PDFController::class, 'exportToPDF'])->name('export.pdf');
