@@ -173,7 +173,7 @@ class SalesPersonController extends Controller
     }
     public function messages()
     {
-        $messages = Message::where('user_id', auth()->user()->id)->get();
+        $messages = Message::orderByDesc('created_at')->where('user_id', auth()->user()->id)->get();
         return view('accounts.sales.messages.index', compact('messages'));
     }
 

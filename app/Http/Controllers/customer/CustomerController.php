@@ -150,7 +150,7 @@ class CustomerController extends Controller
     }
     public function messages()
     {
-        $messages = Message::where('user_id', auth()->user()->id)->get();
+        $messages = Message::orderByDesc('created_at')->where('user_id', auth()->user()->id)->get();
         return view('accounts.customer.messages.index', compact('messages'));
     }
     public function read($id)

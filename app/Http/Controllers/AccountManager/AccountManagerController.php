@@ -100,7 +100,7 @@ class AccountManagerController extends Controller
     }
     public function message()
     {
-        $messages = Message::all();
+        $messages = Message::orderByDesc('created_at')->get();
         return view('accounts.admin.messages.index', compact('messages'));
     }
     public function send()
