@@ -15,7 +15,7 @@
                     @foreach ($grandchildren as $grandchild)
                         <li>
                             <a href="{{ url('sales-child/' . $grandchild->id) }}">{{ $grandchild->name }} <br> {{ $grandchild->phone }} <br>{{ __('dashboard.Level') }} {{ $grandchild->level }} </a>
-                            @include('accounts.sales.genealogy.partials.tree', ['user' => $grandchild])
+                            {{-- @include('accounts.sales.genealogy.partials.tree', ['user' => $grandchild]) --}}
                         </li>
                     @endforeach
                 </ul>

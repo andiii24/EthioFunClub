@@ -48,7 +48,9 @@ class CustomerController extends Controller
                     JOIN family_tree ft ON ft.id = u.upid
                 )
                 SELECT * FROM family_tree
-            ", ['userId' => $userId]);
+                ORDER BY level ASC",
+            ['userId' => $userId]
+        );
 
         return view('accounts.customer.users.index', compact('users'));
     }
@@ -174,7 +176,7 @@ class CustomerController extends Controller
         ]);
 
         $sales = new Sale;
-         if (Product::where('serial_num', $request->serial_num)->where('status', '0')->first()) {
+        if (Product::where('serial_num', $request->serial_num)->exists()) {
             $prod = Product::where('serial_num', $request->serial_num)->
                 where('status', '0')->first();
             $prod->status = 1;

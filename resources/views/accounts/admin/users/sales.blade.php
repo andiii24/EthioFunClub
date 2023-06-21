@@ -113,18 +113,16 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <a
-                                                            href="{{ url('edit-sales/' . $item->id) }}"
+                                                        <button
                                                             type="button"
-                                                            class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Edit</a>
+                                                            class="btn btn-outline-success width-xs rounded-pill waves-effect waves-light btn-xs"
+                                                        >Edit</button>
                                                         <button
                                                             type="button"
                                                             class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
                                                         >Delete</button>
                                                     </div>
                                                 </div>
-                                            </td>
                                             </td>
                                         </tr>
                                     @endforeach

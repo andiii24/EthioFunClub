@@ -82,7 +82,7 @@
                                     >Search</button>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </form>
                 </div>

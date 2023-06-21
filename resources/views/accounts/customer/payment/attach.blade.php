@@ -61,7 +61,7 @@
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <form
-                                        action="{{ url('submit-customer-slip') }}"
+                                        action="{{ url('submit-sales-slip') }}"
                                         method="POST"
                                         enctype="multipart/form-data"
                                     >
