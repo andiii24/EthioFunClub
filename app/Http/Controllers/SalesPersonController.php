@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
-use App\Models\User;
+use App\Exports\MembershipPayments;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use App\Exports\MembershipPayments;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -68,17 +68,19 @@ class SalesPersonController extends Controller
     public function customers()
     {
         $userId = auth()->user()->id;
-        $user = User::with('parentUser')->get();
-        $users = DB::select("
-            WITH RECURSIVE family_tree AS (
-                SELECT * FROM users WHERE id = :userId
-                UNION ALL
-                SELECT u.* FROM users u
-                JOIN family_tree ft ON ft.id = u.upid
-            )
-            SELECT * FROM family_tree
-        ", ['userId' => $userId]);
 
+        $users = DB::select("
+        WITH RECURSIVE family_tree AS (
+            SELECT * FROM users WHERE id = :userId
+            UNION ALL
+            SELECT u.* FROM users u
+            JOIN family_tree ft ON ft.id = u.upid
+        )
+        SELECT * FROM family_tree
+        WHERE id != {$userId}
+        ORDER BY level DESC",
+            ['userId' => $userId]
+        );
         return view('accounts.sales.users.index', compact('users'));
     }
 
@@ -324,5 +326,54 @@ class SalesPersonController extends Controller
     public function exportProducts()
     {
         return Excel::download(new MembershipPayments(), 'ExportPrurshases.xlsx');
+    }
+    public function filter_customer(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $level = $request->filter;
+        $level5 = 5;
+        $filter = $request->input('filter');
+
+        if ($filter == 100) {
+            $users = DB::select("
+                WITH RECURSIVE family_tree AS (
+                    SELECT * FROM users WHERE id = :userId
+                    UNION ALL
+                    SELECT u.* FROM users u
+                    JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree
+                WHERE id != {$userId}
+                ORDER BY level DESC",
+                ['userId' => $userId]
+            );
+
+            return view('accounts.sales.users.index', compact('users'));
+
+        } elseif ($filter <= 5) {
+            $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = {$userId}
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree WHERE level = {$level} AND id != {$userId}"
+            );
+            return view('accounts.sales.users.index', compact('users'));
+
+        } else {
+            $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = {$userId}
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree WHERE level > {$level5} AND id != {$userId}"
+            );
+            return view('accounts.sales.users.index', compact('users'));
+
+        }
     }
 }

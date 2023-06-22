@@ -101,6 +101,13 @@
     <script src="{{ asset('assets/js/pages/form-advanced.init.js') }}"></script>
 
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 </body>
 
 </html>

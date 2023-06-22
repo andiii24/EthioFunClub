@@ -46,6 +46,10 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css"
     >
+    <link
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css"
+        rel="stylesheet"
+    />
 
     <!-- App css -->
     <link
@@ -94,5 +98,6 @@
     </style>
     <!-- Head js -->
     <script src="{{ asset('assets/js/head.js') }}"></script>
+
 
 </head>

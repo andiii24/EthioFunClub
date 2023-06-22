@@ -50,7 +50,8 @@ class CustomerController extends Controller
                     JOIN family_tree ft ON ft.id = u.upid
                 )
                 SELECT * FROM family_tree
-                ORDER BY level ASC",
+                WHERE id != {$userId}
+                ORDER BY level DESC",
             ['userId' => $userId]
         );
 
@@ -315,5 +316,50 @@ class CustomerController extends Controller
     {
         return Excel::download(new MembershipPayments(), 'ExportPrurshases.xlsx');
     }
+    public function filter_customer(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $level = $request->filter;
+        $level5 = 5;
+        $filter = $request->input('filter');
 
+        if ($filter == 100) {
+            $users = DB::select("
+                WITH RECURSIVE family_tree AS (
+                    SELECT * FROM users WHERE id = :userId
+                    UNION ALL
+                    SELECT u.* FROM users u
+                    JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree
+                WHERE id != {$userId}
+                ORDER BY level DESC",
+                ['userId' => $userId]
+            );
+
+            return view('accounts.customer.users.index', compact('users'));
+        } elseif ($filter <= 5) {
+            $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = {$userId}
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree WHERE level = {$level} AND id != {$userId}"
+            );
+            return view('accounts.customer.users.index', compact('users'));
+        } else {
+            $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = {$userId}
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree WHERE level > {$level5} AND id != {$userId}"
+            );
+            return view('accounts.customer.users.index', compact('users'));
+        }
+    }
 }
