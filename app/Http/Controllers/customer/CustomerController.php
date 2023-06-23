@@ -206,7 +206,6 @@ class CustomerController extends Controller
             'name' => 'string|max:255',
             'phone' => 'string|max:20',
             'password' => 'nullable|string|min:8|confirmed',
-            'confirm_password' => 'nullable|min:8|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

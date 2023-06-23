@@ -241,15 +241,15 @@ class SalesPersonController extends Controller
     public function edit_profile()
     {
         $user = Auth::user();
-        return view('accounts.admin.users.profile', compact('user'));
+        return view('accounts.sales.users.profile', compact('user'));
     }
     public function update_profile(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'name' => 'string|max:255',
+            'phone' => 'string|max:20',
             'password' => 'nullable|string|min:8|confirmed',
-            'confirm_password' => 'required|min:8|same:password',
+            'confirm_password' => 'nullable|min:8|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -274,7 +274,7 @@ class SalesPersonController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin-manager')
+        return redirect()->route('sales-manager')
             ->with('success', __('dashboard.ProfileUpdatedSuccessfully'));
     }
     public function sales_sales()

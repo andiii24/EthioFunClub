@@ -145,6 +145,13 @@
                                                     @if ($errors->has('confirm_password'))
                                                         <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
                                                     @endif
+                                                    @if (!empty($user->password))
+                                                        <input
+                                                            type="hidden"
+                                                            name="hashed_password"
+                                                            value="{{ $user->password }}"
+                                                        >
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="row">

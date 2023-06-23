@@ -50,6 +50,7 @@ return [
     'Users' => 'ተጠቃሚዎች',
     'Profile' => 'ማህደር',
     'Customer_Profile' => 'የተጠቃሚ ማሕደር',
+    'Sales_Profile' => 'የተጠቃሚ ማሕደር',
     'AccountNotActive' => 'አካውንቱ እየተመረመረ ነው!',
     'waitingForApproval' => 'ክፍያዎ እየተረጋገጠ ነው',
     'Continue' => 'ቀጥል',

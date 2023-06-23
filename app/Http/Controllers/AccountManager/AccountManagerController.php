@@ -300,10 +300,9 @@ class AccountManagerController extends Controller
     public function update_profile(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'password' => 'nullable|string|min:8|',
-            'confirm_password' => 'required|min:8|same:password',
+            'name' => 'string|max:255',
+            'phone' => 'string|max:20',
+            'password' => 'nullable|string|min:8|confirmed',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -322,7 +321,7 @@ class AccountManagerController extends Controller
             }
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('assets/images/users'), $imageName);
+            $image->move('assets/images/users/', $imageName);
             $user->image = $imageName;
         }
 
@@ -522,16 +521,15 @@ class AccountManagerController extends Controller
     {
         $request->validate([
             'phone' => 'required|numeric',
-            'name' => 'required|max:255',
+            'name' => 'max:255',
         ]);
-        $userName = User::where('name', $request->name)->first();
         $userPhone = User::where('phone', $request->phone)->first();
 
         // dd($userPhone);
-        if ($userName && $userPhone) {
+        if ($userPhone) {
             // dd($userName);
-            $userName->password_reset = 1;
-            $userName->save();
+            $userPhone->password_reset = 1;
+            $userPhone->save();
             return redirect()->route('login')
                 ->with('success', 'Password Reset Requested.');}
     }

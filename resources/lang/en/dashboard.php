@@ -50,6 +50,7 @@ return [
     'Users' => 'Users',
     'Profile' => 'Profile',
     'Customer_Profile' => 'Customer Profile',
+    'Sales_Profile' => 'Sales Profile',
     'AccountNotActive' => 'Account Not Active!',
     'waitingForApproval' => 'Waiting for payment approval',
     'Continue' => 'Continue',

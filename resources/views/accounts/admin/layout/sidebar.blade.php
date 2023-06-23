@@ -8,7 +8,7 @@
         <!-- User box -->
         <div class="user-box text-center">
             <img
-                src="{{ asset('assets/images/users/user-6.jpg') }}"
+                src="{{ asset('assets/images/users/' . auth()->user()->image) }}"
                 alt="user-img"
                 title="Mat Helme"
                 class="rounded-circle avatar-md"
