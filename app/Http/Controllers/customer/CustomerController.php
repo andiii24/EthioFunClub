@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\customer;
 
+use App\Exports\MembershipPayments;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Payment;
@@ -11,8 +12,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -47,7 +50,10 @@ class CustomerController extends Controller
                     JOIN family_tree ft ON ft.id = u.upid
                 )
                 SELECT * FROM family_tree
-            ", ['userId' => $userId]);
+                WHERE id != {$userId}
+                ORDER BY level DESC",
+            ['userId' => $userId]
+        );
 
         return view('accounts.customer.users.index', compact('users'));
     }
@@ -147,7 +153,7 @@ class CustomerController extends Controller
     }
     public function messages()
     {
-        $messages = Message::where('user_id', auth()->user()->id)->get();
+        $messages = Message::orderByDesc('created_at')->where('user_id', auth()->user()->id)->get();
         return view('accounts.customer.messages.index', compact('messages'));
     }
     public function read($id)
@@ -173,7 +179,7 @@ class CustomerController extends Controller
         ]);
 
         $sales = new Sale;
-        if (Product::where('serial_num', $request->serial_num)->exists()) {
+        if (Product::where('serial_num', $request->serial_num)->where('status', '0')->first()) {
             $prod = Product::where('serial_num', $request->serial_num)->
                 where('status', '0')->first();
             $prod->status = 1;
@@ -200,7 +206,6 @@ class CustomerController extends Controller
             'name' => 'string|max:255',
             'phone' => 'string|max:20',
             'password' => 'nullable|string|min:8|confirmed',
-            'confirm_password' => 'nullable|min:8|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -306,5 +311,54 @@ class CustomerController extends Controller
         // $payments = Payment::where('user_id', auth()->user()->id)->get();
         return view('accounts.customer.payment.attach');
     }
+    public function exportProducts()
+    {
+        return Excel::download(new MembershipPayments(), 'ExportPrurshases.xlsx');
+    }
+    public function filter_customer(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $level = $request->filter;
+        $level5 = 5;
+        $filter = $request->input('filter');
 
+        if ($filter == 100) {
+            $users = DB::select("
+                WITH RECURSIVE family_tree AS (
+                    SELECT * FROM users WHERE id = :userId
+                    UNION ALL
+                    SELECT u.* FROM users u
+                    JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree
+                WHERE id != {$userId}
+                ORDER BY level DESC",
+                ['userId' => $userId]
+            );
+
+            return view('accounts.customer.users.index', compact('users'));
+        } elseif ($filter <= 5) {
+            $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = {$userId}
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree WHERE level = {$level} AND id != {$userId}"
+            );
+            return view('accounts.customer.users.index', compact('users'));
+        } else {
+            $users = DB::select("
+            WITH RECURSIVE family_tree AS (
+                SELECT * FROM users WHERE id = {$userId}
+                UNION ALL
+                SELECT u.* FROM users u
+                JOIN family_tree ft ON ft.id = u.upid
+                )
+                SELECT * FROM family_tree WHERE level > {$level5} AND id != {$userId}"
+            );
+            return view('accounts.customer.users.index', compact('users'));
+        }
+    }
 }

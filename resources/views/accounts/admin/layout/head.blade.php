@@ -46,6 +46,10 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css"
     >
+    <link
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css"
+        rel="stylesheet"
+    />
 
     <!-- App css -->
     <link
@@ -60,6 +64,12 @@
         rel="stylesheet"
         type="text/css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+        rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
         .counter {
             background-color: red;
@@ -94,5 +104,6 @@
     </style>
     <!-- Head js -->
     <script src="{{ asset('assets/js/head.js') }}"></script>
+
 
 </head>

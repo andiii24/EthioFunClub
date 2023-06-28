@@ -51,6 +51,12 @@
                         <h4 class="page-title">{{ __('dashboard.Sales') }}</h4>
                     </div>
                 </div>
+                <div class="col-12 mb-2">
+                    <a
+                        class="btn btn-sm btn-success rounded-pill waves-effect waves-light float-end"
+                        href="{{ url('export-product-sales') }}"
+                    > Export to Excel <i class=" fas fa-file-excel"></i> </a>
+                </div>
             </div>
             <!-- end page title -->
 
@@ -66,6 +72,7 @@
                                     <tr>
                                         <th>{{ __('dashboard.No') }}</th>
                                         <th>{{ __('dashboard.ProductSerial') }}</th>
+                                        <th>{{ __('dashboard.Date') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,6 +80,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->serial_num }}</td>
+                                            <td>{{ $item->created_at->format('F j, Y') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

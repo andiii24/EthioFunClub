@@ -66,9 +66,11 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Name</th>
+                                        <th class="text-center">Phone</th>
                                         <th class="text-center">Level Reached</th>
                                         <th class="text-center">Payment Status</th>
                                         <th class="text-center">Amount</th>
+                                        <th class="text-center">Date</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -77,8 +79,10 @@
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
                                             <td class="text-center">{{ $item->user->name }}</td>
+                                            <td class="text-center">{{ $item->user->phone }}</td>
                                             <td class="text-center">{{ $item->user->level }}</td>
                                             <td class="text-center">{{ $item->amount }}</td>
+                                            <td class="text-center">{{ $item->created_at->format('F j, Y') }}</td>
                                             = <td class="text-center">
                                                 @if ($item->status == '0')
                                                     <span class="badge bg-danger">pending</span>

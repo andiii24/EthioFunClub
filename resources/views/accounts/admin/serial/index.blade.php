@@ -72,6 +72,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Serial Number</th>
+                                        <th>Generated Date</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,6 +81,12 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->serial_num }}</td>
+                                            <td>{{ $item->created_at->format('F j, Y') }}</td>
+                                            <td>
+                                                @if ($item->status == '1')
+                                                    <span class="badge bg-danger">Sold</span>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

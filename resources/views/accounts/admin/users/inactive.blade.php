@@ -120,13 +120,6 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-3">
-                                                        <a
-                                                            href="{{ url('edit-sales/' . $item->id) }}"
-                                                            type="button"
-                                                            class="btn btn-outline-info width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                        >Edit</a>
-                                                    </div>
-                                                    <div class="col-3">
                                                         @if ($item->status == 1)
                                                             <button
                                                                 type="button"
@@ -163,21 +156,6 @@
                                                             >
                                                                 Activate
                                                             </button>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-3">
-                                                        @if ($item->level == 0 && $item->role != 'admin')
-                                                            <form
-                                                                action="{{ url('delete-user/' . $item->id) }}"
-                                                                method="POST"
-                                                            >
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button
-                                                                    type="submit"
-                                                                    class="btn btn-outline-danger width-xs rounded-pill waves-effect waves-light btn-xs"
-                                                                >Delete</button>
-                                                            </form>
                                                         @endif
                                                     </div>
                                                 </div>

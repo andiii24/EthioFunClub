@@ -71,7 +71,6 @@
                                                 class="col-lg-10"
                                                 style="margin: 0 auto !important;"
                                             >
-
                                                 <div class="mb-3">
                                                     <label
                                                         for="example-select"
@@ -79,12 +78,12 @@
                                                     > Send To</label>
                                                     <select
                                                         class="form-select"
-                                                        id="example-select"
+                                                        id="sendto"
                                                         name="user_id"
                                                         required
                                                     >
                                                         @foreach ($users as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->phone }}) </option>
+                                                            <option value="{{ $item->id }}">{{ $item->phone }} ({{ $item->name }}) </option>
                                                         @endforeach
                                                     </select>
                                                 </div>

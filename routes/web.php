@@ -34,7 +34,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('all-sales', [UserController::class, 'sales'])->name('admin.users.sales');
     Route::get('edit-sales/{id}', [UserController::class, 'edit']);
     Route::post('register-sales', [UserController::class, 'store']);
-    Route::put('update-sales/{id}', [UserController::class, 'update']);
+    Route::put('update-sales/{id}', [UserController::class, 'update_sales']);
     Route::post('update-status', [UserController::class, 'activate']);
     // Route::post('diactivate', [UserController::class, 'diactivate']);
     // Route::post('activation', [UserController::class, 'activation']);
@@ -91,6 +91,8 @@ Route::middleware(['auth', 'RoleMiddleware:sales'])->group(function () {
     Route::post('request-level-payment', [SalesPersonController::class, 'request_level']);
     Route::get('sales-payment-history', [SalesPersonController::class, 'payment_history']);
     Route::get('sales-make-payment', [SalesPersonController::class, 'make_payment']);
+    Route::get('export-product-sales', [SalesPersonController::class, 'exportProducts']);
+    Route::post('sales-filtering-customers', [SalesPersonController::class, 'filter_customer']);
 
 });
 Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
@@ -113,6 +115,8 @@ Route::middleware(['auth', 'RoleMiddleware:customer'])->group(function () {
     Route::post('customer-request-level-payment', [CustomerController::class, 'request_level']);
     Route::get('customer-payment-history', [CustomerController::class, 'payment_history']);
     Route::get('customer-make-payment', [CustomerController::class, 'make_payment']);
+    Route::get('export-product-customer', [CustomerController::class, 'exportProducts']);
+    Route::post('customer-filtering-customers', [CustomerController::class, 'filter_customer']);
 
 });
 Route::get('/export-pdf', [PDFController::class, 'exportToPDF'])->name('export.pdf');

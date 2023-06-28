@@ -52,7 +52,7 @@
                         >
                             <div class="notify-icon">
                                 <img
-                                    src="{{ asset('assets/images/users/user-1.jpg') }}"
+                                    src="{{ asset('assets/images/users/' . auth()->user()->image) }}"
                                     class="img-fluid rounded-circle"
                                     alt=""
                                 />

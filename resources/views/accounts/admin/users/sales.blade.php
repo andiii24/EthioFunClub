@@ -124,7 +124,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
