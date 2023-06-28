@@ -68,7 +68,7 @@
                                         @method('PUT')
                                         @csrf
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-12">
                                                 <div class="mb-3">
                                                     <label
                                                         for="name"
@@ -102,48 +102,6 @@
                                                     >
                                                     @if ($errors->has('phone'))
                                                         <span class="text-danger">{{ $errors->first('phone') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label
-                                                        for="password"
-                                                        class="form-label"
-                                                    >Password</label>
-                                                    <input
-                                                        type="password"
-                                                        id="password"
-                                                        name="password"
-                                                        placeholder="Password"
-                                                        class="form-control"
-                                                    >
-                                                    @if ($errors->has('password'))
-                                                        <span class="text-danger">{{ $errors->first('password') }}</span>
-                                                    @endif
-                                                    @if (!empty($user->password))
-                                                        <input
-                                                            type="hidden"
-                                                            name="hashed_password"
-                                                            value="{{ $user->password }}"
-                                                        >
-                                                    @endif
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label
-                                                        for="confirm_password"
-                                                        class="form-label"
-                                                    >Confirm Password</label>
-                                                    <input
-                                                        type="password"
-                                                        id="confirm_password"
-                                                        name="confirm_password"
-                                                        placeholder="Confirm Password"
-                                                        class="form-control"
-                                                    >
-                                                    @if ($errors->has('confirm_password'))
-                                                        <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
