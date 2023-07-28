@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('phone')->Unique();
             $table->string('name');
             $table->string('password');
-            $table->bigInteger('role');
+            $table->string('role');
             $table->string('image')->nullable();
             $table->bigInteger('status')->default('0');
             $table->bigInteger('level')->default('0');

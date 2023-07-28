@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::post('password-forgot', [AccountManagerController::class, 'forgot']);
 
-Route::get('/', [AccountManagerController::class, 'slash']);
+Route::get('/', [AccountManagerController::class, 'slash'])->name('/');
 
 Route::middleware(['auth', 'RoleMiddleware:admin'])->group(function () {
     Route::get('account-manager', [AccountManagerController::class, 'index'])->name('accounts.admin.index');
